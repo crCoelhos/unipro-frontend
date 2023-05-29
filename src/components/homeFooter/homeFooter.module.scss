@@ -1,0 +1,78 @@
+.HomeFooter {
+
+    width: 100%;
+    height: auto;
+
+    background-color: #7f858e;
+
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    align-items: center;
+
+    margin: 132px 0 0 0;
+    padding: 0;
+}
+
+.lowerFooter {
+    width: 100%;
+    margin: 0px;
+    background-color: #212529;
+    text-align: center;
+
+
+}
+
+.sponsorsArea {
+    display: grid;
+    grid-template-columns: auto;
+
+    padding: 27px 184px 27px 184px;
+
+    overflow: hidden;
+
+
+}
+
+.sponsorRow {
+    margin: 12px 0px;
+    padding: 0px;
+}
+
+h4 {
+    text-align: center;
+    font-size: 18px;
+    color: #c1c1c1;
+}
+
+
+h4>span,
+h4.sponsorAreaText {
+    font-weight: bold;
+    color: #c1c1c1;
+}
+
+
+.sponsorLabelText {
+
+    text-decoration: none;
+
+    text-transform: initial;
+    font-weight: bolder;
+    font-size: 22px;
+    color: black;
+}
+
+.sponsorLabelText:hover {
+
+    text-decoration: none;
+
+    color: black;
+    text-transform: initial;
+    font-weight: bolder;
+    font-size: 22px;
+    border-bottom: #7f858e solid 12px;
+
+    transition-duration: 100ms;
+}

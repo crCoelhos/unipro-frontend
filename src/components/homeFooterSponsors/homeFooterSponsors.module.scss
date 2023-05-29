@@ -1,0 +1,32 @@
+.HomeFooterSponsors {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+}
+
+.sponsorArea {
+    width: 184px;
+    height: 162px;
+
+    margin: 18px;
+
+}
+
+.sponsorImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+
+    background-color: none;
+    background-blend-mode: multiply;
+}
+
+.sponsorImg:hover {
+    width: 103%;
+    height: 103%;
+    object-fit: cover;
+    overflow: hidden;
+
+    transition: 150ms;
+}
