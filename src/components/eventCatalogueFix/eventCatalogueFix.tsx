@@ -95,8 +95,8 @@ const EventCatalogueFix = () => {
                   </div>
 
                   <div className="card-body">
-                    <h5 className="card-title">{event.name}</h5>
-                    <p className="card-text">{event.description}</p>
+                    <h5 className="card-title" style={{ 'color': '#332D2D' }}>{event.name}</h5>
+                    <p className="card-text" style={{ 'color': '#332D2D' }}>{event.description} </p>
                   </div>
 
                 </div>

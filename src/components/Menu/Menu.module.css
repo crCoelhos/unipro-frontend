@@ -1,6 +1,31 @@
-.UpperNavbar {
+.navBarLogoLinks{
+  color: #dddddd;
+
+  text-decoration: none;
+}
+.navBarLogoLinks:hover{
+  border-bottom: 3xp solid #fff;
+  color: #fff;
+
+  text-decoration: none;
+}
+
+.navBarMenuLinks{
+  color: #2d2d2d;
+
+  text-decoration: none;
+}
+
+.navBarMenuLinks:hover{
+  color: #111;
+
+  text-decoration: none;
+}
+
+/* .UpperNavbar {
   margin: 0 0 144px 0;
 }
+
 
 .darkNavbar {
   background-color: dark !important;
@@ -32,7 +57,7 @@
   font-size: 24px;
 
   border-bottom: solid #000111 8px;
-} */
+
 
 .FixedOnTopNavBg .UpperNavbarLinkText>a {
 
@@ -41,7 +66,7 @@
 
 
 .FixedNavText{
-  height: 64px;
+  height: 72px;
 
   color: #111;
 
@@ -126,4 +151,4 @@
 
   font-size: 32px;
 }
-
+ */

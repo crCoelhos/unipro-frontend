@@ -15,6 +15,7 @@ import { AuthProvider } from './contexts/authContext';
 import EventDetailsPage from './pages/eventDetailsPage/eventDetailsPage';
 import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
 import SportEventPage from './pages/sportEventPage/sportEventPage'
+import SignupPage from './components/SignupPage/SignupPage';
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
           <Route path="/sport-events" element={<SportEventPage />} />
           <Route path="/cultural-events" element={<CulturalEventPage />} />
           <Route path="/cultural-events/:id" element={<EventDetailsPage />} />
+
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

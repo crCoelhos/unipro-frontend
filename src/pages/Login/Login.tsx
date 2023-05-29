@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
                   <h2 className="fw-bold mb-2 text-uppercase">UNIPRODUÇÕES</h2>
                   <div className="mb-3">
                     <Form onSubmit={handleSubmit}>
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Group className="mb-3">
                         <Form.Label className="text-center">
                           Insira seu CPF ou EMAIL
                         </Form.Label>
@@ -45,7 +45,7 @@ const LoginPage: React.FC = () => {
                         />
                       </Form.Group>
 
-                      <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Group className="mb-3">
                         <Form.Label>Senha</Form.Label>
                         <Form.Control
                           className={styles.inputFieldPassword}
@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
                           required
                         />
                       </Form.Group>
-                      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                      <Form.Group className="mb-3">
                         <p className="small">
                           <a className="text-primary" href="#!">
                             Não consegue entrar?
@@ -72,9 +72,9 @@ const LoginPage: React.FC = () => {
                     <div className="mt-3">
                       <p className="mb-0  text-center">
                         Não possui conta?{' '}
-                        <a href="{''}" className="text-primary fw-bold">
+                        <Link to="/signup" className="text-primary fw-bold">
                           Crie uma
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </div>

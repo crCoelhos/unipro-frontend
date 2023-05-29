@@ -62,46 +62,47 @@ const Menu = () => {
   }
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg={navbarBg} variant="dark" fixed="top" className={ScrollingNavBg}>
+    <Navbar bg="dark" variant='dark' expand="lg" fixed='top'>
       <Container>
         <Navbar.Brand>
-          <Link to="/home" className={scrollingLinkClassName}>
+          <Link to="/home" className={styles.navBarLogoLinks}>
+            {/* <Link to="/home" className={scrollingLinkClassName} > */}
             UNIPRODUÇÕES
           </Link>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Dropdown as={NavItem}>
-            <Dropdown.Toggle as={NavLink} to={'#'} className={scrollingLinkClassName}>
-              Eventos
-            </Dropdown.Toggle>
-            <Dropdown.Menu variant="light">
-              <Dropdown.Item>
-                <Link to="/sport-events">Eventos esportivos</Link>
-              </Dropdown.Item>
-              <Dropdown.Item>
-                <Link to="/cultural-events">Eventos culturais</Link>
-              </Dropdown.Item>
-              <NavDropdown.Divider />
-              <Dropdown.Item>
-                <Link to="/events">Sobre os eventos</Link>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Navbar.Toggle aria-controls="basic-navbar-nav">
+          <p className={styles.navBarLogoLinks}>
+            menu
+          </p>
+        </Navbar.Toggle>
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#news">
-              <Link to="/news" className={scrollingLinkClassName}>
-                Noticias
-              </Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/contact-us" className={scrollingLinkClassName}>
-                Contato
-              </Link>
-            </Nav.Link>
+            <Nav.Link href="/home" className={styles.navBarLogoLinks}>Home</Nav.Link>
+            <Nav.Link href="/about-us">Contate</Nav.Link>
+            <NavDropdown title="Eventos" id="basic-nav-dropdown">
+              <NavDropdown.Item>
+                <Link to="/sport-events" className={styles.navBarMenuLinks} >
+                  Eventos esportivos
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/cultural-events" className={styles.navBarMenuLinks}>
+                  Eventos culturais
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item >
+                <Link to="/about-events" className={styles.navBarMenuLinks}>
+                  Sobre os eventos
+                </Link>
+
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
-          <Nav>
+        </Navbar.Collapse>
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            Autenticado como:
             {user ? (
               <Nav>
                 <Link to="/home" className={scrollingLinkClassName}>
@@ -115,7 +116,7 @@ const Menu = () => {
                 </Link>
               </Nav.Link>
             )}
-          </Nav>
+          </Navbar.Text>
         </Navbar.Collapse>
       </Container>
     </Navbar>

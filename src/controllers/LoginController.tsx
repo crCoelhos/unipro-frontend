@@ -1,6 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { useState } from 'react';
 import { UserData } from '../interfaces/types';
+
+const url: String = "http://localhost:3003"
 
 const useLoginController = () => {
     const [username, setUsername] = useState<string>('');
@@ -17,11 +19,18 @@ const useLoginController = () => {
         setPassword(event.target.value);
     };
 
-    const url: String = "http://localhost:3003"
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        axios.post(url + '/auth/login', { login: username, password })
+        const config: AxiosRequestConfig = {
+            headers: {
+                Access: 123,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const loginData = { login: username, password: password }
+        axios.post(`${url}/auth/login`, loginData, { headers: { 'Content-Type': 'application/json', Access: 123 } })
             .then(response => {
                 let userData = response.data;
                 console.log("data: ", userData);
@@ -31,7 +40,8 @@ const useLoginController = () => {
                 setLoggedIn(true);
             })
             .catch(error => {
-                console.error('Contact NXT Gen for details. The error was:' + error);
+                console.error(error.response.data);
+                console.log(config)
                 setLoginError(true);
                 setLoggedIn(false);
             });
