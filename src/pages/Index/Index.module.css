@@ -1,0 +1,94 @@
+html, body{
+    height: 100%;
+}
+.indexContent {
+    font-family: 'SUPERPUNCH';
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+
+.logoImperial {
+
+    margin: 11px 0 0 0;
+    /* height: 160px; */
+    width: 264;
+}
+
+.pageText {
+    font-size: 35px;
+    color: #FFF;
+    letter-spacing: 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 32px 0 0 0;
+
+
+}
+
+.sendButton {
+    text-transform: uppercase;
+
+    margin-top: 21px;
+
+    height: 57.45px;
+    width: 326.2px;
+
+    font-size: 18px;
+    font-family: 'SUPERPUNCH';
+    color: #fff;
+    letter-spacing: 12px;
+
+    border-radius: 16px;
+
+
+    background: #c0020242;
+    border: 2px solid #c0020242;
+    z-index: 999;
+
+}
+
+.sendButton:hover {
+    background: #8D0101;
+    border: 2px solid #8D0101;
+
+}
+
+
+.mainContent {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoFooter {
+    margin: 64px 0 0 0;
+
+    color: #fff;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.GreetingImperial {
+    width: 128px;
+
+}
+
+.DevelopedByImperial {
+    width: 256px;
+
+}
+
+.greeting {
+    margin-bottom: 40px;
+}

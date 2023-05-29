@@ -1,0 +1,109 @@
+.content {
+
+    font-family: 'SUPERPUNCH';
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+    background-image: url('../../assets/images/membercard-bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100%;
+
+
+}
+
+.photoLabel {
+    margin: 12px;
+}
+
+.profilePic {
+    width: 128px;
+    height: 128px;
+    background: #c1c1c1;
+
+    border-radius: 112px;
+}
+
+.memberCardText {
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 28px;
+    font-size: 30px;
+}
+
+.memberCardText2 {
+    color: #C00203;
+    text-transform: uppercase;
+    letter-spacing: 28px;
+    font-size: 30px;
+}
+
+
+label {
+    text-transform: uppercase;
+    font-size: 22px;
+    color: #C00203;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+.memberData {
+    font-family: 'SUPERPUNCH';
+    font-size: 25px;
+
+    padding: 0;
+    margin: 4px 0 0 0;
+
+    color: #fff;
+
+    text-align: center;
+
+    width: 326.2px;
+    height: 2em;
+
+    border-radius: 8px;
+
+    text-transform: uppercase;
+
+}
+
+
+
+.DevelopedByImperial {
+
+    margin: 64px;
+    width: 128px;
+
+}
+
+.DevelopedByImperialLink {
+    height: 32px;
+    margin: 32px;
+
+}
+
+.greeting {
+    padding-bottom: 40px;
+}
+
+.backPage{
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    margin-left: 32px;
+    margin-top: 32px;
+}
+
+footer {
+    margin-top: 24px;
+}

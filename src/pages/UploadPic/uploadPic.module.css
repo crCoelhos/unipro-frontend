@@ -1,0 +1,58 @@
+.UploadPicContainer {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.sendButton {
+    text-transform: uppercase;
+
+    margin: 12px 0 0 0;
+
+    height: 57.45px;
+    width: 326.2px;
+
+    font-size: 18px;
+
+    border-radius: 16px;
+
+    font-family: 'SUPERPUNCH';
+    letter-spacing: 6px;
+    color: #fff;
+
+    background: #C00203;
+    border: 2px solid #C00203;
+    transition-duration: 200ms;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+.logoFooter {
+    margin: 128px 0 0 0;
+    padding-bottom: 128px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.GreetingImperial {
+    width: 128px;
+
+}
+
+.DevelopedByImperial {
+    width: 128px;
+
+}
+
+.greeting {
+    margin-bottom: 40px;
+}

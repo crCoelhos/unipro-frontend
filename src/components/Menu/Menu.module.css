@@ -1,0 +1,119 @@
+.menuContainer {
+
+    font-family: 'SUPERPUNCH';
+    font-size: 32px;
+    text-transform: uppercase;
+
+    position: fixed;
+    left: 0;
+    width: 204px;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 100;
+
+    box-shadow: 0.2px 0.2px 0.5px #C00203;
+}
+
+.menuList {
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    list-style: none;
+    /* margin: ; */
+    padding: 0;
+}
+
+.menuList li {
+    margin: 24px 0;
+    width: 100%;
+}
+
+.indexContent {
+    position: relative;
+    z-index: 1;
+}
+
+.option {
+    text-decoration: none;
+    display: flex;
+
+    justify-content: space-evenly;
+}
+
+.option img {
+    position: initial;
+    left: 0;
+
+    margin-right: 8px;
+    padding: 0;
+}
+
+.menuContainer.collapsed {
+    width: 84px;
+}
+
+.menuToggle {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+
+.menuIcon {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    width: 24px;
+    height: 24px;
+    background-image: url('../../assets//icons//menu-rounded-red.svg');
+    background-size: cover;
+}
+
+.option {
+    color: #C00203;
+}
+
+.option:hover {
+    color: #8D0101;
+    border-left: 3px solid #8D0101;
+    border-right: 3px solid #8D0101;
+}
+
+.menuContainer.collapsed .optionText {
+    display: none;
+}
+
+.menuContainer.collapsed .userName {
+    display: none;
+}
+
+.menuContainer.collapsed .colapsedOptionText {
+    display: inline-block;
+}
+
+.userName{
+    justify-self: center;
+    font-size: 18px;
+    margin-left: 0.7em;
+}
+
+@media screen and (max-width: 767px) {
+    .menuContainer.collapsed {
+        background-color: #ffffff00;
+
+        height: 76px;
+    }
+
+
+    .menuContainer.collapsed .optionIcon {
+        display: none;
+    }
+
+    
+}

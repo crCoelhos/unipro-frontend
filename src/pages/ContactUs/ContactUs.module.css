@@ -1,0 +1,60 @@
+.contactUsMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'SUPERPUNCH';
+    letter-spacing: 2px;
+
+    height: 100%;
+
+}
+
+.contactList{
+    margin: 132px 0 0 0 ;
+}
+.contactOption {
+    list-style: none;
+}
+
+.contactOption a {
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+
+}
+
+.contactOption{
+    margin: 12px 0;
+}
+
+li.contactOption a img {
+    width: 136px;
+}
+li.contactOption a img:hover {
+    background-color: #8d01011a;
+    border-radius: 16px;
+}
+
+
+.logoFooter {
+    margin: 12px 0 264px 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.GreetingImperial {
+    width: 128px;
+
+}
+
+.DevelopedByImperial {
+    width: 128px;
+
+}
+
+.greeting {
+    margin-bottom: 40px;
+}
