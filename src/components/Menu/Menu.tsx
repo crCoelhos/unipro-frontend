@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Navbar, Container, Dropdown, Nav, NavDropdown, NavItem } from 'react-bootstrap';
 import styles from './Menu.module.css';
@@ -16,6 +16,8 @@ const Menu = () => {
   const { logout } = useProfileController();
 
   const [collapsed, setCollapsed] = useState(true);
+  const [navbarBg, setNavbarBg] = useState('transparent');
+  const [navbarTextColor, setNavbarTextColor] = useState('transparent');
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -23,16 +25,44 @@ const Menu = () => {
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
-  console.log(user)
+  console.log(user);
 
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    const navbarElement = document.querySelector('.navbar');
+
+    if (navbarElement instanceof HTMLElement) {
+      const navbarHeight = navbarElement.offsetHeight;
+
+      if (scrollPosition > navbarHeight) {
+        setNavbarBg('dark');
+        setNavbarTextColor('dark');
+      } else {
+        setNavbarBg('transparent');
+        setNavbarTextColor('transparent');
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // navbar bg
   const scrollingLinkClassName = styles.UpperNavbarLinkTextForLight;
+
+  const ScrollingNavBg = styles.ScrollingNavBg;
 
   if (!user) {
     return <div>Error: User not found</div>;
   }
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="transparent" variant="dark" fixed="top" className={styles.ScrollingNavBg}>
+    <Navbar collapseOnSelect expand="lg" bg={navbarBg} variant="dark" fixed="top" className={ScrollingNavBg}>
       <Container>
         <Navbar.Brand>
           <Link to="/home" className={scrollingLinkClassName}>
@@ -73,12 +103,11 @@ const Menu = () => {
           </Nav>
           <Nav>
             {user ? (
-              <Nav.Link>
+              <Nav>
                 <Link to="/home" className={scrollingLinkClassName}>
                   <p>{user.name}</p>
-                  {/* fazer logout */}
                 </Link>
-              </Nav.Link>
+              </Nav>
             ) : (
               <Nav.Link>
                 <Link to="/login" className={scrollingLinkClassName}>

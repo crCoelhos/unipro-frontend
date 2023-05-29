@@ -96,13 +96,13 @@ const HomeFooter: FC<HomeFooterProps> = () => {
                   {shownSponsors.map(event => (
 
                     <div className="col-md-3" id="eventCard" style={{ 'margin': '12px', "width":"248px" }}>
-                      <Link to={`/cultural-events/${event.id}`}>
+                      <Link to={event.url}  title={event.name} >
 
                         <div className="card">
 
                           <div className="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                            <img src={event.image} className="img-fluid" title={event.name} />
-                            <a href={event.url} >
+                            <img src={event.image} className="img-fluid"/>
+                            <a href={event.url}>
                               <div className="mask"></div>
                             </a>
                           </div>

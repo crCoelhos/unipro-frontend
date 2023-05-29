@@ -7,13 +7,15 @@ import IndexPage from "./pages/Index/Index"
 import LoginPage from "./pages/Login/Login.tsx";
 import HomePage from "./pages/Home/Home";
 import PasswordRecoveryPage from "./pages/PasswordRecovery/PasswordRecovery"
-import ProfilePage from "./pages/Profile/Profile"
-import MemberCardPage from "./pages/MemberCard/MemberCard"
+
 import ContactUsPage from "./pages/ContactUs/ContactUs"
 import Menu from "./components/Menu/Menu"
-import UploadPic from "./pages/UploadPic/uploadPic"
 import React from 'react';
 import { AuthProvider } from './contexts/authContext';
+import EventDetailsPage from './pages/eventDetailsPage/eventDetailsPage';
+import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
+import SportEventPage from './pages/sportEventPage/sportEventPage'
+
 
 function App() {
   return (
@@ -26,10 +28,11 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/member-card" element={<MemberCardPage />} />
           <Route path="/contact-us" element={<ContactUsPage />} />
-          <Route path="/upload-pic" element={<UploadPic />} />
+
+          <Route path="/sport-events" element={<SportEventPage />} />
+          <Route path="/cultural-events" element={<CulturalEventPage />} />
+          <Route path="/cultural-events/:id" element={<EventDetailsPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

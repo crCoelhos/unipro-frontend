@@ -1,119 +1,129 @@
-.menuContainer {
-
-  
-    font-size: 32px;
-    text-transform: uppercase;
-
-    position: fixed;
-    left: 0;
-    width: 204px;
-    height: 100vh;
-    background-color: #fff;
-    z-index: 100;
-
-    box-shadow: 0.2px 0.2px 0.5px #C00203;
+.UpperNavbar {
+  margin: 0 0 144px 0;
 }
 
-.menuList {
-
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    list-style: none;
-    /* margin: ; */
-    padding: 0;
+.darkNavbar {
+  background-color: dark !important;
+  transition: background-color 0.3s ease;
 }
 
-.menuList li {
-    margin: 24px 0;
-    width: 100%;
+.FixedOnTopNavBg {
+  height: 112px;
+
+  color: black;
+
+  font-weight: bolder;
+
 }
 
-.indexContent {
-    position: relative;
-    z-index: 1;
+.FixedOnTopNavBg .UpperNavbarLinkText {
+
+  color: black;
+  font-weight: bolder;
+
+  font-size: 24px;
 }
 
-.option {
-    text-decoration: none;
-    display: flex;
+/* .FixedOnTopNavBg .UpperNavbarLinkText:hover {
 
-    justify-content: space-evenly;
+  color: black;
+  font-weight: bolder;
+
+  font-size: 24px;
+
+  border-bottom: solid #000111 8px;
+} */
+
+.FixedOnTopNavBg .UpperNavbarLinkText>a {
+
+  color: black;
 }
 
-.option img {
-    position: initial;
-    left: 0;
 
-    margin-right: 8px;
-    padding: 0;
+.FixedNavText{
+  height: 64px;
+
+  color: #111;
+
+  font-weight: bolder;
+
 }
 
-.menuContainer.collapsed {
-    width: 84px;
+.ScrollingNavText{
+  height: 64px;
+
+  color: #c1c1c1;
+
+  font-weight: bolder;
+
 }
 
-.menuToggle {
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 64px;
-    height: 64px;
-    cursor: pointer;
+.UpperNavbarLinkTextForDark {
+  text-decoration: none;
+  color: #979797;
+
+  font-size: large;
+  font-weight: bolder;
+
+  font-size: 22px;
+
+  margin: 0 12px;
 }
 
-.menuIcon {
-    margin-left: 0.5em;
-    margin-top: 0.5em;
-    width: 24px;
-    height: 24px;
-    background-image: url('../../assets//icons//menu-rounded-red.svg');
-    background-size: cover;
+.UpperNavbarLinkTextForDark:hover {
+  text-decoration: none;
+  color: #ebebeb;
+
+  border-bottom: #ebebeb solid 7px;
+
+  transition: 80ms;
+
+  font-size: 22px;
 }
 
-.option {
-    color: #C00203;
+.UpperNavbarLinkTextForLight {
+  text-decoration: none;
+  color: #111;
+  font-weight: bolder;
+
+  font-size: 32px;
+
+  margin: 0 12px;
+
 }
 
-.option:hover {
-    color: #8D0101;
-    border-left: 3px solid #8D0101;
-    border-right: 3px solid #8D0101;
+
+.UpperNavbarLinkTextForLight:hover {
+  text-decoration: none;
+  color: #111;
+
+  border-bottom: #111 solid 7px;
+
+  transition: 80ms;
+
+  font-size: 32px;
 }
 
-.menuContainer.collapsed .optionText {
-    display: none;
+.UpperNavbarLinkTextForDark {
+  text-decoration: none;
+  color: #111;
+  font-weight: bolder;
+
+  font-size: 32px;
+
+  margin: 0 12px;
+
 }
 
-.menuContainer.collapsed .userName {
-    display: none;
+
+.UpperNavbarLinkTextForDark:hover {
+  text-decoration: none;
+  color: #111;
+
+  border-bottom: #111 solid 7px;
+
+  transition: 80ms;
+
+  font-size: 32px;
 }
 
-.menuContainer.collapsed .colapsedOptionText {
-    display: inline-block;
-}
-
-.userName{
-    justify-self: center;
-    font-size: 18px;
-    margin-left: 0.7em;
-}
-
-@media screen and (max-width: 767px) {
-    .menuContainer.collapsed {
-        background-color: #ffffff00;
-
-        height: 76px;
-    }
-
-
-    .menuContainer.collapsed .optionIcon {
-        display: none;
-    }
-
-    
-}

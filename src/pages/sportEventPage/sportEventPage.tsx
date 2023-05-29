@@ -10,7 +10,8 @@ const SportEventPage: FC<SportEventPageProps> = () => (
   <div className={styles.SportEventPage}>
     <UpperNavbar/>
     <h1>Esportes</h1>
-    <EventCatalogue />
+    <hr />
+    <EventCatalogue/>
     <HomeFooter />
   </div>
 );
