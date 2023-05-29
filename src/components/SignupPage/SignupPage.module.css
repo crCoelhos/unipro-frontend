@@ -1,1 +1,10 @@
 .SignupPage {}
+
+.SubmitButton{
+    margin: 12px 0;
+}
+
+.signupForm{
+    display: flex;
+    flex-direction: column;
+}
