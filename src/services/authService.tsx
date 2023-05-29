@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const url = "https://localhost:3000";
-// const url = "https://api-imperial.azurewebsites.net"
+const url = "https://localhost:3003";
 
 interface LoginData {
   login: string;

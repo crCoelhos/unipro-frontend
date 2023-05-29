@@ -1,5 +1,5 @@
 .homeContent {
-    font-family: 'SUPERPUNCH';
+  
     
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
     width: 326.2px;
     
     font-size: 18px;
-    font-family: 'SUPERPUNCH';
+  
     color: #fff;
     letter-spacing: 12px;
 

@@ -17,22 +17,21 @@ const useLoginController = () => {
         setPassword(event.target.value);
     };
 
-    // const url: String = "https://api-imperial.azurewebsites.net"
-    const url: String = "http://localhost:3000"
+    const url: String = "http://localhost:3003"
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         axios.post(url + '/auth/login', { login: username, password })
             .then(response => {
                 let userData = response.data;
-                // console.log("nome: ", userData.user.name);
+                console.log("data: ", userData);
                 setSessionUser(userData);
                 setUser(userData);
                 setLoginError(false);
                 setLoggedIn(true);
             })
             .catch(error => {
-                console.error('Contact IMPERIAL for details. The error was:' + error);
+                console.error('Contact NXT Gen for details. The error was:' + error);
                 setLoginError(true);
                 setLoggedIn(false);
             });

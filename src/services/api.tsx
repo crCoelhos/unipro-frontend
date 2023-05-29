@@ -2,8 +2,7 @@ import axios from 'axios';
 import { UserLoginData, LoginResponse } from '../interfaces/types';
 
 const api = axios.create({
-  baseURL: 'https://localhost:3000',
-  // baseURL: 'https://api-imperial.azurewebsites.net',
+  baseURL: 'https://localhost:3003',
 });
 
 export const login = async (data: UserLoginData): Promise<string> => {

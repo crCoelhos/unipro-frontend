@@ -3,14 +3,14 @@ import { UserData, UseProfileController } from '../interfaces/types';
 
 const useProfileController = (): UseProfileController => {
   const [formData, setFormData] = useState<Record<string, string>>({});
-  const [user, setUser] = useState<UserData['user'] | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
 
-  const setSessionUser = (userData: UserData['user']) => {
+  const setSessionUser = (userData: UserData) => {
     sessionStorage.setItem('user', JSON.stringify(userData));
     setUser(userData);
   };
 
-  const getSessionUser = (): UserData['user'] | null => {
+  const getSessionUser = (): UserData | null => {
     const storedUserData = sessionStorage.getItem('user');
     return storedUserData ? JSON.parse(storedUserData) : null;
   };

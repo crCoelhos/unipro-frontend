@@ -2,7 +2,7 @@ html, body{
     height: 100%;
 }
 .indexContent {
-    font-family: 'SUPERPUNCH';
+  
 
     display: flex;
     flex-direction: column;
@@ -42,7 +42,7 @@ html, body{
     width: 326.2px;
 
     font-size: 18px;
-    font-family: 'SUPERPUNCH';
+  
     color: #fff;
     letter-spacing: 12px;
 

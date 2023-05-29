@@ -1,11 +1,9 @@
 import React from 'react';
+import { Form } from 'react-bootstrap';
 import { Link, Navigate } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import LogoImperial from "../../assets/images/logoimperial-svg 1.svg";
-import GreetingImperial from "../../assets/images/vida-longa-greeting-svg-1.svg";
-import DevelopedByImperial from "../../assets/images/developed-by-png-1.png";
 import styles from './Login.module.css';
 import useLoginController from '../../controllers/LoginController';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 const LoginPage: React.FC = () => {
   const {
@@ -24,55 +22,70 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className={styles.loginContent}>
-      <Header />
-      <Link to="/login">
-        <img src={LogoImperial} className={styles.logoImperial} alt="logo da imperial" />
-      </Link>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p className={styles.inputText}>Usuário:</p>
-          <input
-            className={styles.inputFieldUser}
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-            placeholder='Ex: 12345678910'
-          />
-        </label>
-        <br />
-        <label>
-          <p className={styles.inputText}>Senha:</p>
-          <input
-            className={styles.inputFieldPassword}
-            id='userInput'
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </label>
-        <br />
-        {loginError && <p className={styles.error}>errou a senha, primo</p>}
-        <button className={styles.sendButton} type="submit">Entrar</button>
-      </form>
-      <div id='passRecovery'>
-        <p>Não consegue entrar mlk? <Link to="/password-recovery" className={styles.passRecovery}>Clica aq mano</Link></p>
-      </div>
+      <Container>
+        <Row className="vh-100 d-flex justify-content-center align-items-center">
+          <Col lg={6} xs={6} style={{ margin: '0px' }}>
+            <Card className="shadow">
+              <Card.Body>
+                <div className="mb-3 mt-md-4">
+                  <h2 className="fw-bold mb-2 text-uppercase">UNIPRODUÇÕES</h2>
+                  <div className="mb-3">
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label className="text-center">
+                          Insira seu CPF ou EMAIL
+                        </Form.Label>
+                        <Form.Control
+                          className={styles.inputFieldUser}
+                          type="text"
+                          value={username}
+                          onChange={handleUsernameChange}
+                          placeholder='Ex: 12345678910'
+                          required
+                        />
+                      </Form.Group>
 
-      <footer className={styles.logoFooter}>
-        <Link to="/contact-us">
-          <img src={GreetingImperial} className={`${styles.GreetingImperial} ${styles.greeting}`} id='greeting' alt="imagem contendo a saudação '#vidalonga" />
-        </Link>
-
-        <a href="https://github.com/a-a-a-imperial">
-          <img src={DevelopedByImperial} className={styles.DevelopedByImperial} alt="imagem contendo 'developed by imperial'" id='contact' />
-        </a>
-      </footer>
-    </div >
+                      <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Senha</Form.Label>
+                        <Form.Control
+                          className={styles.inputFieldPassword}
+                          id='userInput'
+                          type="password"
+                          value={password}
+                          onChange={handlePasswordChange}
+                          required
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                        <p className="small">
+                          <a className="text-primary" href="#!">
+                            Não consegue entrar?
+                          </a>
+                        </p>
+                      </Form.Group>
+                      <div className="d-grid">
+                        <Button variant="primary" type="submit">
+                          Entrar
+                        </Button>
+                      </div>
+                    </Form>
+                    <div className="mt-3">
+                      <p className="mb-0  text-center">
+                        Não possui conta?{' '}
+                        <a href="{''}" className="text-primary fw-bold">
+                          Crie uma
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
 export default LoginPage;
-
-
-
-

@@ -1,3 +1,6 @@
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import IndexPage from "./pages/Index/Index"
@@ -17,7 +20,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<IndexPage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/index" element={<IndexPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
