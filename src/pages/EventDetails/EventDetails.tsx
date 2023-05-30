@@ -30,7 +30,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ eventId }) => {
   }, [eventId]);
 
   if (!eventDetails) {
-    return <div>Loading event details...</div>;
+    return <div>Evento não pode ser carregado, aguarde...</div>;
   }
 
   return (
