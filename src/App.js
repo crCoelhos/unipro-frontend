@@ -17,6 +17,7 @@ import EventDetails from './pages/EventDetails/EventDetails';
 import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
 import SportEventPage from './pages/sportEventPage/sportEventPage'
 import SignupPage from './components/SignupPage/SignupPage';
+import EventCatalogueFix from './components/eventCatalogueFix/eventCatalogueFix';
 
 
 function App() {
@@ -34,8 +35,11 @@ function App() {
 
           <Route path="/sport-events" element={<SportEventPage />} />
           <Route path="/cultural-events" element={<CulturalEventPage />} />
-          <Route path="/cultural-events/:id" element={<EventDetails />} />
-          <Route path="/sport-events/:id" element={<EventDetails />} />
+          {/* <Route path="/cultural-events/:id" element={<EventDetails />} /> */}
+          {/* <Route path="/sport-events/:id" element={<EventDetails />} /> */}
+
+          <Route exact path="/" element={<EventCatalogueFix />} />
+          <Route path="/sport-events/:eventId" element={<EventDetails />} />
 
           <Route path="/signup" element={<SignupPage />} />
         </Routes>

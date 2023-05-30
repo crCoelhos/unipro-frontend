@@ -7,6 +7,7 @@ const url: String = "http://localhost:3003"
 const useLoginController = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [authenticator, setAuthenticator] = useState<string>('');
     const [user, setUser] = useState<any>(null);
     const [loginError, setLoginError] = useState<boolean>(false);
     const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -35,6 +36,7 @@ const useLoginController = () => {
                 let userData = response.data;
                 console.log("data: ", userData);
                 setSessionUser(userData);
+                setAuthenticator(userData.token);
                 setUser(userData);
                 setLoginError(false);
                 setLoggedIn(true);

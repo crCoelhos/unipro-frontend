@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './eventCatalogueFix.module.scss';
 import axios from 'axios';
-import EventDetails from '../../pages/EventDetails/EventDetails';
 
 export interface Event {
   event: any;
@@ -26,7 +25,6 @@ const EventCatalogueFix = () => {
         const response = await axios.get('http://localhost:3003/admin/lots');
         const eventData = response.data.filter((event: Event) => event.event.state);
         setEvents(eventData);
-        console.log(eventData);
       } catch (error) {
         console.error(error);
       }
@@ -49,7 +47,8 @@ const EventCatalogueFix = () => {
                     </a>
                   </div>
                   <div className="card-body">
-                    <h5 className="card-title">{event.event.name}</h5>
+                    <h5 className="card-title">{event.name}</h5>
+                    <p className="card-text">{event.event.name}</p>
                     <p className="card-text">{event.event.description}</p>
                   </div>
                 </div>
