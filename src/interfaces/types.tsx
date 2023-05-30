@@ -1,22 +1,36 @@
 
 export interface UserData {
-      id: number;
-      name: string;
-      cpf: string;
-      birthdate: string;
-      registration: string;
-      contact: string;
-      course: string;
-      university: string;
-      photo: string | null;
-      password: string;
-      role: string;
-      is_active: boolean;
-      membership_date: string;
-      createdAt: Date;
-      updatedAt: Date;
-  };
-  
+    id: number;
+    name: string;
+    cpf: string;
+    birthdate: string;
+    registration: string;
+    contact: string;
+    course: string;
+    university: string;
+    photo: string | null;
+    password: string;
+    role: string;
+    is_active: boolean;
+    membership_date: string;
+    createdAt: Date;
+    updatedAt: Date;
+};
+
+export interface TicketBatch {
+    id: number;
+    name: string;
+    startDate: string;
+    finishDate: string;
+    event: {
+        id: number;
+        name: string;
+        state: boolean;
+        date: string;
+        location: string;
+        description: string;
+    };
+}
 
 export interface LoginResponse {
     token: string;

@@ -14,7 +14,7 @@ const useSignupController = () => {
     const [signupError, setSignupError] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event:any ) => {
         event.preventDefault();
 
         const userData = {
@@ -29,9 +29,8 @@ const useSignupController = () => {
         try {
             const response = await axios.post(url + '/auth/signup', userData);
 
-            console.log(response.data); // Handle the response data as needed
-            // Reset the form or perform any other actions
-            navigate('/login'); // Redirect to login page after successful signup
+            console.log(response.data); // verifica
+            navigate('/login'); // Redireciona pro login
         } catch (error) {
             console.error(error);
             setSignupError(true);

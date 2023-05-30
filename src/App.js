@@ -13,6 +13,7 @@ import Menu from "./components/Menu/Menu"
 import React from 'react';
 import { AuthProvider } from './contexts/authContext';
 import EventDetailsPage from './pages/eventDetailsPage/eventDetailsPage';
+import EventDetails from './pages/EventDetails/EventDetails';
 import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
 import SportEventPage from './pages/sportEventPage/sportEventPage'
 import SignupPage from './components/SignupPage/SignupPage';
@@ -33,7 +34,8 @@ function App() {
 
           <Route path="/sport-events" element={<SportEventPage />} />
           <Route path="/cultural-events" element={<CulturalEventPage />} />
-          <Route path="/cultural-events/:id" element={<EventDetailsPage />} />
+          <Route path="/cultural-events/:id" element={<EventDetails />} />
+          <Route path="/sport-events/:id" element={<EventDetails />} />
 
           <Route path="/signup" element={<SignupPage />} />
         </Routes>
