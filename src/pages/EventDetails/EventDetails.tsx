@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Container, Row, Col, Card } from 'react-bootstrap';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 
 interface EventDetailsData {
   event: {
@@ -46,7 +48,6 @@ const SportEventDetails = () => {
         const response = await axios.get(`${url}admin/lot/${eventId}`, config);
         setEventDetails(response.data.lot);
         console.log(eventDetails);
-        
       } catch (error) {
         console.error(error);
       }
@@ -56,19 +57,28 @@ const SportEventDetails = () => {
   }, [eventId]);
 
   return (
-    <div>
-      <h2>Sport Event Details</h2>
+    <MDBContainer>
+      <h2>Detalhes do evento</h2>
       {eventDetails && (
-        <div>
-          <p>Lote: {eventDetails.name}</p>
-          <p>Event Name: {eventDetails.event.name}</p>
-          <p>Event Description: {eventDetails.event.description}</p>
-          <p>Event location: {eventDetails.event.location}</p>
-          <p>criado: {eventDetails.event.createdAt}</p>
-
-        </div>
+        <MDBCard>
+          <MDBCardBody>
+            <h2>Lote: {eventDetails.name}</h2>
+            <h1>Título: {eventDetails.event.name}</h1>
+            <hr />
+            <br />
+            <p>Descrição: {eventDetails.event.description}</p>
+            <p>Local do evento: {eventDetails.event.location}</p>
+            <hr />
+            <p>Criado em {eventDetails.event.createdAt}</p>
+          </MDBCardBody>
+        </MDBCard>
       )}
-    </div>
+      <div className="purchase">
+        <div> 
+          <button>Comprar</button>
+        </div>
+      </div>
+    </MDBContainer>
   );
 };
 
