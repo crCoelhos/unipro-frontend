@@ -43,6 +43,30 @@ export const shownSponsors = [
     url: "https://web.whatsapp.com",
     image: "https://i.imgur.com/zsRJbYk.jpg"
   },
+  {
+    id: 1,
+    name: 'Bomba Patch',
+    url: "https://superbombapatch.com",
+    image: "https://i.imgur.com/zsRJbYk.jpg"
+  },
+  {
+    id: 2,
+    name: 'Globo',
+    url: "https://www.globo.com",
+    image: "https://i.imgur.com/zsRJbYk.jpg"
+  },
+  {
+    id: 3,
+    name: 'Nova Ordem Mundial',
+    url: "https://www.neworder.com",
+    image: "https://i.imgur.com/zsRJbYk.jpg"
+  },
+  {
+    id: 4,
+    name: 'Zap',
+    url: "https://web.whatsapp.com",
+    image: "https://i.imgur.com/zsRJbYk.jpg"
+  },
 
 
 ]
@@ -77,11 +101,7 @@ const HomeFooter: FC<HomeFooterProps> = () => {
       </div>
       <div className="sponsorsArea">
         <Container>
-          <Row className={cx(styles.sponsorLabel)}>
-            <Col>
-              <h4>Parceiros</h4>
-            </Col>
-          </Row>
+          
 
           <div className="wideLarge">
             {shouldRenderLink ? (
@@ -111,7 +131,8 @@ const HomeFooter: FC<HomeFooterProps> = () => {
 
                       </Link>
                     </div>
-                  ))}</Row>
+                  ))}
+                  </Row>
               </>
             )}
           </div>

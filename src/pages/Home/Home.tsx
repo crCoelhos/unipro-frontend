@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Menu from '../../components/Menu/Menu';
 import HomeFooter from '../../components/homeFooter/homeFooter';
 import EventCatalogueFix from '../../components/eventCatalogueFix/eventCatalogueFix';
+import HomeComposedFooter from '../../components/homeComposedFooter/homeComposedFooter';
 
 
 const Home: React.FC = () => {
@@ -79,7 +80,7 @@ const Home: React.FC = () => {
         </p>
       </div>
 
-      <HomeFooter />
+      <HomeComposedFooter />
     </div>
   );
 }
