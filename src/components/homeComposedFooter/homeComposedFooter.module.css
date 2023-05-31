@@ -3,7 +3,6 @@
 
     width: 100%;
 
-    background-color: #EFEFEF;
 }
 
 .HomeComposedContainer {
@@ -11,7 +10,11 @@
     flex-direction: row;
 
     align-items: center;
-    height: 1em;
+
+    background-color: #f1f1f1;
+
+    
+
 
 }
 
@@ -21,13 +24,20 @@
     flex-direction: column-reverse;
     width: 64px;
 
+    margin-top: 10%;
     margin-right: 24px;
+    margin-left: 12px;
     padding: 0;
+
 
 }
 
 .SocialMediaArea a img {
     width: 64px;
+    height: auto;
+    margin-bottom: 12px;
+    /* background-color: #EFEFEF; */
+
 
 }
 
@@ -72,3 +82,8 @@ img.WhatsApp:hover {
     width: auto;
     height: 32px;
 } */
+
+.SocialMediaAreaBg{
+
+    background-color: #f1f1f1;
+}
