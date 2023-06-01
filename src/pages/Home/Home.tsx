@@ -1,9 +1,6 @@
 import React from 'react';
 import styles from './Home.module.css';
-import { Link } from 'react-router-dom';
 import Menu from '../../components/Menu/Menu';
-import HomeFooter from '../../components/homeFooter/homeFooter';
-import EventCatalogueFix from '../../components/eventCatalogueFix/eventCatalogueFix';
 import HomeComposedFooter from '../../components/homeComposedFooter/homeComposedFooter';
 
 

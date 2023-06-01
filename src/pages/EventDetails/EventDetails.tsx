@@ -45,7 +45,7 @@ const SportEventDetails = () => {
           }
         };
 
-        const response = await axios.get(`${url}admin/lot/${eventId}`, config);
+        const response = await axios.get(`${url}admin/batch/${eventId}`, config);
         setEventDetails(response.data.lot);
         console.log(eventDetails);
       } catch (error) {
