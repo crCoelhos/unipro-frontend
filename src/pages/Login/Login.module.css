@@ -1,93 +1,71 @@
 .loginContent {
-    margin: 0px;
-    padding: 0px;
+  margin: 0px;
+  padding: 0px;
 
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
-
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    text-transform: uppercase;
-}
-
-
-.portalImperial p {
-    margin: 0;
-}
-
-.logoImperial {
-    margin: 11px 0 0 0;
-    /* height: 160px; */
-    width: 312px;
-
+  text-transform: uppercase;
 }
 
 .inputText {
-    margin-top: 28px;
-    margin-bottom: 0px;
-    padding: 0;
-    letter-spacing: 6px;
-
+  margin-top: 28px;
+  margin-bottom: 0px;
+  padding: 0;
+  letter-spacing: 6px;
 }
 
 .inputFieldUser {
-    margin: 8px 0 0 0;
+  margin: 8px 0 0 0;
 
-    height: 57.45px;
-    width: 320px;
+  height: 57.45px;
 
-    font-size: 24px;
-    font-style: italic;
-    text-indent: 10px;
+  font-size: 24px;
+  font-style: italic;
+  text-indent: 10px;
 
-    border-radius: 16px;
+  border-radius: 16px;
 
-    padding-left: 0;
-
+  padding-left: 0;
 }
-
 
 .inputFieldPassword {
-    margin: 8px 0 0 0;
+  margin: 8px 0 0 0;
 
-    height: 57.45px;
-    width: 290px;
+  height: 57.45px;
 
-    letter-spacing: 6px;
-    font-size: 24px;
-    font-style: italic;
-    text-indent: 10px;
+  letter-spacing: 6px;
+  font-size: 24px;
+  font-style: italic;
+  text-indent: 10px;
 
-    border-radius: 16px;
+  border-radius: 16px;
 
-    padding-left: 30px;
-
+  padding-left: 30px;
 }
 
-.error{
-    color: #C00203;
-    margin-bottom: 12px;
+.error {
+  color: #c00203;
+  margin-bottom: 12px;
 }
-
 
 .sendButton {
-    text-transform: uppercase;
+  text-transform: uppercase;
 
-    margin: 12px 0 0 0;
+  margin: 12px 0 0 0;
 
-    height: 57.45px;
-    width: 326.2px;
+  height: 57.45px;
+  width: 326.2px;
 
-    font-size: 18px;
+  font-size: 18px;
 
-    border-radius: 16px;
+  border-radius: 16px;
 
-  
-    letter-spacing: 6px;
-    color: #fff;
+  letter-spacing: 6px;
+  color: #fff;
 
-    transition-duration: 200ms;
+  transition-duration: 200ms;
 }

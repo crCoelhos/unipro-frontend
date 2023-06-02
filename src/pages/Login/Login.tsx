@@ -32,7 +32,7 @@ const LoginPage: React.FC = () => {
                   <div className="mb-3">
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3">
-                        <Form.Label className="text-center">
+                        <Form.Label className={styles['text-center']}>
                           Insira seu CPF ou EMAIL
                         </Form.Label>
                         <Form.Control
@@ -40,7 +40,7 @@ const LoginPage: React.FC = () => {
                           type="text"
                           value={username}
                           onChange={handleUsernameChange}
-                          placeholder='Ex: 12345678910'
+                          placeholder='Ex: 12345678910 ou usuario@email.com'
                           required
                         />
                       </Form.Group>

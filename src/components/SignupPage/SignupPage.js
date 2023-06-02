@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import useSignupController from '../../controllers/useSignupController';
-import styles from './SignupPage.module.css'
+import styles from './SignupPage.module.css';
 
 const SignupPage = () => {
   const {
@@ -11,6 +11,7 @@ const SignupPage = () => {
     contact,
     cpf,
     birthdate,
+    sex,
     signupError,
     setName,
     setEmail,
@@ -18,6 +19,7 @@ const SignupPage = () => {
     setContact,
     setCpf,
     setBirthdate,
+    setSex,
     handleSubmit,
   } = useSignupController();
 
@@ -92,6 +94,20 @@ const SignupPage = () => {
             />
           </Form.Group>
 
+          <Form.Group controlId="formSex">
+            <Form.Label>Sexo</Form.Label>
+            <Form.Control
+              as="select"
+              value={sex}
+              onChange={(e) => setSex(e.target.value)}
+              required
+            >
+              <option value="">Selecione</option>
+              <option value="M">Masculino</option>
+              <option value="F">Feminino</option>
+            </Form.Control>
+          </Form.Group>
+
           <Button variant="primary" type="submit" className={styles.SubmitButton}>
             Registrar
           </Button>
@@ -101,7 +117,7 @@ const SignupPage = () => {
           </Button>
         </Form>
 
-        {signupError && <Alert variant="danger">O registro falhou. Por favor tente novamente.</Alert>}
+        {signupError && <Alert variant="danger">O registro falhou. Por favor, tente novamente.</Alert>}
       </div>
     </div>
   );

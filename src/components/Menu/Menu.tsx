@@ -163,7 +163,7 @@ const Menu = () => {
             Autenticado como:
             {user ? (
               <Nav>
-                <Link to="/home" className={scrollingLinkClassName}>
+                <Link to="/home"  onClick={handleLogout} className={scrollingLinkClassName}>
                   <p>{user.name}</p>
                 </Link>
               </Nav>
