@@ -24,8 +24,8 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<IndexPage />} />
-          <Route path="/index" element={<IndexPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/index" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />

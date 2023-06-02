@@ -14,6 +14,7 @@
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "brazilian-values": "^0.12.0",
+    "cdbreact": "^1.5.17",
     "cors": "^2.8.5",
     "mdb-react-ui-kit": "^6.0.0",
     "mdb-ui-kit": "^6.3.1",
