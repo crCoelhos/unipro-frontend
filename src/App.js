@@ -43,15 +43,9 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
 
 
-          {/* 
-          <Routes> */}
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/sport-events" element={<SportEventPage />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
-          {/* <Route path="/admin-area/contact" element={<Contact />} /> */}
-          {/* </Routes> */}
-
-          {/* <Route path="/admin-area" element={<AdminSection />} /> */}
 
         </Routes>
       </BrowserRouter>

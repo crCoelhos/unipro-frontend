@@ -22,15 +22,30 @@
   text-decoration: none;
 }
 
+
+.userSpanName{
+  margin-right: 24px;
+}
+.userSpanRole img{
+  width: 24px;
+
+}
+
+.userSpanRole:hover{
+  width: 24px;
+
+  border-bottom: white solid 5px;
+  transition: ease-in-out 0.3s;
+}
+
+.adminSection{
+  color: #111;
+}
 /* .UpperNavbar {
   margin: 0 0 144px 0;
 }
 
 
-.darkNavbar {
-  background-color: dark !important;
-  transition: background-color 0.3s ease;
-}
 
 .FixedOnTopNavBg {
   height: 112px;
