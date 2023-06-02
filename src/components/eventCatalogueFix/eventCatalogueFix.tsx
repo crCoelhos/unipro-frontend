@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
 
+const url = "http://localhost:3003/";
+
 export interface Event {
-  event: any;
   id: number;
   name: string;
-  tickets?: {
-    [ticketId: number]: {
-      id: number;
-      ticket: string;
-    };
-  };
+  state: boolean;
+  date: string;
+  location: string;
   description: string;
-  image?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const EventCatalogueFix = () => {
@@ -25,10 +24,8 @@ const EventCatalogueFix = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("http://localhost:3003/admin/batchs");
-        const eventData = response.data.filter(
-          (event: Event) => event.event.state
-        );
+        const response = await axios.get(url + "admin/events");
+        const eventData: Event[] = response.data;
         setEvents(eventData);
 
         const newColorClasses = eventData.map(() => {
@@ -50,8 +47,6 @@ const EventCatalogueFix = () => {
       <div className="row">
         {events.map((event, index) => {
           const colorClass = colorClasses[index];
-          let colors = ["#A4A0FF"];
-          // let colors = ['#04BF7B', '#4630D9', '#0000FF', '#F26241', '#A4A0FF'];
           const randomIndex = Math.floor(Math.random() * colors.length);
           return (
             <div
@@ -78,10 +73,9 @@ const EventCatalogueFix = () => {
                     className="card-body"
                     style={{ color: "white", marginTop: "12px" }}
                   >
-                    <h5 className="card-title">{event.event.name}</h5>
+                    <h5 className="card-title">{event.name}</h5>
                     <hr style={{ height: "8px", backgroundColor: "white" }} />
-                    <p className="card-text">{event.name}</p>
-                    <p className="card-text">{event.event.description}</p>
+                    <p className="card-text">{event.description}</p>
                   </div>
                 </div>
               </Link>
