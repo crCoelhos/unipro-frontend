@@ -1,0 +1,49 @@
+.hand-sidebar {
+  width: 80px;
+  height: 100vh;
+  background-color: #333;
+  color: #fff;
+  transition: width 0.3s ease;
+}
+
+.hand-sidebar.open {
+  width: 200px;
+}
+
+.sidebar-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  cursor: pointer;
+}
+
+.sidebar-nav {
+  padding: 20px;
+}
+
+.sidebar-nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav ul li {
+  margin-bottom: 10px;
+}
+
+.sidebar-nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-nav ul li a:hover {
+  color: #ccc;
+}
+
+li:hover {
+  background-color: #737373;
+  width: 110%;
+
+  transition: ease-in-out ;
+}

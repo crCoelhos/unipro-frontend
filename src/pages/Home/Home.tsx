@@ -3,6 +3,7 @@ import styles from "./Home.module.css";
 import Menu from "../../components/Menu/Menu";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import AltSideBar from "../../components/AltSideBar/AltSideBar";
+import HandSidebar from "../../components/HandSidebar/HandSidebar";
 
 const Home: React.FC = () => {
   return (

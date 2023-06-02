@@ -1,0 +1,49 @@
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { MDBIcon } from 'mdb-react-ui-kit';
+import styles from './HandSidebar.module.css';
+
+const HandSidebar = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  // const HandSidebar = () => {
+  return (
+    <div className={`${styles['hand-sidebar']} ${sidebarOpen ? styles.open : ''}`}>
+      <div className={styles['sidebar-toggle']} onClick={toggleSidebar}>
+        <MDBIcon icon={sidebarOpen ? 'chevron-left' : 'chevron-right'} />
+      </div>
+      {sidebarOpen && (
+        <nav className={styles['sidebar-nav']}>
+          <ul>
+            <li>
+              <NavLink to="/admin-area" className={styles.active}>
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin-area/about" className={styles.active}>
+                About
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin-area/services" className={styles.active}>
+                Services
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/admin-area/users" className={styles.active}>
+                Usuarios
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      )}
+    </div>
+  );
+};
+
+export default HandSidebar;

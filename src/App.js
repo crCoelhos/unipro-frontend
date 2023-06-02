@@ -17,7 +17,9 @@ import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
 import SportEventPage from './pages/sportEventPage/sportEventPage'
 import SignupPage from './components/SignupPage/SignupPage';
 import EventCatalogueFix from './components/eventCatalogueFix/eventCatalogueFix';
-
+import AdminSection from './pages/AdminSection/AdminSection';
+import AdminUserPage from './pages/AdminUserPage/AdminUserPage';
+import HandSidebar from './components/HandSidebar/HandSidebar';
 
 function App() {
   return (
@@ -39,6 +41,18 @@ function App() {
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
 
           <Route path="/signup" element={<SignupPage />} />
+
+
+          {/* 
+          <Routes> */}
+          <Route exact path="/admin-area" element={<AdminSection />} />
+          <Route path="/admin-area/sport-events" element={<SportEventPage />} />
+          <Route path="/admin-area/users" element={<AdminUserPage />} />
+          {/* <Route path="/admin-area/contact" element={<Contact />} /> */}
+          {/* </Routes> */}
+
+          {/* <Route path="/admin-area" element={<AdminSection />} /> */}
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>
