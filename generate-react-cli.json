@@ -11,6 +11,16 @@
       "withTest": false,
       "withStory": false,
       "withLazy": false
+    },
+    "page": {
+      "customTemplates": {
+        "test": "templates/page/TemplateName.test.js"
+      },
+      "path": "src/pages",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false
     }
   }
 }
