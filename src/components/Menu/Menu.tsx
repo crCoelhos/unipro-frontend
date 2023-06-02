@@ -175,7 +175,7 @@ const Menu = () => {
                   {user.role === "ADMIN" && (
                     <NavDropdown.Item>
                       <Link
-                        to="/cultural-events"
+                        to="/admin-area"
                         className={styles.navBarMenuLinks}
                       >
                         <span className={styles.adminSection}>

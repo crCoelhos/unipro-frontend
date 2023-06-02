@@ -19,22 +19,22 @@ const HandSidebar = () => {
       {sidebarOpen && (
         <nav className={styles['sidebar-nav']}>
           <ul>
-            <li>
+            <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area" className={styles.active}>
                 Home
               </NavLink>
             </li>
-            <li>
+            <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/about" className={styles.active}>
                 About
               </NavLink>
             </li>
-            <li>
-              <NavLink to="/admin-area/services" className={styles.active}>
-                Services
+            <li className={styles.SidebarListOptions}>
+              <NavLink to="/admin-area/events" className={styles.active}>
+                Eventos
               </NavLink>
             </li>
-            <li>
+            <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/users" className={styles.active}>
                 Usuarios
               </NavLink>

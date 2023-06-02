@@ -2,14 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './AdminUserPage.module.css';
 import UserList from '../../components/UserList/UserList'
+import HandSidebar from '../../components/HandSidebar/HandSidebar';
+import { Row, Col } from 'react-bootstrap'
+import Menu from '../../components/Menu/Menu';
 const AdminUserPage = () => (
   <div className={styles.AdminUserPage}>
-    <UserList/>
+    <Row>
+      <Col lg={3}>
+        <HandSidebar />
+      </Col>
+      <Col lg={9}>
+        <UserList />
+      </Col>
+    </Row>
   </div>
 );
 
-AdminUserPage.propTypes = {};
-
-AdminUserPage.defaultProps = {};
-
 export default AdminUserPage;
+
+
+
+// todo:
+// responsividade
+// colapse on shrink
+// 

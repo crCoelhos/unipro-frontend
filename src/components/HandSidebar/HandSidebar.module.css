@@ -41,9 +41,16 @@
   color: #ccc;
 }
 
-li:hover {
+.SidebarListOptions{
+  font-size: 22px;
+}
+.SidebarListOptions:hover {
   background-color: #737373;
-  width: 110%;
+  width: 100%;
+  transition: ease-in-out;
+}
 
-  transition: ease-in-out ;
+li {
+  list-style-type: none;
+  margin: 12px;
 }

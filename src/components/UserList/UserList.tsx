@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import styles from "./UserList.module.css";
+import { Button, Table } from "react-bootstrap";
 
 interface User {
   id: number;
@@ -67,16 +68,43 @@ const UserList = () => {
 
   return (
     <div className={styles.UserList}>
-      <h1>UserList Component</h1>
-      <ul>
+      <h1>Usuários registrados</h1>
+      <hr />
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Role</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
         {users.map((user) => (
-          <li key={user.id}>
-            {user.name}
-            <button onClick={() => handleEdit(user.id)}>Editar</button>
-            <button onClick={() => handleDelete(user.id)}>Excluir</button>
-          </li>
+          <tbody>
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.role.name}</td>
+              <td>
+                <Button
+                  variant="warning"
+                  className={styles.ActionButton}
+                  onClick={() => handleEdit(user.id)}
+                >
+                  Editar
+                </Button>
+                <Button
+                  variant="danger"
+                  className={styles.ActionButton}
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Excluir
+                </Button>
+              </td>
+            </tr>
+          </tbody>
         ))}
-      </ul>
+      </Table>
     </div>
   );
 };
