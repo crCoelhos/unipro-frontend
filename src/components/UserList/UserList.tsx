@@ -4,6 +4,8 @@ import axios from "axios";
 import styles from "./UserList.module.css";
 import { Button, Table } from "react-bootstrap";
 
+const url = "http://localhost:3003/";
+
 interface User {
   id: number;
   name: string;
@@ -27,21 +29,19 @@ const UserList = () => {
     const dataFromStorage = sessionStorage.getItem("user");
     let token = "";
 
-    if (dataFromStorage) {
-      const parsedData = JSON.parse(dataFromStorage);
-      token = parsedData.token;
-    }
-
     const fetchData = async () => {
       try {
-        const response = await axios.get<User[]>(
-          "http://localhost:3003/admin/user/",
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        if (dataFromStorage) {
+          const parsedData = JSON.parse(dataFromStorage);
+          token = parsedData.token;
+          console.log("token? ", token);
+        }
+
+        const response = await axios.get<User[]>(`${url}admin/user/`, {
+          headers: { Authorization: token },
+        });
+        console.log("body: ", response.headers);
+
         setUsers(response.data);
       } catch (error) {
         console.error(error);
@@ -52,12 +52,24 @@ const UserList = () => {
   }, []);
 
   const handleDelete = async (id: number) => {
+    const dataFromStorage = sessionStorage.getItem("user");
+    let token = "";
+
     try {
-      await axios.delete(`http://localhost:3003/user/${id}`);
+      if (dataFromStorage) {
+        const parsedData = JSON.parse(dataFromStorage);
+        token = parsedData.token;
+        console.log("token? ", token);
+      }
+
+      await axios.delete(`${url}admin/user/${id}`, {
+        headers: { Authorization: token },
+      });
       setUsers(users.filter((user) => user.id !== id));
       console.log("User deletado");
     } catch (error) {
       console.error(error);
+      console.log("resta: ", `${url}admin/user/${id}`);
     }
   };
 
@@ -80,8 +92,8 @@ const UserList = () => {
           </tr>
         </thead>
         {users.map((user) => (
-          <tbody>
-            <tr key={user.id}>
+          <tbody key={user.id}>
+            <tr>
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>{user.role.name}</td>

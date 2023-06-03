@@ -20,7 +20,7 @@ const HandSidebar = () => {
         <nav className={styles['sidebar-nav']}>
           <ul>
             <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area" className={styles.active}>
+              <NavLink to="/" className={styles.active}>
                 Home
               </NavLink>
             </li>
