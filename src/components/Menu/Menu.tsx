@@ -179,7 +179,7 @@ const Menu = () => {
                         className={styles.navBarMenuLinks}
                       >
                         <span className={styles.adminSection}>
-                          Area de administradores
+                          Dashboard
                         </span>
                       </Link>
                     </NavDropdown.Item>

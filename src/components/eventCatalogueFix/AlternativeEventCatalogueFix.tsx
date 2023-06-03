@@ -41,25 +41,26 @@ const EventCatalogueFix = () => {
     fetchEvents();
   }, []);
 
-  return (
-    <div className={styles.eventCatalogueFix}>
-      <div className="row">
-        {events.map((event, index) => {
-          const colorClass = colorClasses[index];
+  const renderRows = (events: Event[]) => {
+    const rows: JSX.Element[] = [];
+    let currentRow: Event[] = [];
+
+    events.forEach((event, index) => {
+      currentRow.push(event);
+
+      if (currentRow.length === 4 || index === events.length - 1) {
+        const cells = currentRow.map((rowEvent) => {
+          const colorClass = colorClasses[rowEvent.id - 1];
           const randomIndex = Math.floor(Math.random() * colors.length);
           return (
-            <div
-              className="col-lg-3 col-md-5"
-              id="eventCard"
-              style={{ margin: "12px" }}
-              key={event.id}
-            >
-              <Link to={`/sport-events/${event.id}`}>
+            <td key={rowEvent.id}>
+              <Link to={`/sport-events/${rowEvent.id}`}>
                 <div
                   className={`card cardColoring ${colorClass}`}
                   style={{
                     backgroundColor: colors[randomIndex],
-                    height: "300px",
+                    width: "300px", 
+                    height: "350px", 
                   }}
                 >
                   <div
@@ -70,21 +71,38 @@ const EventCatalogueFix = () => {
                       <div className="mask"></div>
                     </a>
                   </div>
-
                   <div
                     className="card-body"
                     style={{ color: "white", marginTop: "12px" }}
                   >
-                    <h5 className="card-title">{event.name}</h5>
-                    <hr style={{ height: "8px", backgroundColor: "white" }} />
-                    <p className="card-text">{event.description}</p>
+                    <h5 className="card-title">{rowEvent.name}</h5>
+                    <hr
+                      style={{
+                        height: "8px",
+                        backgroundColor: "white",
+                      }}
+                    />
+                    <p className="card-text">{rowEvent.description}</p>
                   </div>
                 </div>
               </Link>
-            </div>
+            </td>
           );
-        })}
-      </div>
+        });
+
+        rows.push(<tr key={rows.length}>{cells}</tr>);
+        currentRow = [];
+      }
+    });
+
+    return rows;
+  };
+
+  return (
+    <div className={styles.eventCatalogueFix}>
+      <table>
+        <tbody>{renderRows(events)}</tbody>
+      </table>
     </div>
   );
 };
