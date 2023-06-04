@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import {
   MDBContainer,
   MDBRow,
@@ -10,6 +10,7 @@ import {
   MDBCardBody,
   MDBCardImage,
 } from "mdb-react-ui-kit";
+import useLoginController from "../../controllers/LoginController";
 
 const mockEventData: EventDetailsData = {
   batch: {
@@ -65,6 +66,10 @@ const SportEventDetails = () => {
     null
   );
 
+  const { getSessionUser } = useLoginController();
+  const user = getSessionUser();
+  console.log(user);
+
   useEffect(() => {
     const dataFromStorage = sessionStorage.getItem("user");
     let token = "";
@@ -98,6 +103,32 @@ const SportEventDetails = () => {
     fetchEvents();
   }, [eventId]);
 
+  const handleDelete = async () => {
+    const dataFromStorage = sessionStorage.getItem("user");
+    let token = "";
+
+    let confirmation = window.confirm("Deletar evento?");
+
+    if (confirmation === true) {
+      try {
+        if (dataFromStorage) {
+          const parsedData = JSON.parse(dataFromStorage);
+          token = parsedData.token;
+          console.log("token? ", token);
+        }
+
+        await axios.delete(`${url}admin/event:${eventId}`, {
+          headers: { Authorization: token },
+        });
+        console.log("Evento deletado");
+        // Navigate("/"); // Redirecionar para a página inicial ou outra página desejada após a exclusão do evento
+      } catch (error) {
+        console.error(error);
+        console.log("resta: ", `${url}admin/event:${eventId}`);
+      }
+    }
+  };
+
   return (
     <MDBContainer>
       <h2>Detalhes do evento</h2>
@@ -122,9 +153,14 @@ const SportEventDetails = () => {
       )}
       <div className="purchase">
         <div>
-          <button>Comprar</button>
+          <Button>Comprar</Button>
         </div>
       </div>
+      {user.role === "ADMIN" && (
+        <div>
+          <Button onClick={handleDelete} variant="danger">Excluir</Button>
+        </div>
+      )}
     </MDBContainer>
   );
 };
