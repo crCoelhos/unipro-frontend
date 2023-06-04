@@ -55,21 +55,25 @@ const UserList = () => {
     const dataFromStorage = sessionStorage.getItem("user");
     let token = "";
 
-    try {
-      if (dataFromStorage) {
-        const parsedData = JSON.parse(dataFromStorage);
-        token = parsedData.token;
-        console.log("token? ", token);
-      }
+    let confirmation = window.confirm("Deletar usuario?");
 
-      await axios.delete(`${url}admin/user/${id}`, {
-        headers: { Authorization: token },
-      });
-      setUsers(users.filter((user) => user.id !== id));
-      console.log("User deletado");
-    } catch (error) {
-      console.error(error);
-      console.log("resta: ", `${url}admin/user/${id}`);
+    if (confirmation === true) {
+      try {
+        if (dataFromStorage) {
+          const parsedData = JSON.parse(dataFromStorage);
+          token = parsedData.token;
+          console.log("token? ", token);
+        }
+
+        await axios.delete(`${url}admin/user/${id}`, {
+          headers: { Authorization: token },
+        });
+        setUsers(users.filter((user) => user.id !== id));
+        console.log("User deletado");
+      } catch (error) {
+        console.error(error);
+        console.log("resta: ", `${url}admin/user/${id}`);
+      }
     }
   };
 

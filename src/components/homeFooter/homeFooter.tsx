@@ -111,7 +111,7 @@ const HomeFooter: FC<HomeFooterProps> = () => {
                       style={{ margin: "12px", width: "248px" }}
                     >
                       <Link to={event.url} title={event.name}>
-                        <div className="card">
+                        <div className="card" id="teste">
                           <div
                             className="bg-image hover-overlay ripple"
                             data-mdb-ripple-color="light"
