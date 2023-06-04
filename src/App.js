@@ -46,6 +46,7 @@ function App() {
 
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
+          <Route path="/admin-area/events:eventId" element={<AdminEventPage />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 
         </Routes>

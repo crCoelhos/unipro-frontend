@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './AdminEventPage.module.css';
-import EventCatalogueFix from '../../components/eventCatalogueFix/eventCatalogueFix';
+import AdminEventCatalogue from '../../components/AdminEventCatalogue/AdminEventCatalogue';
 import HandSidebar from '../../components/HandSidebar/HandSidebar';
-import {Row, Col} from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 
 const AdminEventPage = () => (
   <div className={styles.AdminEventPage}>
@@ -12,7 +12,7 @@ const AdminEventPage = () => (
         <HandSidebar />
       </Col>
       <Col lg={9}>
-        <EventCatalogueFix />
+        <AdminEventCatalogue />
       </Col>
     </Row>
   </div>
