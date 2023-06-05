@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
-import styles from './culturalEventPage.module.scss';
-import EventCard from '../../components/eventCard/eventCard';
-import { Container, Row, Col } from 'react-bootstrap';
-import UpperNavbar from '../../components/Menu/Menu';
-import HomeFooter from '../../components/homeFooter/homeFooter';
-import EventCatalogueFix from '../../components/eventCatalogueFix/eventCatalogueFix';
+import React, { FC } from "react";
+import styles from "./culturalEventPage.module.scss";
+import EventCard from "../../components/eventCard/eventCard";
+import { Container, Row, Col } from "react-bootstrap";
+import UpperNavbar from "../../components/Menu/Menu";
+import HomeFooter from "../../components/homeFooter/homeFooter";
+import EventCatalogueFix from "../../components/eventCatalogueFix/eventCatalogueFix";
+import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 
-interface CulturalEventPageProps { }
+interface CulturalEventPageProps {}
 
 const CulturalEventPage: FC<CulturalEventPageProps> = () => (
   <div className={styles.CulturalEventPage}>
@@ -15,7 +16,7 @@ const CulturalEventPage: FC<CulturalEventPageProps> = () => (
     <hr />
 
     <EventCatalogueFix />
-    <HomeFooter />
+    <HomeComposedFooter />
   </div>
 );
 

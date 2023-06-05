@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Row, Col, Card, Button } from "react-bootstrap";
+import { useParams, Navigate } from "react-router-dom";
 import axios from "axios";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-} from "mdb-react-ui-kit";
 import useLoginController from "../../controllers/LoginController";
+import Menu from "../../components/Menu/Menu";
+import styles from "./EventDetails.module.css";
+import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 
-const mockEventData: EventDetailsData = {
+const mockEventData = {
   batch: {
     id: 1,
     name: "Batch 1",
@@ -35,36 +30,11 @@ const mockEventData: EventDetailsData = {
   ticketsOpen: 75,
 };
 
-interface EventDetailsData {
-  batch: {
-    id: number;
-    name: string;
-    startDate: string;
-    finishDate: string;
-    createdAt: string;
-    updatedAt: string;
-    event: {
-      id: number;
-      name: string;
-      state: boolean;
-      date: string;
-      location: string;
-      description: string;
-      createdAt: string;
-      updatedAt: string;
-    };
-  };
-  ticketsTotal: number;
-  ticketsOpen: number;
-}
-
 const url = "http://localhost:3003/";
 
 const SportEventDetails = () => {
   const { eventId } = useParams();
-  const [eventDetails, setEventDetails] = useState<EventDetailsData | null>(
-    null
-  );
+  const [eventDetails, setEventDetails] = useState(null);
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
@@ -86,8 +56,6 @@ const SportEventDetails = () => {
             Authorization: token,
           },
         };
-
-        // console.log(token)
 
         const response = await axios.get(
           `${url}admin/batch/${eventId}`,
@@ -130,38 +98,56 @@ const SportEventDetails = () => {
   };
 
   return (
-    <MDBContainer>
-      <h2>Detalhes do evento</h2>
-      {mockEventData && (
-        <MDBCard>
-          <MDBCardBody>
-            <h2>Lote: {mockEventData.batch.name}</h2>
-            <h1>Título: {mockEventData.batch.event.name}</h1>
-            <hr />
-            <br />
-            <MDBCardImage
-              src="https://media.geeksforgeeks.org/wp-content/uploads/20220106105832/gfg200X2001.png"
-              position="top"
-            />
-            <hr />
-            <p>Descrição: {mockEventData.batch.event.description}</p>
-            <p>Local do evento: {mockEventData.batch.event.location}</p>
-            <hr />
-            <p>Criado em {mockEventData.batch.event.createdAt}</p>
-          </MDBCardBody>
-        </MDBCard>
-      )}
-      <div className="purchase">
-        <div>
-          <Button>Comprar</Button>
-        </div>
-      </div>
-      {user.role === "ADMIN" && (
-        <div>
-          <Button onClick={handleDelete} variant="danger">Excluir</Button>
-        </div>
-      )}
-    </MDBContainer>
+    <>
+      <Menu />
+      <Row className={styles.EventDetailsContainer}>
+        <Col xl={6} md={12} sm={12}>
+          {mockEventData && (
+            <Card>
+              <Card.Body>
+                <h2>Lote: {mockEventData.batch.name}</h2>
+                <h1>Título: {mockEventData.batch.event.name}</h1>
+                <hr />
+                <br />
+                <Card.Img src="https://media.geeksforgeeks.org/wp-content/uploads/20220106105832/gfg200X2001.png" />
+                <hr />
+                <p>Descrição: {mockEventData.batch.event.description}</p>
+                <p>Local do evento: {mockEventData.batch.event.location}</p>
+                <hr />
+                <p>Criado em {mockEventData.batch.event.createdAt}</p>
+              </Card.Body>
+            </Card>
+          )}
+        </Col>
+        <Col xl={6} md={12} sm={12}>
+          <Card>
+            <Card.Body className={styles.LocationCardBox}>
+              <div className="d-grid gap-2">
+                <div className={styles.LocationBox}>placeholder</div>
+              </div>
+            </Card.Body>
+          </Card>
+          <Row className={styles.ButtonOptionsRow}>
+            <Col xl={5} md={12} sm={12}>
+              <div className="d-grid gap-2">
+                <Button size="lg">Comprar</Button>
+              </div>
+            </Col>
+            <Col></Col>
+            <Col xl={5} md={12} sm={12}>
+              {user.role === "ADMIN" && (
+                <div className="d-grid gap-2">
+                  <Button onClick={handleDelete} variant="danger" size="lg">
+                    Deletar
+                  </Button>
+                </div>
+              )}
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <HomeComposedFooter/>
+    </>
   );
 };
 

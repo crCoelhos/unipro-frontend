@@ -1,1 +1,65 @@
-.AltEventDetailsPage {}
+.EventDetailsContainer{
+  width: 99vw;
+  margin: 128px 0px;
+}
+.EventDetailOuterContainer {
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+
+  min-width: 800px;
+}
+.PageTitle {
+  margin: 64px 0px 0px 0px;
+}
+.EventDetailContainer {
+  width: 752px;
+}
+
+.LocationAndButtonsContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  align-content: center;
+  height: 512px;
+}
+.GeneralButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  margin: 12px;
+}
+
+.EventLocationAndButtonsInnerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.PurchaseButton {
+  margin: 0px 12px;
+}
+.ExcludeEventButton {
+  margin: 0px 12px;
+}
+
+.LocationBox {
+  width: 512px;
+  height: 312px;
+  margin-top: 118px;
+
+  outline: dashed red 3px;
+}
+
+.LocationCardBox{
+/* padding: 28px; */
+}
+.ButtonOptionsRow{
+  margin: 24px;
+}
+
+.EventImageBox {
+  width: 312px;
+
+  outline: dashed green 3px;
+}
