@@ -1,31 +1,39 @@
-import axios from "axios";
+import axios from 'axios';
 
-interface EventData {
-  name: string;
-  state: number;
-  date: string;
-  location: string;
-  description: string;
-}
+class EventController {
+  static createEvent = async (eventData: {
+    name: string;
+    state: number;
+    date: string;
+    location: string;
+    description: string;
+  }) => {
+    const dataFromStorage = sessionStorage.getItem('user');
+    let token = '';
 
-const EventController = {
-  createEvent: async (eventData: EventData) => {
+    if (dataFromStorage) {
+      const parsedData = JSON.parse(dataFromStorage);
+      token = parsedData.token;
+    }
+
+    const config = {
+      headers: {
+        Authorization: token,
+      },
+    };
+
     try {
       const response = await axios.post(
-        "http://localhost:3003/admin/event",
+        'http://localhost:3003/admin/event',
         eventData,
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
+        config
       );
 
       console.log(response.data);
     } catch (error) {
-      throw error;
+      console.error(error);
     }
-  }
-};
+  };
+}
 
 export default EventController;
