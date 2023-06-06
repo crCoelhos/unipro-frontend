@@ -14,11 +14,15 @@
   margin: 132px 0 0 0;
   padding: 0;
 }
+.HomeFooterContainer{
+  display: flex;
+  flex-direction: row;
+}
 
 .lowerFooter {
   width: 80%;
   margin: 12px;
-  background-color: #dedede8e;
+  background-color: #8F00BF;
   text-align: center;
 
   border-radius: 8px;
@@ -41,17 +45,17 @@
 h4 {
   text-align: center;
   font-size: 18px;
-  color: #111;
+  color: #f1f1f1;
 }
 
 h4 > span,
 h4.sponsorAreaText {
   font-weight: bold;
-  color: #535353;
+  color: #fcfcfc;
 }
 h4 > span:hover,
 h4.sponsorAreaText:hover {
-  color: #111;
+  color: #d5d5d5;
 }
 
 .sponsorLabelText {
@@ -60,17 +64,12 @@ h4.sponsorAreaText:hover {
   text-transform: initial;
   font-weight: bolder;
   font-size: 22px;
-  color: black;
+  color: #fcfcfc;
 }
 
-.sponsorLabelText:hover {
-  text-decoration: none;
 
-  color: black;
-  text-transform: initial;
-  font-weight: bolder;
-  font-size: 22px;
-  border-bottom: #7f858e solid 12px;
 
-  transition-duration: 100ms;
+.StickerImage
+{
+  height: 312px;
 }

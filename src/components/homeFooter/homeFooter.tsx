@@ -9,6 +9,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 
+import sticker from "../../assets2/img/JOGOSUNI_2023.png";
+
 interface HomeFooterProps {}
 
 export interface Sponsors {
@@ -90,8 +92,8 @@ const HomeFooter: FC<HomeFooterProps> = () => {
 
   return (
     <div className={styles.HomeFooter}>
-      <div className="sponsorsArea">
-        <Container>
+      <div className={styles.HomeFooterContainer}>
+        <div>
           <div className="wideLarge">
             {shouldRenderLink ? (
               <Row className={cx(styles.sponsorRow)}>
@@ -139,7 +141,8 @@ const HomeFooter: FC<HomeFooterProps> = () => {
               </>
             )}
           </div>
-        </Container>
+        </div>
+        <img src={sticker} alt="" className={styles.StickerImage} />
       </div>
     </div>
   );
