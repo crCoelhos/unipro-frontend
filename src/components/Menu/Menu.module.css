@@ -1,7 +1,7 @@
-.navBarMain{
+.navBarMain {
   background-color: #8652fc !important;
 }
-.navBarLogoLinks{
+.navBarLogoLinks {
   color: #f0efef;
 
   text-decoration: none;
@@ -10,52 +10,50 @@
   font-size: 22px;
 }
 
-.NavbarJogosUniLogo{
+.NavbarJogosUniLogo {
   width: 64px;
-
 }
-.navBarLogoLinks:hover{
+.navBarLogoLinks:hover {
   color: #fff;
-  
+  border-bottom: 3xp solid #fff;
+
   text-decoration: none;
 }
 
-.navBarMenuLinks{
+.navBarMenuLinks {
   color: #fcfcfc;
-  
+
   border-bottom: 3xp solid #fff;
   text-decoration: none;
-
-  
 }
 
-.navBarMenuLinks:hover{
+.navBarMenuLinks:hover {
   color: #fff;
-
+  border-bottom: 7px solid #fff;
   text-decoration: none;
+
+  transition: ease-in-out 0.1s;
 }
 
-
-.userSpanName{
+.userSpanName {
   margin-right: 24px;
 }
-.userSpanRole img{
+.userSpanRole img {
   width: 24px;
-
 }
 
-.userSpanRole:hover{
+.userSpanRole:hover {
   width: 24px;
 
   border-bottom: white solid 5px;
   transition: ease-in-out 0.3s;
 }
 
-.adminSection{
+.adminSection {
   color: #111;
   font-weight: 18px;
 }
 
-.scrollingLinkClassName{
+.scrollingLinkClassName {
   color: white;
 }

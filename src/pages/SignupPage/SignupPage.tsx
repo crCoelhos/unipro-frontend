@@ -1,9 +1,11 @@
-import React from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import useSignupController from '../../controllers/useSignupController';
-import styles from './SignupPage.module.css';
+import React, { useState } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+import useSignupController from "../../controllers/useSignupController";
+import styles from "./SignupPage.module.css";
 
 const SignupPage = () => {
+  const [cpfError, setCpfError] = useState(false);
+
   const {
     name,
     email,
@@ -23,8 +25,61 @@ const SignupPage = () => {
     handleSubmit,
   } = useSignupController();
 
+  const validateCPF = () => {
+    // Função para validar o CPF
+    const isValid = validateCPFNumber(cpf);
+    setCpfError(!isValid);
+  };
+
+  const validateCPFNumber = (cpfNumber: string) => {
+    // Função para validar o número do CPF
+    const cpfDigits = cpfNumber.replace(/[^\d]+/g, "");
+
+    if (cpfDigits.length !== 11 || /^(\d)\1+$/.test(cpfDigits)) {
+      return false;
+    }
+
+    let sum = 0;
+    let remainder;
+
+    for (let i = 1; i <= 9; i++) {
+      sum = sum + parseInt(cpfDigits.substring(i - 1, i)) * (11 - i);
+    }
+
+    remainder = (sum * 10) % 11;
+
+    if (remainder === 10 || remainder === 11) {
+      remainder = 0;
+    }
+
+    if (remainder !== parseInt(cpfDigits.substring(9, 10))) {
+      return false;
+    }
+
+    sum = 0;
+
+    for (let i = 1; i <= 10; i++) {
+      sum = sum + parseInt(cpfDigits.substring(i - 1, i)) * (12 - i);
+    }
+
+    remainder = (sum * 10) % 11;
+
+    if (remainder === 10 || remainder === 11) {
+      remainder = 0;
+    }
+
+    if (remainder !== parseInt(cpfDigits.substring(10, 11))) {
+      return false;
+    }
+
+    return true;
+  };
+
   return (
-    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ height: "100vh" }}
+    >
       <div>
         <h2>UNIPRODUÇÕES</h2>
         <Form onSubmit={handleSubmit} className={styles.signupForm}>
@@ -34,7 +89,7 @@ const SignupPage = () => {
               type="text"
               placeholder="Ex: Rogerio Jorge"
               value={name}
-              onChange={(e) => setName(e.target.value)} 
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </Form.Group>
@@ -45,7 +100,7 @@ const SignupPage = () => {
               type="email"
               placeholder="ex: rogerio@email.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} 
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </Form.Group>
@@ -56,7 +111,7 @@ const SignupPage = () => {
               type="password"
               placeholder="Insira sua senha"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} 
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </Form.Group>
@@ -67,7 +122,7 @@ const SignupPage = () => {
               type="text"
               placeholder="ex: 6899999999"
               value={contact}
-              onChange={(e) => setContact(e.target.value)} 
+              onChange={(e) => setContact(e.target.value)}
               required
             />
           </Form.Group>
@@ -78,9 +133,14 @@ const SignupPage = () => {
               type="text"
               placeholder="ex: 12345678911"
               value={cpf}
-              onChange={(e) => setCpf(e.target.value)} 
+              onChange={(e) => {
+                setCpf(e.target.value);
+                setCpfError(false); // Limpar o erro ao digitar
+              }}
+              onBlur={validateCPF} // Validar o CPF ao perder o foco
               required
             />
+            {cpfError && <Alert variant="danger">CPF inválido!</Alert>}
           </Form.Group>
 
           <Form.Group controlId="formBirthdate">
@@ -89,7 +149,7 @@ const SignupPage = () => {
               type="date"
               placeholder="ex:1999-01-01"
               value={birthdate}
-              onChange={(e) => setBirthdate(e.target.value)} 
+              onChange={(e) => setBirthdate(e.target.value)}
               required
             />
           </Form.Group>
@@ -108,16 +168,28 @@ const SignupPage = () => {
             </Form.Control>
           </Form.Group>
 
-          <Button variant="primary" type="submit" className={styles.SubmitButton}>
+          <Button
+            variant="primary"
+            type="submit"
+            className={styles.SubmitButton}
+          >
             Registrar
           </Button>
 
-          <Button variant="outline-warning" type="submit" className={styles.SubmitButton}>
+          <Button
+            variant="outline-warning"
+            href="/login"
+            className={styles.SubmitButton}
+          >
             Voltar
           </Button>
         </Form>
 
-        {signupError && <Alert variant="danger">O registro falhou. Por favor, tente novamente.</Alert>}
+        {signupError && (
+          <Alert variant="danger">
+            O registro falhou. Por favor, tente novamente.
+          </Alert>
+        )}
       </div>
     </div>
   );
