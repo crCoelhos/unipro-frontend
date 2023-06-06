@@ -85,7 +85,7 @@ const SportEventDetails = () => {
           console.log("token? ", token);
         }
 
-        await axios.delete(`${url}admin/event:${eventId}`, {
+        await axios.delete(`${url}admin/event/${eventId}`, {
           headers: { Authorization: token },
         });
         console.log("Evento deletado");

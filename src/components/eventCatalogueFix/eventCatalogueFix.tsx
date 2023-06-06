@@ -41,10 +41,12 @@ const EventCatalogueFix = () => {
     fetchEvents();
   }, []);
 
+  const filteredEvents = events.filter(event => event.state);
+
   return (
     <div className={styles.eventCatalogueFix}>
       <div className="row">
-        {events.map((event, index) => {
+        {filteredEvents.map((event, index) => {
           const colorClass = colorClasses[index];
           const randomIndex = Math.floor(Math.random() * colors.length);
           return (
