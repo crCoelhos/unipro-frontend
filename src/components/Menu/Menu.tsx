@@ -4,7 +4,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import styles from "./Menu.module.css";
 import useLoginController from "../../controllers/LoginController";
 import useProfileController from "../../controllers/profileController";
-
+import uniLogoBranco from "../../assets2/icons/uni2023.png";
 import settingsIcon from "../../assets2/icons/settings-mono-white.png";
 
 const Menu = () => {
@@ -61,12 +61,15 @@ const Menu = () => {
 
   if (!user) {
     return (
-      <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+      <Navbar expand="lg" fixed="top" className={styles.navBarMain}>
         <Container>
           <Navbar.Brand>
             <Link to="/home" className={styles.navBarLogoLinks}>
-              {/* <Link to="/home" className={scrollingLinkClassName} > */}
-              UNIPRODUÇÕES
+              <img
+                src={uniLogoBranco}
+                alt="logo dos jogos uni 2023"
+                className={styles.NavbarJogosUniLogo}
+              />
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav">
@@ -78,7 +81,9 @@ const Menu = () => {
                 Home
               </Nav.Link>
               {/* <Nav.Link href="/about-us">Contate</Nav.Link> */}
-              <Nav.Link href="/sport-events">Eventos</Nav.Link>
+              <Nav.Link href="/sport-events" className={styles.navBarLogoLinks}>
+                Eventos
+              </Nav.Link>
               {/* <NavDropdown title="Eventos" id="basic-nav-dropdown">
                 <NavDropdown.Item>
                   <Link to="/sport-events" className={styles.navBarMenuLinks}>
@@ -112,7 +117,11 @@ const Menu = () => {
                 </Nav>
               ) : (
                 <Nav.Link>
-                  <Link to="/login" className={scrollingLinkClassName}>
+                  <Link
+                    to="/login"
+                    className={scrollingLinkClassName}
+                    style={{ fontSize: "23px", fontWeight: "bolder" }}
+                  >
                     Entrar
                   </Link>
                 </Nav.Link>
@@ -125,12 +134,15 @@ const Menu = () => {
   }
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
+    <Navbar expand="lg" fixed="top" className={styles.navBarMain}>
       <Container>
         <Navbar.Brand>
           <Link to="/home" className={styles.navBarLogoLinks}>
-            {/* <Link to="/home" className={scrollingLinkClassName} > */}
-            UNIPRODUÇÕES
+            <img
+              src={uniLogoBranco}
+              alt="logo dos jogos uni 2023"
+              className={styles.NavbarJogosUniLogo}
+            />
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav">
@@ -142,8 +154,10 @@ const Menu = () => {
               Home
             </Nav.Link>
             {/* <Nav.Link href="/about-us">Contate</Nav.Link> */}
-            <Nav.Link href="/sport-events">Eventos</Nav.Link>
-              {/* <NavDropdown title="Eventos" id="basic-nav-dropdown">
+            <Nav.Link href="/sport-events" className={styles.navBarLogoLinks}>
+              Eventos
+            </Nav.Link>
+            {/* <NavDropdown title="Eventos" id="basic-nav-dropdown">
                 <NavDropdown.Item>
                   <Link to="/sport-events" className={styles.navBarMenuLinks}>
                     Eventos esportivos
@@ -170,20 +184,29 @@ const Menu = () => {
           <Navbar.Text>
             {user ? (
               <Nav className="me-auto">
-                <NavDropdown title={user.name} id="basic-nav-dropdown">
+                <NavDropdown
+                  title={user.name}
+                  id="basic-nav-dropdown"
+                  style={{ fontSize: "23px", fontWeight: "bolder" }}
+                >
                   <NavDropdown.Item>
                     <Link to="/sport-events" className={styles.navBarMenuLinks}>
-                      <span className={styles.adminSection}>Perfil</span>
+                      <span
+                        className={styles.adminSection}
+                        style={{ fontSize: "18px" }}
+                      >
+                        Perfil
+                      </span>
                     </Link>
                   </NavDropdown.Item>
 
                   {user.role === "ADMIN" && (
                     <NavDropdown.Item>
-                      <Link
-                        to="/admin-area"
-                        className={styles.navBarMenuLinks}
-                      >
-                        <span className={styles.adminSection}>
+                      <Link to="/admin-area" className={styles.navBarMenuLinks}>
+                        <span
+                          className={styles.adminSection}
+                          style={{ fontSize: "18px" }}
+                        >
                           Dashboard
                         </span>
                       </Link>
@@ -197,7 +220,12 @@ const Menu = () => {
                       className={styles.navBarMenuLinks}
                       onClick={handleLogout}
                     >
-                      <span className={styles.adminSection}>Logout</span>
+                      <span
+                        className={styles.adminSection}
+                        style={{ fontSize: "18px" }}
+                      >
+                        Logout
+                      </span>
                     </Link>
                   </NavDropdown.Item>
                 </NavDropdown>

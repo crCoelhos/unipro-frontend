@@ -1,18 +1,29 @@
+.navBarMain{
+  background-color: #A4A0FF !important;
+}
 .navBarLogoLinks{
-  color: #dddddd;
+  color: #f0efef;
 
   text-decoration: none;
+
+  font-weight: bolder;
+  font-size: 22px;
+}
+
+.NavbarJogosUniLogo{
+  width: 64px;
+
 }
 .navBarLogoLinks:hover{
-  border-bottom: 3xp solid #fff;
   color: #fff;
-
+  
   text-decoration: none;
 }
 
 .navBarMenuLinks{
   color: #2d2d2d;
-
+  
+  border-bottom: 3xp solid #fff;
   text-decoration: none;
 }
 
@@ -40,6 +51,7 @@
 
 .adminSection{
   color: #111;
+  font-weight: 18px;
 }
 /* .UpperNavbar {
   margin: 0 0 144px 0;

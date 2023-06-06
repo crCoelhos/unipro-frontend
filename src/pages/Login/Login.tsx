@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Carousel, Form } from 'react-bootstrap';
 import { Link, Navigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import useLoginController from '../../controllers/LoginController';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import LoginCarousel from '../../components/LoginCarousel/LoginCarousel';
 
 const LoginPage: React.FC = () => {
   const {
@@ -28,7 +29,7 @@ const LoginPage: React.FC = () => {
             <Card className="shadow">
               <Card.Body>
                 <div className="mb-3 mt-md-4">
-                  <h2 className="fw-bold mb-2 text-uppercase">UNIPRODUÇÕES</h2>
+                  {/* <h2 className="fw-bold mb-2 text-uppercase">UNIPRODUÇÕES</h2> */}
                   <div className="mb-3">
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3">
@@ -81,6 +82,11 @@ const LoginPage: React.FC = () => {
                 </div>
               </Card.Body>
             </Card>
+          </Col>
+          <Col>
+            <div>
+              <LoginCarousel/>
+            </div>
           </Col>
         </Row>
       </Container>
