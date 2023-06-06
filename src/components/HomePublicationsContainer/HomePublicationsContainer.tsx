@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './HomePublicationsContainer.module.css';
+import HomePublications from '../HomePublications/HomePublications';
 
-const HomePublicationsContainer = () => (
+const HomePublicationsContainer: React.FC = () => (
   <div className={styles.HomePublicationsContainer}>
-    HomePublicationsContainer Component
+
+      <HomePublications/>
+
   </div>
 );
 

@@ -1,1 +1,11 @@
-.HomePublications {}
+.HomePublications {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .PublicationCard {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  

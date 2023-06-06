@@ -22,6 +22,7 @@ import AdminUserPage from './pages/AdminUserPage/AdminUserPage';
 import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
 import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import HandSidebar from './components/HandSidebar/HandSidebar';
+import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 
 
 function App() {
@@ -29,12 +30,16 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/index" element={<LoginPage />} />
+          <Route path="/" element={<HomePage />} />
+
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
+
+          <Route path="/home" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
+
           <Route path="/contact-us" element={<ContactUsPage />} />
 
           <Route path="/sport-events" element={<SportEventPage />} />
@@ -43,7 +48,8 @@ function App() {
           <Route exact path="/" element={<EventCatalogueFix />} />
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
 
-          <Route path="/signup" element={<SignupPage />} />
+
+          <Route path="/publication/:id" element={<PublicationDetailsPage />} />
 
 
           <Route exact path="/admin-area" element={<AdminSection />} />
