@@ -77,7 +77,7 @@ const Menu = () => {
               <Nav.Link href="/home" className={styles.navBarLogoLinks}>
                 Home
               </Nav.Link>
-              <Nav.Link href="/about-us">Contate</Nav.Link>
+              {/* <Nav.Link href="/about-us">Contate</Nav.Link> */}
               <NavDropdown title="Eventos" id="basic-nav-dropdown">
                 <NavDropdown.Item>
                   <Link to="/sport-events" className={styles.navBarMenuLinks}>
@@ -140,7 +140,7 @@ const Menu = () => {
             <Nav.Link href="/home" className={styles.navBarLogoLinks}>
               Home
             </Nav.Link>
-            <Nav.Link href="/about-us">Contate</Nav.Link>
+            {/* <Nav.Link href="/about-us">Contate</Nav.Link> */}
             <NavDropdown title="Eventos" id="basic-nav-dropdown">
               <NavDropdown.Item>
                 <Link to="/sport-events" className={styles.navBarMenuLinks}>
