@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
 
@@ -17,6 +17,8 @@ export interface Event {
 }
 
 const EventCatalogueFix = () => {
+  let navigate = useNavigate();
+
   const [events, setEvents] = useState<Event[]>([]);
   const [colorClasses, setColorClasses] = useState<string[]>([]);
   const colors = ["#04BF7B", "#4630D9", "#0000FF", "#F26241", "#A4A0FF"];
@@ -41,7 +43,7 @@ const EventCatalogueFix = () => {
     fetchEvents();
   }, []);
 
-  const filteredEvents = events.filter(event => event.state);
+  const filteredEvents = events.filter((event) => event.state);
 
   return (
     <div className={styles.eventCatalogueFix}>

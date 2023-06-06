@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useLoginController from "../../controllers/LoginController";
 import Menu from "../../components/Menu/Menu";
@@ -33,6 +33,8 @@ const mockEventData = {
 const url = "http://localhost:3003/";
 
 const SportEventDetails = () => {
+  let navigate = useNavigate();
+
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState(null);
 
@@ -89,7 +91,7 @@ const SportEventDetails = () => {
           headers: { Authorization: token },
         });
         console.log("Evento deletado");
-        // Navigate("/"); // Redirecionar para a página inicial ou outra página desejada após a exclusão do evento
+        navigate("/admin-area/events"); // Redirecionar para a página inicial ou outra página desejada após a exclusão do evento
       } catch (error) {
         console.error(error);
         console.log("resta: ", `${url}admin/event:${eventId}`);
@@ -146,7 +148,7 @@ const SportEventDetails = () => {
           </Row>
         </Col>
       </Row>
-      <HomeComposedFooter/>
+      <HomeComposedFooter />
     </>
   );
 };

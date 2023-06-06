@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { MDBIcon } from 'mdb-react-ui-kit';
-import styles from './HandSidebar.module.css';
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { MDBIcon } from "mdb-react-ui-kit";
+import styles from "./HandSidebar.module.css";
 
 const HandSidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -12,12 +12,14 @@ const HandSidebar = () => {
 
   // const HandSidebar = () => {
   return (
-    <div className={`${styles['hand-sidebar']} ${sidebarOpen ? styles.open : ''}`}>
-      <div className={styles['sidebar-toggle']} onClick={toggleSidebar}>
-        <MDBIcon icon={sidebarOpen ? 'chevron-left' : 'chevron-right'} />
+    <div
+      className={`${styles["hand-sidebar"]} ${sidebarOpen ? styles.open : ""}`}
+    >
+      <div className={styles["sidebar-toggle"]} onClick={toggleSidebar}>
+        <MDBIcon icon={sidebarOpen ? "chevron-left" : "chevron-right"} />
       </div>
       {sidebarOpen && (
-        <nav className={styles['sidebar-nav']}>
+        <nav className={styles["sidebar-nav"]}>
           <ul>
             <li className={styles.SidebarListOptions}>
               <NavLink to="/" className={styles.active}>
@@ -32,6 +34,11 @@ const HandSidebar = () => {
             <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/events" className={styles.active}>
                 Eventos
+              </NavLink>
+            </li>
+            <li className={styles.SidebarListOptions}>
+              <NavLink to="/admin-area/create-events" className={styles.active}>
+                Criar eventos
               </NavLink>
             </li>
             <li className={styles.SidebarListOptions}>
