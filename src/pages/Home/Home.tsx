@@ -16,8 +16,8 @@ const Home: React.FC = () => {
       <Row>
         <GeneralUseCarousel/>
       </Row>
-      <Row>
-        <Col xl={9}>
+      <Row style={{width:"99vw"}}>
+        <Col xl={8}>
           <HomePublicationsContainer />
         </Col>
         <Col xl={3}>

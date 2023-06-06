@@ -1,5 +1,5 @@
 .navBarMain{
-  background-color: #A4A0FF !important;
+  background-color: #8652fc !important;
 }
 .navBarLogoLinks{
   color: #f0efef;
@@ -21,14 +21,16 @@
 }
 
 .navBarMenuLinks{
-  color: #2d2d2d;
+  color: #fcfcfc;
   
   border-bottom: 3xp solid #fff;
   text-decoration: none;
+
+  
 }
 
 .navBarMenuLinks:hover{
-  color: #111;
+  color: #fff;
 
   text-decoration: none;
 }
@@ -53,129 +55,7 @@
   color: #111;
   font-weight: 18px;
 }
-/* .UpperNavbar {
-  margin: 0 0 144px 0;
+
+.scrollingLinkClassName{
+  color: white;
 }
-
-
-
-.FixedOnTopNavBg {
-  height: 112px;
-
-  color: black;
-
-  font-weight: bolder;
-
-}
-
-.FixedOnTopNavBg .UpperNavbarLinkText {
-
-  color: black;
-  font-weight: bolder;
-
-  font-size: 24px;
-}
-
-/* .FixedOnTopNavBg .UpperNavbarLinkText:hover {
-
-  color: black;
-  font-weight: bolder;
-
-  font-size: 24px;
-
-  border-bottom: solid #000111 8px;
-
-
-.FixedOnTopNavBg .UpperNavbarLinkText>a {
-
-  color: black;
-}
-
-
-.FixedNavText{
-  height: 72px;
-
-  color: #111;
-
-  font-weight: bolder;
-
-}
-
-.ScrollingNavText{
-  height: 64px;
-
-  color: #c1c1c1;
-
-  font-weight: bolder;
-
-}
-
-.UpperNavbarLinkTextForDark {
-  text-decoration: none;
-  color: #979797;
-
-  font-size: large;
-  font-weight: bolder;
-
-  font-size: 22px;
-
-  margin: 0 12px;
-}
-
-.UpperNavbarLinkTextForDark:hover {
-  text-decoration: none;
-  color: #ebebeb;
-
-  border-bottom: #ebebeb solid 7px;
-
-  transition: 80ms;
-
-  font-size: 22px;
-}
-
-.UpperNavbarLinkTextForLight {
-  text-decoration: none;
-  color: #111;
-  font-weight: bolder;
-
-  font-size: 32px;
-
-  margin: 0 12px;
-
-}
-
-
-.UpperNavbarLinkTextForLight:hover {
-  text-decoration: none;
-  color: #111;
-
-  border-bottom: #111 solid 7px;
-
-  transition: 80ms;
-
-  font-size: 32px;
-}
-
-.UpperNavbarLinkTextForDark {
-  text-decoration: none;
-  color: #111;
-  font-weight: bolder;
-
-  font-size: 32px;
-
-  margin: 0 12px;
-
-}
-
-
-.UpperNavbarLinkTextForDark:hover {
-  text-decoration: none;
-  color: #111;
-
-  border-bottom: #111 solid 7px;
-
-  transition: 80ms;
-
-  font-size: 32px;
-}
- */

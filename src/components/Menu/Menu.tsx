@@ -61,7 +61,12 @@ const Menu = () => {
 
   if (!user) {
     return (
-      <Navbar expand="lg" fixed="top" className={styles.navBarMain}>
+      <Navbar
+        expand="lg"
+        variant="darker"
+        fixed="top"
+        className={styles.navBarMain}
+      >
         <Container>
           <Navbar.Brand>
             <Link to="/home" className={styles.navBarLogoLinks}>
@@ -119,8 +124,8 @@ const Menu = () => {
                 <Nav.Link>
                   <Link
                     to="/login"
-                    className={scrollingLinkClassName}
                     style={{ fontSize: "23px", fontWeight: "bolder" }}
+                    className={styles.navBarMenuLinks}
                   >
                     Entrar
                   </Link>
@@ -134,7 +139,12 @@ const Menu = () => {
   }
 
   return (
-    <Navbar expand="lg" fixed="top" className={styles.navBarMain}>
+    <Navbar
+      expand="lg"
+      variant="dark"
+      fixed="top"
+      className={styles.navBarMain}
+    >
       <Container>
         <Navbar.Brand>
           <Link to="/home" className={styles.navBarLogoLinks}>
@@ -187,7 +197,8 @@ const Menu = () => {
                 <NavDropdown
                   title={user.name}
                   id="basic-nav-dropdown"
-                  style={{ fontSize: "23px", fontWeight: "bolder" }}
+                  style={{ fontSize: "23px", fontWeight: "bolder", color: "" }}
+                  className={styles.navBarMenuLinks}
                 >
                   <NavDropdown.Item>
                     <Link to="/sport-events" className={styles.navBarMenuLinks}>
@@ -244,9 +255,7 @@ const Menu = () => {
               // )}
               // </Nav>
               <Nav.Link>
-                <Link to="/login" className={scrollingLinkClassName}>
-                  Entrar
-                </Link>
+                <Link to="/login">Entrar</Link>
               </Nav.Link>
             )}
           </Navbar.Text>
