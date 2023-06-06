@@ -78,7 +78,8 @@ const Menu = () => {
                 Home
               </Nav.Link>
               {/* <Nav.Link href="/about-us">Contate</Nav.Link> */}
-              <NavDropdown title="Eventos" id="basic-nav-dropdown">
+              <Nav.Link href="/sport-events">Eventos</Nav.Link>
+              {/* <NavDropdown title="Eventos" id="basic-nav-dropdown">
                 <NavDropdown.Item>
                   <Link to="/sport-events" className={styles.navBarMenuLinks}>
                     Eventos esportivos
@@ -98,7 +99,7 @@ const Menu = () => {
                     Sobre os eventos
                   </Link>
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
@@ -141,24 +142,28 @@ const Menu = () => {
               Home
             </Nav.Link>
             {/* <Nav.Link href="/about-us">Contate</Nav.Link> */}
-            <NavDropdown title="Eventos" id="basic-nav-dropdown">
-              <NavDropdown.Item>
-                <Link to="/sport-events" className={styles.navBarMenuLinks}>
-                  Eventos esportivos
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/cultural-events" className={styles.navBarMenuLinks}>
-                  Eventos culturais
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item>
-                <Link to="/about-events" className={styles.navBarMenuLinks}>
-                  Sobre os eventos
-                </Link>
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link href="/sport-events">Eventos</Nav.Link>
+              {/* <NavDropdown title="Eventos" id="basic-nav-dropdown">
+                <NavDropdown.Item>
+                  <Link to="/sport-events" className={styles.navBarMenuLinks}>
+                    Eventos esportivos
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <Link
+                    to="/cultural-events"
+                    className={styles.navBarMenuLinks}
+                  >
+                    Eventos culturais
+                  </Link>
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item>
+                  <Link to="/about-events" className={styles.navBarMenuLinks}>
+                    Sobre os eventos
+                  </Link>
+                </NavDropdown.Item>
+              </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">

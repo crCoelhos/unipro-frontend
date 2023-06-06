@@ -4,7 +4,6 @@ import styles from './AdminUserPage.module.css';
 import UserList from '../../components/UserList/UserList'
 import HandSidebar from '../../components/HandSidebar/HandSidebar';
 import { Row, Col } from 'react-bootstrap'
-import Menu from '../../components/Menu/Menu';
 const AdminUserPage = () => (
   <div className={styles.AdminUserPage}>
     <Row>

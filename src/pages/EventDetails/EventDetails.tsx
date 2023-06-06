@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useLoginController from "../../controllers/LoginController";
 import Menu from "../../components/Menu/Menu";
 import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 
+
+//alterar pra useProps
 const mockEventData = {
   batch: {
     id: 1,
@@ -91,7 +93,7 @@ const SportEventDetails = () => {
           headers: { Authorization: token },
         });
         console.log("Evento deletado");
-        navigate("/admin-area/events"); // Redirecionar para a página inicial ou outra página desejada após a exclusão do evento
+        navigate("/admin-area/events");
       } catch (error) {
         console.error(error);
         console.log("resta: ", `${url}admin/event:${eventId}`);
