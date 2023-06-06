@@ -59,7 +59,7 @@ img.Instagram:hover {
 
 img.Facebook:hover {
     width: 64px;
-    background-color: #4267B2;
+    background-color: #365fb1;
     border-radius: 50%;
     transition: background-color 0.4s ease-in-out;
 }

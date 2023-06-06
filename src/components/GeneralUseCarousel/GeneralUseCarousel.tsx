@@ -12,7 +12,7 @@ import sh5 from '../../assets2/images/show5.jpg'
 
 const GeneralUseCarousel = () => (
   <div className={styles.GeneralUseCarousel}>
-    <Carousel fade interval={4000}>
+    <Carousel fade interval={2000}>
       <Carousel.Item>
         <img src={sh1} alt="" className="d-block w-100" />
         <Carousel.Caption>

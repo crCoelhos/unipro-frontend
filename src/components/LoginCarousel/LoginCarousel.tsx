@@ -11,7 +11,7 @@ import sh5 from '../../assets2/images/show5.jpg'
 
 const LoginCarousel = () => (
   <div className={styles.LoginCarousel}>
-    <Carousel fade interval={3000}>
+    <Carousel fade interval={2000}>
       <Carousel.Item>
         <img src={sh1} alt="" className="d-block w-100" />
         <Carousel.Caption>
