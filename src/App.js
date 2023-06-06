@@ -15,12 +15,14 @@ import { AuthProvider } from './contexts/authContext';
 import EventDetails from './pages/EventDetails/EventDetails';
 import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
 import SportEventPage from './pages/sportEventPage/sportEventPage'
-import SignupPage from './components/SignupPage/SignupPage';
+import SignupPage from './pages/SignupPage/SignupPage';
 import EventCatalogueFix from './components/eventCatalogueFix/eventCatalogueFix';
 import AdminSection from './pages/AdminSection/AdminSection';
 import AdminUserPage from './pages/AdminUserPage/AdminUserPage';
+import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
 import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import HandSidebar from './components/HandSidebar/HandSidebar';
+
 
 function App() {
   return (
@@ -46,6 +48,7 @@ function App() {
 
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
+          <Route path="/admin-area/create-events" element={<CreateEventPage />} />
           <Route path="/admin-area/events:eventId" element={<EventDetails />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 
