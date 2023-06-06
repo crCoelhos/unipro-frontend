@@ -6,16 +6,23 @@ import AltSideBar from "../../components/AltSideBar/AltSideBar";
 import HandSidebar from "../../components/HandSidebar/HandSidebar";
 import HomePublicationsContainer from "../../components/HomePublicationsContainer/HomePublicationsContainer";
 import { Row, Col } from "react-bootstrap";
+import HomeInfoCardsContainer from "../../components/HomeInfoCards/HomeInfoCards";
+import GeneralUseCarousel from "../../components/GeneralUseCarousel/GeneralUseCarousel";
 
 const Home: React.FC = () => {
   return (
     <div className={styles.homeContent}>
       <Menu />
       <Row>
-        <Col>
+        <GeneralUseCarousel/>
+      </Row>
+      <Row>
+        <Col xl={9}>
           <HomePublicationsContainer />
         </Col>
-        <Col></Col>
+        <Col xl={3}>
+          <HomeInfoCardsContainer />
+        </Col>
       </Row>
 
       <HomeComposedFooter />

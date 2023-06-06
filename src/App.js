@@ -23,6 +23,7 @@ import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
 import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import HandSidebar from './components/HandSidebar/HandSidebar';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
+import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
 
 
           <Route path="/publication/:id" element={<PublicationDetailsPage />} />
+          <Route path="/info-card/:id" element={<InfoCardDetailsPage />} />
 
 
           <Route exact path="/admin-area" element={<AdminSection />} />
