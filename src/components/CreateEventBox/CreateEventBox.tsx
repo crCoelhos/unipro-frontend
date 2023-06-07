@@ -34,6 +34,7 @@ const CreateEventBox: React.FC = () => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
       </Form.Group>
 
@@ -45,6 +46,7 @@ const CreateEventBox: React.FC = () => {
           label={state === 1 ? 'Ativo' : 'Inativo'}
           checked={state === 1}
           onChange={() => setState(state === 1 ? 0 : 1)}
+          required
         />
       </Form.Group>
 
@@ -54,6 +56,7 @@ const CreateEventBox: React.FC = () => {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          required
         />
       </Form.Group>
 
@@ -63,6 +66,7 @@ const CreateEventBox: React.FC = () => {
           type="text"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
+          required
         />
       </Form.Group>
 
@@ -73,10 +77,11 @@ const CreateEventBox: React.FC = () => {
           rows={3}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          required
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" className={styles.CreateEventButton}>
         Criar Evento
       </Button>
     </Form>

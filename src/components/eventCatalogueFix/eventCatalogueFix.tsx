@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Alert, Button } from "react-bootstrap";
 import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
 
@@ -17,8 +18,8 @@ export interface Event {
 }
 
 const EventCatalogueFix = () => {
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
+  const [show, setShow] = useState<boolean>(false);
   const [events, setEvents] = useState<Event[]>([]);
   const [colorClasses, setColorClasses] = useState<string[]>([]);
   const colors = ["#04BF7B", "#4630D9", "#0000FF", "#F26241", "#A4A0FF"];
@@ -29,6 +30,8 @@ const EventCatalogueFix = () => {
     if (dataFromStorage) {
       const parsedData = JSON.parse(dataFromStorage);
       token = parsedData.token;
+    } else {
+      setShow(true); // Mostra o alerta para usuário não autenticado
     }
     const config = {
       headers: {
@@ -57,8 +60,28 @@ const EventCatalogueFix = () => {
 
   const filteredEvents = events.filter((event) => event.state);
 
+  const handleCardClick = (event: Event) => {
+    setShow(true);
+    setTimeout(() => {
+      setShow(false);
+    }, 5000);
+  };
+
   return (
     <div className={styles.eventCatalogueFix}>
+      <Alert show={show} variant="warning">
+        <Alert.Heading>Sem autorização</Alert.Heading>
+        <p>
+          Você não está autorizado a acessar a página de detalhes de evento. Por
+          favor, faça login.
+        </p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-warning">
+            Fechar
+          </Button>
+        </div>
+      </Alert>
       <div className="row">
         {filteredEvents.map((event, index) => {
           const colorClass = colorClasses[index];
@@ -69,8 +92,38 @@ const EventCatalogueFix = () => {
               id="eventCard"
               style={{ margin: "12px" }}
               key={event.id}
+              onClick={() => handleCardClick(event)}
             >
-              <Link to={`/sport-events/${event.id}`}>
+              {sessionStorage.getItem("user") ? (
+                <Link to={`/sport-events/${event.id}`}>
+                  <div
+                    className={`card cardColoring ${colorClass}`}
+                    style={{
+                      backgroundColor: colors[randomIndex],
+                      height: "300px",
+                    }}
+                  >
+                    <div
+                      className="bg-image hover-overlay ripple"
+                      data-mdb-ripple-color="light"
+                    >
+                      <a href="#!">
+                        <div className="mask"></div>
+                      </a>
+                    </div>
+                    <div
+                      className="card-body"
+                      style={{ color: "white", marginTop: "12px" }}
+                    >
+                      <h5 className="card-title">{event.name}</h5>
+                      <hr
+                        style={{ height: "8px", backgroundColor: "white" }}
+                      />
+                      <p className="card-text">{event.description}</p>
+                    </div>
+                  </div>
+                </Link>
+              ) : (
                 <div
                   className={`card cardColoring ${colorClass}`}
                   style={{
@@ -86,17 +139,18 @@ const EventCatalogueFix = () => {
                       <div className="mask"></div>
                     </a>
                   </div>
-
                   <div
                     className="card-body"
                     style={{ color: "white", marginTop: "12px" }}
                   >
                     <h5 className="card-title">{event.name}</h5>
-                    <hr style={{ height: "8px", backgroundColor: "white" }} />
+                    <hr
+                      style={{ height: "8px", backgroundColor: "white" }}
+                    />
                     <p className="card-text">{event.description}</p>
                   </div>
                 </div>
-              </Link>
+              )}
             </div>
           );
         })}

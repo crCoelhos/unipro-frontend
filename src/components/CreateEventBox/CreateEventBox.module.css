@@ -3,3 +3,7 @@
 .CreateEventBoxContainer{
     margin: 128px 312px;
 }
+
+.CreateEventButton{
+    margin: 12px;
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Link, useNavigate } from 'react-router-dom';
-import useLoginController from '../../controllers/LoginController.tsx';
+import useLoginController from '../../../controllers/LoginController.js';
 import LogoImperial from "../../assets/images/logoimperial-svg 1.svg";
 import noPic from "../../assets/images/no-image.png";
 import backToPage from "../../assets/icons/back-to-page-white.svg";
