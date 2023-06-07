@@ -24,9 +24,21 @@ const EventCatalogueFix = () => {
   const colors = ["#04BF7B", "#4630D9", "#0000FF", "#F26241", "#A4A0FF"];
 
   useEffect(() => {
+    const dataFromStorage = sessionStorage.getItem("user");
+    let token = "";
+    if (dataFromStorage) {
+      const parsedData = JSON.parse(dataFromStorage);
+      token = parsedData.token;
+    }
+    const config = {
+      headers: {
+        Authorization: token,
+        Access: 123,
+      },
+    };
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(url + "admin/events");
+        const response = await axios.get(url + "admin/events", config);
         const eventData: Event[] = response.data;
         setEvents(eventData);
 

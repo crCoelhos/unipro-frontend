@@ -19,6 +19,7 @@ class EventController {
     const config = {
       headers: {
         Authorization: token,
+        Access : 123
       },
     };
 
