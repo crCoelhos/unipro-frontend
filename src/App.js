@@ -24,6 +24,7 @@ import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import HandSidebar from './components/HandSidebar/HandSidebar';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 
 
 function App() {
@@ -44,10 +45,12 @@ function App() {
           <Route path="/contact-us" element={<ContactUsPage />} />
 
           <Route path="/sport-events" element={<SportEventPage />} />
-          <Route path="/cultural-events" element={<CulturalEventPage />} />
+          {/* <Route path="/cultural-events" element={<CulturalEventPage />} /> */}
 
           <Route exact path="/" element={<EventCatalogueFix />} />
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
+          <Route path="/sport-events/:eventId/payment/:id" element={<PaymentPage />} />
+          {/* <Route path="/info-card/:id" element={<PaymentPage />} /> */}
 
 
           <Route path="/publication/:id" element={<PublicationDetailsPage />} />

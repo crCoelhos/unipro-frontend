@@ -7,8 +7,6 @@ import Menu from "../../components/Menu/Menu";
 import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 
-
-//alterar pra useProps
 const mockEventData = {
   batch: {
     id: 1,
@@ -35,36 +33,16 @@ const mockEventData = {
 const url = "http://localhost:3003/";
 
 const SportEventDetails = () => {
-  let navigate = useNavigate();
-
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState(null);
-
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
-  console.log(user);
 
   useEffect(() => {
-    const dataFromStorage = sessionStorage.getItem("user");
-    let token = "";
-
-    if (dataFromStorage) {
-      const parsedData = JSON.parse(dataFromStorage);
-      token = parsedData.token;
-    }
-
     const fetchEvents = async () => {
       try {
-        const config = {
-          headers: {
-            Authorization: token,
-          },
-        };
-
-        const response = await axios.get(
-          `${url}admin/batch/${eventId}`,
-          config
-        );
+        const response = await axios.get(`${url}admin/batch/${eventId}`);
         setEventDetails(response.data.lot);
         console.log(response.data);
       } catch (error) {
@@ -101,6 +79,10 @@ const SportEventDetails = () => {
     }
   };
 
+  const handleBuy = () => {
+    navigate(`/sport-events/${eventId}/payment/${eventId}`);
+  };
+
   return (
     <>
       <Menu />
@@ -134,7 +116,9 @@ const SportEventDetails = () => {
           <Row className={styles.ButtonOptionsRow}>
             <Col xl={5} md={12} sm={12}>
               <div className="d-grid gap-2">
-                <Button size="lg">Comprar</Button>
+                <Button size="lg" onClick={handleBuy}>
+                  Comprar
+                </Button>
               </div>
             </Col>
             <Col></Col>
