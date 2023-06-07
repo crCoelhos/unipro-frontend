@@ -68,7 +68,7 @@ const SportEventDetails = () => {
         }
 
         await axios.delete(`${url}admin/event/${eventId}`, {
-          headers: { Authorization: token },
+          headers: { Authorization: token, Access : 123 },
         });
         console.log("Evento deletado");
         navigate("/admin-area/events");
