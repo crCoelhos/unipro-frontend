@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
                           type="text"
                           value={username}
                           onChange={handleUsernameChange}
-                          placeholder='Ex: 123456789-10 ou usuario@email.com'
+                          placeholder='Ex: 12345678910 ou usuario@email.com'
                           required
                         />
                       </Form.Group>
