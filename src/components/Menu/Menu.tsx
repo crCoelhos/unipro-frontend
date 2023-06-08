@@ -27,7 +27,6 @@ const Menu = () => {
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
-  console.log(user);
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
