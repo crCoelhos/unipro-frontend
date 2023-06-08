@@ -2,24 +2,16 @@ import React, { FC, useState, useEffect } from "react";
 import styles from "./homeFooter.module.scss";
 import HomeFooterCreatedBy from "../homeFooterCreatedBy/homeFooterCreatedBy";
 import HomeFooterSponsors from "../homeFooterSponsors/homeFooterSponsors";
+
+import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import cx from "classnames";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
+import { Sponsors } from "../../types";
 
 import sticker from "../../assets2/img/JOGOSUNI_2023.png";
 
-interface HomeFooterProps {}
-//padronizar todos as interfaces num types
 
-export interface Sponsors {
-  id: number;
-  name: string;
-  url?: string;
-  image: string;
-}
 
 export const shownSponsors = [
   {
@@ -72,7 +64,7 @@ export const shownSponsors = [
   },
 ];
 
-const HomeFooter: FC<HomeFooterProps> = () => {
+const HomeFooter: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   // func pra monitorar a largura da janela

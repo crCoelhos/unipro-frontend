@@ -2,9 +2,8 @@ import React, { FC } from 'react';
 import styles from './eventCard.module.scss';
 import { Link } from 'react-router-dom';
 
-interface EventCardProps { }
 
-const EventCard: FC<EventCardProps> = () => (
+const EventCard: React.FC = () => (
   <div className={styles.EventCard}>
     <Link to="">
 

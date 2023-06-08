@@ -1,14 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { publicationsMockData } from "../../components/HomePublications/mockfile";
-
-interface Publication {
-  id: number;
-  title: string;
-  headline: string;
-  publicationDate: string;
-  author: string;
-}
+import { Publication } from "../../types";
 
 const PublicationDetailsPage = () => {
   const { id } = useParams<{ id?: string }>();

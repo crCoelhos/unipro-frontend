@@ -3,18 +3,10 @@ import { Form, Button } from "react-bootstrap";
 import useTicketController from "../../controllers/TicketController";
 import styles from "./CreateTicketForm.module.css";
 import { useNavigate, useParams } from "react-router-dom";
+import { Event } from "../../types";
 
 //padronizar todos as interfaces num types
-interface Event {
-  id: number;
-  name: string;
-  state: boolean;
-  date: string;
-  location: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-}
+
 
 const url:string = "http://localhost:3003";
 

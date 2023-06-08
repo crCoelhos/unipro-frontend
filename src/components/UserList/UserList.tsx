@@ -3,26 +3,9 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import styles from "./UserList.module.css";
 import { Button, Table } from "react-bootstrap";
+import { User } from "../../types";
 
 const url = "http://localhost:3003/";
-
-
-//padronizar todos as interfaces num types
-interface User {
-  id: number;
-  name: string;
-  birthdate: string;
-  sex: string;
-  email: string;
-  contact: string;
-  cpf: string;
-  roleId: number;
-  createdAt: string;
-  updatedAt: string;
-  role: {
-    name: string;
-  };
-}
 
 const UserList = () => {
   const [users, setUsers] = useState<User[]>([]);

@@ -2,19 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdminEventCatalogue.module.css";
 import axios from "axios";
+import { Event } from "../../types";
 
 const url = "http://localhost:3003/";
 
-export interface Event {
-  id: number;
-  name: string;
-  state: boolean;
-  date: string;
-  location: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-}
+
 
 const AdminEventCatalogue = () => {
   const [events, setEvents] = useState<Event[]>([]);

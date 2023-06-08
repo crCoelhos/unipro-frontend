@@ -2,21 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
+import { Event } from "../../types";
 
 const url = "http://localhost:3003/";
 
 //padronizar todos as interfaces num types
 
-export interface Event {
-  id: number;
-  name: string;
-  state: boolean;
-  date: string;
-  location: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-}
+
 
 const EventCatalogueFix = () => {
   const [events, setEvents] = useState<Event[]>([]);

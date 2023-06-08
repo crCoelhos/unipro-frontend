@@ -2,12 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { infoCardsMockData } from "../../components/HomeInfoCards/mockfile";
 
-interface InfoCard {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-}
+
 
 const InfoCardDetails = () => {
   const { id } = useParams<{ id?: string }>();

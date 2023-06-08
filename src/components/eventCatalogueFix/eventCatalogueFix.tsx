@@ -3,19 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button } from "react-bootstrap";
 import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
+import { Event } from "../../types";
+
+
 
 const url = "http://localhost:3003/";
-
-export interface Event {
-  id: number;
-  name: string;
-  state: boolean;
-  date: string;
-  location: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 const EventCatalogueFix = () => {
   const navigate = useNavigate();

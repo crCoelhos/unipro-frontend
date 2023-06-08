@@ -3,14 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import styles from './HomeInfoCards.module.css';
 import { Card } from 'react-bootstrap';
 import { infoCardsMockData } from './mockfile';
+import { InfoCard } from '../../types';
 
 
-interface InfoCard {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-}
+
 
 const HomeInfoCards: FC = () => {
   const [infoCards, setInfoCards] = useState<InfoCard[]>(infoCardsMockData);

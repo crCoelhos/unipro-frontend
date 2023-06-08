@@ -6,6 +6,10 @@ import useLoginController from "../../controllers/LoginController";
 import Menu from "../../components/Menu/Menu";
 import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
+import { EventDetails } from "../../types";
+
+
+
 
 const url = "http://localhost:3003/";
 const dataFromStorage = sessionStorage.getItem("user");
@@ -15,30 +19,6 @@ if (dataFromStorage) {
   token = parsedData.token;
 }
 
-interface EventDetails {
-  event: {
-    id: number;
-    name: string;
-    state: boolean;
-    date: string;
-    location: string;
-    policy: string;
-    description: string;
-    bannerEvent: string | null;
-    createdAt: string;
-    updatedAt: string;
-    ticket: {
-      id: string;
-      name: string;
-      price: string;
-      startDate: string;
-      finishDate: string;
-      eventId: number;
-      createdAt: string;
-      updatedAt: string;
-    }[];
-  };
-}
 
 const SportEventDetails = () => {
   const navigate = useNavigate();
