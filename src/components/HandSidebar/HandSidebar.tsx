@@ -42,6 +42,11 @@ const HandSidebar = () => {
               </NavLink>
             </li>
             <li className={styles.SidebarListOptions}>
+              <NavLink to="/admin-area/create-tickets" className={styles.active}>
+                Criar ingresso
+              </NavLink>
+            </li>
+            <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/users" className={styles.active}>
                 Usuarios
               </NavLink>

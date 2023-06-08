@@ -33,6 +33,7 @@ const EventCatalogueFix = () => {
     } else {
       setShow(true); // Mostra o alerta para usuário não autenticado
     }
+    
     const config = {
       headers: {
         Authorization: token,

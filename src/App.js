@@ -20,8 +20,8 @@ import EventCatalogueFix from './components/eventCatalogueFix/eventCatalogueFix'
 import AdminSection from './pages/AdminSection/AdminSection';
 import AdminUserPage from './pages/AdminUserPage/AdminUserPage';
 import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
+import CreateTicketPage from './pages/CreateTicketPage/CreateTicketPage';
 import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
-import HandSidebar from './components/HandSidebar/HandSidebar';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
@@ -60,6 +60,7 @@ function App() {
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
           <Route path="/admin-area/create-events" element={<CreateEventPage />} />
+          <Route path="/admin-area/create-tickets/:id" element={<CreateTicketPage />} />
           <Route path="/admin-area/events:eventId" element={<EventDetails />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 

@@ -9,7 +9,9 @@ const CreateEventBox: React.FC = () => {
   const [state, setState] = useState(1);
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
+  const [policy, setPolicy] = useState('');
   const [description, setDescription] = useState('');
+  const [bannerEvent, setBannerEvent] = useState('');
   const navigate = useNavigate(); // Obter a função de navegação
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,7 +22,9 @@ const CreateEventBox: React.FC = () => {
       state,
       date,
       location,
+      policy,
       description,
+      bannerEvent,
     };
 
     await EventController.createEvent(eventData); // Chamar o método createEvent sem o parâmetro navigate
@@ -70,6 +74,16 @@ const CreateEventBox: React.FC = () => {
         />
       </Form.Group>
 
+      <Form.Group controlId="eventPolicy">
+        <Form.Label>Termos de compra</Form.Label>
+        <Form.Control
+          type="text"
+          value={policy}
+          onChange={(e) => setPolicy(e.target.value)}
+          required
+        />
+      </Form.Group>
+
       <Form.Group controlId="eventDescription">
         <Form.Label>Descrição do Evento</Form.Label>
         <Form.Control
@@ -77,6 +91,17 @@ const CreateEventBox: React.FC = () => {
           rows={3}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </Form.Group>
+
+      <Form.Group controlId="eventBannerImage">
+        <Form.Label>Banner do evento</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={3}
+          value={bannerEvent}
+          onChange={(e) => setBannerEvent(e.target.value)}
           required
         />
       </Form.Group>

@@ -6,7 +6,9 @@ class EventController {
     state: number;
     date: string;
     location: string;
+    policy: string | Text;
     description: string;
+    bannerEvent: string;
   }) => {
     const dataFromStorage = sessionStorage.getItem('user');
     let token = '';

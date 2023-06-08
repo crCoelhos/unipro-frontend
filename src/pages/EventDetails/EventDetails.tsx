@@ -21,7 +21,9 @@ const mockEventData = {
       state: true,
       date: "2023-06-10",
       location: "Example Venue",
+      policy:"Policy Placeholder",
       description: "This is a sample event",
+      bannerEvent:"https://www.bellingcat.com/app/uploads/2019/11/1-1.jpg",
       createdAt: "2023-05-29T14:20:00Z",
       updatedAt: "2023-05-30T11:45:00Z",
     },
@@ -39,19 +41,19 @@ const SportEventDetails = () => {
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get(`${url}admin/batch/${eventId}`);
-        setEventDetails(response.data.lot);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchEvents = async () => {
+  //     try {
+  //       const response = await axios.get(`${url}admin/batch/${eventId}`);
+  //       setEventDetails(response.data.lot);
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchEvents();
-  }, [eventId]);
+  //   fetchEvents();
+  // }, [eventId]);
 
   const handleDelete = async () => {
     const dataFromStorage = sessionStorage.getItem("user");
@@ -82,6 +84,10 @@ const SportEventDetails = () => {
   const handleBuy = () => {
     navigate(`/sport-events/${eventId}/payment/${eventId}`);
   };
+
+  function handleCreateTicket() {
+    navigate(`/`)
+  }
 
   return (
     <>
@@ -125,8 +131,12 @@ const SportEventDetails = () => {
             <Col xl={5} md={12} sm={12}>
               {user.role === "ADMIN" && (
                 <div className="d-grid gap-2">
-                  <Button onClick={handleDelete} variant="danger" size="lg">
+                  <Button onClick={handleDelete} variant="danger" size="lg" className={styles.ExcludeEventButton}>
                     Deletar
+                  </Button>
+
+                  <Button onClick={handleCreateTicket} variant="info" size="lg">
+                    Criar ingresso
                   </Button>
                 </div>
               )}
