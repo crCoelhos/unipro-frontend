@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import useTicketController from '../../controllers/TicketController';
-import styles from './CreateTicketForm.module.css'
+import React, { useEffect, useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import useTicketController from "../../controllers/TicketController";
+import styles from "./CreateTicketForm.module.css";
+import { useNavigate, useParams } from "react-router-dom";
 
+//padronizar todos as interfaces num types
 interface Event {
   id: number;
   name: string;
@@ -14,30 +16,39 @@ interface Event {
   updatedAt: string;
 }
 
+const url:string = "http://localhost:3003";
+
 const CreateTicketForm = () => {
+  const navigate = useNavigate();
+
   const { ticketData, handleChange, createTicket } = useTicketController();
   const [eventList, setEventList] = useState<Event[]>([]);
+  const { eventId } = useParams();
+
+  console.log(eventId);
 
   useEffect(() => {
+
+
     const fetchEvents = async () => {
-      const dataFromStorage = sessionStorage.getItem('user');
-      let token = '';
+      const dataFromStorage = sessionStorage.getItem("user");
+      let token = "";
 
       if (dataFromStorage) {
         const parsedData = JSON.parse(dataFromStorage);
         token = parsedData.token;
       }
       try {
-        const response = await fetch('http://localhost:3003/admin/events', {
+        const response = await fetch(url+"/admin/events", {
           headers: {
             authentication: token,
-            Access: '123',
+            Access: "123",
           },
         });
         const data = await response.json();
         setEventList(data);
       } catch (error) {
-        console.error('Error fetching events:', error);
+        console.error("Error fetching events:", error);
       }
     };
 
@@ -47,6 +58,7 @@ const CreateTicketForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     createTicket();
+    navigate(`/sport-events/${eventId}`)
   };
 
   return (
@@ -94,16 +106,16 @@ const CreateTicketForm = () => {
         </Form.Group>
 
         <Form.Group controlId="formEventId">
-          <Form.Label>Vincular ao evento:</Form.Label>
+          <Form.Label>Evento vinculado:</Form.Label>
           <Form.Control
             as="select"
             name="eventId"
-            value={ticketData.eventId}
+            value={eventId}
             onChange={handleChange}
           >
             {eventList.map((event) => (
               <option key={event.id} value={event.id}>
-                {event.name} ({event.id}) - ({event.date}) 
+                {event.name} ({event.id}) - ({event.date})
               </option>
             ))}
           </Form.Control>

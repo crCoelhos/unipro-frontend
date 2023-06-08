@@ -41,19 +41,7 @@ const SportEventDetails = () => {
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
 
-  // useEffect(() => {
-  //   const fetchEvents = async () => {
-  //     try {
-  //       const response = await axios.get(`${url}admin/batch/${eventId}`);
-  //       setEventDetails(response.data.lot);
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
 
-  //   fetchEvents();
-  // }, [eventId]);
 
   const handleDelete = async () => {
     const dataFromStorage = sessionStorage.getItem("user");
@@ -86,7 +74,7 @@ const SportEventDetails = () => {
   };
 
   function handleCreateTicket() {
-    navigate(`/`)
+    navigate(`/admin-area/create-tickets/${eventId}`)
   }
 
   return (

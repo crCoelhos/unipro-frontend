@@ -6,6 +6,8 @@ import { Button, Table } from "react-bootstrap";
 
 const url = "http://localhost:3003/";
 
+
+//padronizar todos as interfaces num types
 interface User {
   id: number;
   name: string;

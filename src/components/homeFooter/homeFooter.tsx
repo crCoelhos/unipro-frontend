@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import sticker from "../../assets2/img/JOGOSUNI_2023.png";
 
 interface HomeFooterProps {}
+//padronizar todos as interfaces num types
 
 export interface Sponsors {
   id: number;

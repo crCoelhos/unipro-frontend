@@ -5,6 +5,8 @@ import axios from "axios";
 
 const url = "http://localhost:3003/";
 
+//padronizar todos as interfaces num types
+
 export interface Event {
   id: number;
   name: string;

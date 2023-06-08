@@ -4,6 +4,7 @@ import styles from './HomeInfoCards.module.css';
 import { Card } from 'react-bootstrap';
 import { infoCardsMockData } from './mockfile';
 
+
 interface InfoCard {
   id: number;
   title: string;
