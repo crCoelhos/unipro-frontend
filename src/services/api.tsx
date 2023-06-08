@@ -11,7 +11,6 @@ export const login = async (data: UserLoginData): Promise<string> => {
     const { token } = response.data;
     return token;
   } catch (error) {
-    console.log(error);
     return '';
   }
 };

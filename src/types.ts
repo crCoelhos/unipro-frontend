@@ -37,10 +37,11 @@ export interface EventDetails {
     bannerEvent: string | null;
     createdAt: string;
     updatedAt: string;
-    ticket: {
+    category: {
       id: string;
       name: string;
       price: string;
+      quantity: number;
       startDate: string;
       finishDate: string;
       eventId: number;

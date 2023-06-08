@@ -3,14 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import styles from './HomePublications.module.css';
 import { Card } from 'react-bootstrap';
 import { publicationsMockData } from './mockfile';
+import { Publication } from '../../types';
 
-interface Publication {
-  id: number,
-  title: string;
-  headline: string;
-  publicationDate: string;
-  author: string;
-}
+
 
 const HomePublications: FC = () => {
   const [publications, setPublications] = useState<Publication[]>(publicationsMockData);

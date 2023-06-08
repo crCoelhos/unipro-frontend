@@ -36,7 +36,6 @@ const useLoginController = () => {
       })
       .then((response) => {
         let userData = response.data;
-        console.log("data: ", userData);
         setSessionUser(userData);
         setAuthenticator(userData.token);
         setUser(userData);
@@ -45,7 +44,6 @@ const useLoginController = () => {
       })
       .catch((error) => {
         console.error(error.response.data);
-        console.log(config);
         setLoginError(true);
         setLoggedIn(false);
       });

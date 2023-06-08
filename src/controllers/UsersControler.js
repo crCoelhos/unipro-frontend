@@ -13,7 +13,6 @@ function ProfileController() {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(formData);
     };
   
     return (

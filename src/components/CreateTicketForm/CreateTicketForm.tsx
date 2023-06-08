@@ -17,7 +17,6 @@ const CreateTicketForm = () => {
   const [eventList, setEventList] = useState<Event[]>([]);
   const { eventId } = useParams();
 
-  console.log(eventId);
 
   useEffect(() => {
 
@@ -73,6 +72,16 @@ const CreateTicketForm = () => {
             type="number"
             name="price"
             value={ticketData.price}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formQuantity">
+          <Form.Label>Quantidade de ingressos:</Form.Label>
+          <Form.Control
+            type="number"
+            name="quantity"
+            value={ticketData.quantity}
             onChange={handleChange}
           />
         </Form.Group>

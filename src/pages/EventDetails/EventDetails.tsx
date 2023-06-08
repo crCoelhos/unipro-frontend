@@ -8,9 +8,6 @@ import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { EventDetails } from "../../types";
 
-
-
-
 const url = "http://localhost:3003/";
 const dataFromStorage = sessionStorage.getItem("user");
 let token = "";
@@ -18,7 +15,6 @@ if (dataFromStorage) {
   const parsedData = JSON.parse(dataFromStorage);
   token = parsedData.token;
 }
-
 
 const SportEventDetails = () => {
   const navigate = useNavigate();
@@ -40,7 +36,7 @@ const SportEventDetails = () => {
         );
         const eventData = response.data;
         setEventDetails(eventData);
-        setEventTickets(eventData.event.ticket);
+        setEventTickets(eventData.event.category);
       } catch (error) {
         console.error(error);
       }
@@ -100,26 +96,39 @@ const SportEventDetails = () => {
           <Card>
             <Card.Body className={styles.LocationCardBox}>
               <div className="d-grid gap-2">
-                {eventTickets.map((ticket) => (
-                  <Card key={ticket.id}>
-                    <Card.Body>
-                      <Card.Title>{ticket.name}</Card.Title>
-                      <Card.Text>Preço: R$ {ticket.price}</Card.Text>
-                      <Card.Text>Data de início: {ticket.startDate}</Card.Text>
-                      <Card.Text>
-                        Data de término: {ticket.finishDate}
-                      </Card.Text>
-                      <div className="d-grid gap-2">
-                        <Button
-                          size="lg"
-                          onClick={(event) => handleBuy(ticket.id)(event)}
-                        >
-                          Comprar
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                ))}
+                {eventTickets &&
+                  eventTickets.map((ticket) => (
+                    <Card key={ticket.id}>
+                      <Card.Body>
+                        <Card.Title>{ticket.name}</Card.Title>
+                        <Card.Text>Preço: R$ {ticket.price}</Card.Text>
+                        <Card.Text>
+                          Data de início: {ticket.startDate}
+                        </Card.Text>
+                        <Card.Text>
+                          Data de término: {ticket.finishDate}
+                        </Card.Text>
+                        <div className="d-grid gap-2">
+                          <Button
+                            size="lg"
+                            onClick={(event) => handleBuy(ticket.id)(event)}
+                          >
+                            Comprar
+                          </Button>
+                          {/* ADICIONAR STATE BASEADO EM STATUS DO CATEGORY;
+                          -MUDAR O EVENTO DO ONCLICK; 
+                          -MUDAR A COR DO VARIANT */}
+                          <Button
+                            variant="warning"
+                            size="lg"
+                            // onClick={(event) => handleBuy(ticket.id)(event)}
+                          >
+                            Desativar
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  ))}
               </div>
             </Card.Body>
           </Card>

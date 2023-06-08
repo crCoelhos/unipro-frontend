@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
 import styles from "./UserList.module.css";
 import { Button, Table } from "react-bootstrap";
@@ -19,13 +18,11 @@ const UserList = () => {
         if (dataFromStorage) {
           const parsedData = JSON.parse(dataFromStorage);
           token = parsedData.token;
-          console.log("token? ", token);
         }
 
         const response = await axios.get<User[]>(`${url}admin/user/`, {
           headers: { Authorization: token },
         });
-        console.log("body: ", response.headers);
 
         setUsers(response.data);
       } catch (error) {
@@ -47,23 +44,19 @@ const UserList = () => {
         if (dataFromStorage) {
           const parsedData = JSON.parse(dataFromStorage);
           token = parsedData.token;
-          console.log("token? ", token);
         }
 
         await axios.delete(`${url}admin/user/${id}`, {
           headers: { Authorization: token },
         });
         setUsers(users.filter((user) => user.id !== id));
-        console.log("User deletado");
       } catch (error) {
         console.error(error);
-        console.log("resta: ", `${url}admin/user/${id}`);
       }
     }
   };
 
   const handleEdit = async (id: number) => {
-    // Aqui você pode implementar a lógica para redirecionar para a página de edição do usuário com o ID fornecido.
     console.log(`Editar user de ID: ${id}`);
   };
 

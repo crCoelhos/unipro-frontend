@@ -46,17 +46,11 @@ function UploadPic() {
     })
       .then((response) => {
         navigate('/profile');
-        // console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
-    // console.log(user.token)
 
   };
-
-  // console.log(user.token)
-  // console.log(formData)
 
   return (
     <div className={styles.UploadPicContainer}>

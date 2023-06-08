@@ -31,9 +31,7 @@ class EventController {
         eventData,
         config
       );
-      console.log(config)
-
-      console.log(response.data);
+      
     } catch (error) {
       console.error(error);
     }

@@ -3,7 +3,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import IndexPage from "./pages/Index/Index"
 import LoginPage from "./pages/Login/Login.tsx";
 import HomePage from "./pages/Home/Home";
 import PasswordRecoveryPage from "./pages/PasswordRecovery/PasswordRecovery"
@@ -13,7 +12,6 @@ import Menu from "./components/Menu/Menu"
 import React from 'react';
 import { AuthProvider } from './contexts/authContext';
 import EventDetails from './pages/EventDetails/EventDetails';
-import CulturalEventPage from './pages/culturalEventPage/culturalEventPage'
 import SportEventPage from './pages/sportEventPage/sportEventPage'
 import SignupPage from './pages/SignupPage/SignupPage';
 import EventCatalogueFix from './components/eventCatalogueFix/eventCatalogueFix';
