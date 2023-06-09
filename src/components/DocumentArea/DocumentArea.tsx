@@ -45,17 +45,24 @@ const DocumentArea: React.FC = () => {
           "Content-Type": "Application/json",
           Authorization: token,
           Access: "123",
-          Confirm : true
+          Confirm: true,
         },
       };
+      const bookData = {
+        id : ticketId
+      }
 
       try {
         await axios.post(url + "auth/photouser/", formData, config);
-        await axios.post(`${url}admin/bookticket/${ticketId}`, config);
-
+        try {
+          await axios.post(url + "admin/bookticket/", bookData, bookConfig);
+        } catch (error) {
+          console.error('book: ',error);
+          console.log(ticketId)
+        }
         // navigate(`/sport-events/${eventId}/buyticket/${ticketId}`);
       } catch (error) {
-        console.error(error);
+        console.error('photo: ',error);
       }
     }
   };

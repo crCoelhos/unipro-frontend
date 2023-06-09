@@ -8,11 +8,6 @@ import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { EventDetails } from "../../types";
 
-
-
-
-
-
 const url = "http://localhost:3003/";
 const dataFromStorage = sessionStorage.getItem("user");
 let token = "";
@@ -20,8 +15,6 @@ if (dataFromStorage) {
   const parsedData = JSON.parse(dataFromStorage);
   token = parsedData.token;
 }
-
-
 
 const SportEventDetails = () => {
   const navigate = useNavigate();
@@ -43,7 +36,9 @@ const SportEventDetails = () => {
         );
         const eventData = response.data;
         setEventDetails(eventData);
-        setEventTickets(eventData.event.category);
+        const categoryList = eventData.event.category;
+        setEventTickets(categoryList);
+        console.log("categories: ", categoryList);
       } catch (error) {
         console.error(error);
       }
@@ -67,12 +62,12 @@ const SportEventDetails = () => {
     }
   };
 
-  const handleBuy =
-    (ticketId: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      navigate(`/sport-events/${eventId}/bookticket/${ticketId}`);
-      console.log(ticketId)
-    };
+  const handleBuy = (ticketId: string) => (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    navigate(`/sport-events/${eventId}/bookticket/${ticketId}`);
+  };
 
   function handleCreateTicket() {
     navigate(`/admin-area/create-tickets/${eventId}`);
@@ -109,13 +104,10 @@ const SportEventDetails = () => {
                     <Card key={ticket.id}>
                       <Card.Body>
                         <Card.Title>{ticket.name}</Card.Title>
+                        <Card.Text> teste: {ticket.id}</Card.Text>
                         <Card.Text>Preço: R$ {ticket.price}</Card.Text>
-                        <Card.Text>
-                          Data de início: {ticket.startDate}
-                        </Card.Text>
-                        <Card.Text>
-                          Data de término: {ticket.finishDate}
-                        </Card.Text>
+                        <Card.Text>Data de início: {ticket.startDate}</Card.Text>
+                        <Card.Text>Data de término: {ticket.finishDate}</Card.Text>
                         <div className="d-grid gap-2">
                           <Button
                             size="lg"
@@ -124,11 +116,7 @@ const SportEventDetails = () => {
                             Comprar
                           </Button>
                           {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
-                          <Button
-                          variant="warning"
-                            size="lg"
-                            // onClick={(event) => handleBuy(ticket.id)(event)}
-                          >
+                          <Button variant="warning" size="lg">
                             Desativar
                           </Button>
                         </div>

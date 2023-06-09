@@ -37,6 +37,7 @@ const EventCatalogueFix = () => {
         const response = await axios.get(url + "admin/events", config);
         const eventData: Event[] = response.data;
         setEvents(eventData);
+        
 
         const newColorClasses = eventData.map(() => {
           const randomIndex = Math.floor(Math.random() * colors.length);

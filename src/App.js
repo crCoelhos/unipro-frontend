@@ -48,8 +48,8 @@ function App() {
 
           <Route exact path="/" element={<EventCatalogueFix />} />
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
-          <Route path="/sport-events/:eventId/bookticket/:id" element={<DocAndBookingPage />} />
-          <Route path="/sport-events/:eventId/buyticket/:id" element={<PaymentPage />} />
+          <Route path="/sport-events/:eventId/bookticket/:ticketId" element={<DocAndBookingPage />} />
+          <Route path="/sport-events/:eventId/buyticket/:ticketId" element={<PaymentPage />} />
           {/* <Route path="/info-card/:id" element={<PaymentPage />} /> */}
 
 
@@ -60,8 +60,8 @@ function App() {
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
           <Route path="/admin-area/create-events" element={<CreateEventPage />} />
-          <Route path="/admin-area/create-tickets/:id" element={<CreateTicketPage />} />
-          <Route path="/admin-area/events:eventId" element={<EventDetails />} />
+          <Route path="/admin-area/create-tickets/:eventId" element={<CreateTicketPage />} />
+          <Route path="/admin-area/events/:eventId" element={<EventDetails />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 
         </Routes>
