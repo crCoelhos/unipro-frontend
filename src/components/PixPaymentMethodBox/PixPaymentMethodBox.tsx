@@ -9,12 +9,12 @@ const PixPaymentMethodBox = () => (
       <Col>
         <Form className={styles.CreateEventBoxContainer}>
           <Form.Group controlId="BuyerFirstName">
-            <Form.Label>Número do cartão</Form.Label>
+            <Form.Label>Primeiro nome</Form.Label>
             <Form.Control type="text" required />
           </Form.Group>
 
           <Form.Group controlId="BuyerSurName">
-            <Form.Label>Data de validade</Form.Label>
+            <Form.Label>Sobrenome</Form.Label>
             <Form.Control type="text" required />
           </Form.Group>
 
@@ -53,9 +53,10 @@ const PixPaymentMethodBox = () => (
             type="submit"
             className={styles.CreateEventButton}
           >
-            Comprar
+            Criar Evento
           </Button>
         </Form>
+        <Row></Row>
       </Col>
     </Container>
   </div>

@@ -5,6 +5,7 @@ import { User } from "../../types";
 import PixPaymentMethodBox from "../../components/PixPaymentMethodBox/PixPaymentMethodBox";
 import CreditCardPaymentMethodBox from "../../components/CardPaymentMethodBox/CardPaymentMethodBox";
 import UserDataForPayment from "../../components/UserDataForPayment/UserDataForPayment";
+import PaymentForm from "../../components/PaymentForm/PaymentForm";
 
 const PaymentPage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -26,13 +27,7 @@ const PaymentPage = () => {
         </>
       )}
 
-      <UserDataForPayment/>
-
-      {/* IF PIX */}
-      <PixPaymentMethodBox/>
-
-      {/* IF CREDIT CARD */}
-      {/* <CardPaymentMethodBox/> */}
+          <PaymentForm/>
     </div>
   );
 };

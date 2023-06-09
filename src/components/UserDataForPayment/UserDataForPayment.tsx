@@ -6,6 +6,7 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 const UserDataForPayment = () => (
   <div className={styles.UserDataForPayment}>
     <Container>
+      <h1>Dados do usuário</h1>
       <Col>
         <Form className={styles.CreateEventBoxContainer}>
           <Form.Group controlId="BuyerFirstName">
@@ -47,14 +48,6 @@ const UserDataForPayment = () => (
             <Form.Label>Genero</Form.Label>
             <Form.Control type="text" required />
           </Form.Group>
-
-          <Button
-            variant="primary"
-            type="submit"
-            className={styles.CreateEventButton}
-          >
-            Comprar
-          </Button>
         </Form>
       </Col>
     </Container>

@@ -8,6 +8,11 @@ import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { EventDetails } from "../../types";
 
+
+
+
+
+
 const url = "http://localhost:3003/";
 const dataFromStorage = sessionStorage.getItem("user");
 let token = "";
@@ -15,6 +20,8 @@ if (dataFromStorage) {
   const parsedData = JSON.parse(dataFromStorage);
   token = parsedData.token;
 }
+
+
 
 const SportEventDetails = () => {
   const navigate = useNavigate();
@@ -115,11 +122,9 @@ const SportEventDetails = () => {
                           >
                             Comprar
                           </Button>
-                          {/* ADICIONAR STATE BASEADO EM STATUS DO CATEGORY;
-                          -MUDAR O EVENTO DO ONCLICK; 
-                          -MUDAR A COR DO VARIANT */}
+                          {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
                           <Button
-                            variant="warning"
+                          variant="warning"
                             size="lg"
                             // onClick={(event) => handleBuy(ticket.id)(event)}
                           >
