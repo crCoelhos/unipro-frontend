@@ -70,7 +70,8 @@ const PaymentForm = () => {
               identificationType,
             } = cardForm.getCardFormData();
 
-            fetch("/process_payment", {
+            // mandar pro /bookticket
+            fetch("/admin/bookticket", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
