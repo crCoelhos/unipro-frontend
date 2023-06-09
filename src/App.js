@@ -49,7 +49,7 @@ function App() {
           <Route exact path="/" element={<EventCatalogueFix />} />
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
           <Route path="/sport-events/:eventId/bookticket/:ticketId" element={<DocAndBookingPage />} />
-          <Route path="/sport-events/:eventId/buyticket/:ticketId" element={<PaymentPage />} />
+          <Route path="/sport-events/buyticket/:ticketId" element={<PaymentPage />} />
           {/* <Route path="/info-card/:id" element={<PaymentPage />} /> */}
 
 

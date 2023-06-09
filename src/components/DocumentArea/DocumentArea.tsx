@@ -60,7 +60,7 @@ const DocumentArea: React.FC = () => {
           console.error('book: ',error);
           console.log(ticketId)
         }
-        // navigate(`/sport-events/${eventId}/buyticket/${ticketId}`);
+        navigate(`/sport-events/buyticket/${ticketId}`);
       } catch (error) {
         console.error('photo: ',error);
       }

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./PaymentForm.css";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 const PaymentForm = () => {
   useEffect(() => {
@@ -17,48 +18,50 @@ const PaymentForm = () => {
           id: "form-checkout",
           cardNumber: {
             id: "form-checkout__cardNumber",
-            placeholder: "Card Number",
+            placeholder: "Numero do cartão",
           },
           expirationDate: {
             id: "form-checkout__expirationDate",
-            placeholder: "MM/YY",
+            placeholder: "Data de validade no formato: MM/AA",
           },
           securityCode: {
             id: "form-checkout__securityCode",
-            placeholder: "Security Code",
+            placeholder: "Código de segurança",
           },
           cardholderName: {
             id: "form-checkout__cardholderName",
-            placeholder: "Cardholder",
+            placeholder: "Nome do titular do cartão",
           },
           issuer: {
             id: "form-checkout__issuer",
-            placeholder: "Issuing bank",
+            placeholder: "Banco",
           },
           installments: {
             id: "form-checkout__installments",
-            placeholder: "Installments",
+            placeholder: "Parcelas",
           },
           identificationType: {
             id: "form-checkout__identificationType",
-            placeholder: "Document type",
+            placeholder: "Tipo de documento",
           },
           identificationNumber: {
             id: "form-checkout__identificationNumber",
-            placeholder: "Document number",
+            placeholder: "Número do documento do titular",
           },
           cardholderEmail: {
             id: "form-checkout__cardholderEmail",
-            placeholder: "Email",
+            placeholder: "Email do titular",
           },
         },
         callbacks: {
           onFormMounted: (error: any) => {
-            if (error)
-              return console.warn("Form Mounted handling error: ", error);
-            console.log("Form mounted");
+            if (error) {
+              console.warn("Form Mounted handling error: ", error);
+            } else {
+              console.log("Form mounted");
+            }
           },
-          onSubmit: (event: { preventDefault: () => void }) => {
+          onSubmit: async (event: { preventDefault: () => void }) => {
             event.preventDefault();
 
             const {
@@ -81,42 +84,50 @@ const PaymentForm = () => {
               authToken = parsedData.token;
             }
 
-            fetch("http://localhost:3003/admin/pay", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: authToken,
-                Access: "123",
-                Confirm: "true",
-              },
-              body: JSON.stringify({
-                token,
-                issuer_id,
-                payment_method_id,
-                transaction_amount: Number(amount),
-                installments: Number(installments),
-                description: "Product Description",
-                paymentMethod: "cartao",
-                payer: {
-                  email,
-                  identification: {
-                    type: identificationType,
-                    number: identificationNumber,
-                  },
+            try {
+              const response = await fetch("http://localhost:3003/admin/pay", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: authToken,
+                  Access: "123",
+                  Confirm: "true",
                 },
-              }),
-            });
+                body: JSON.stringify({
+                  token,
+                  issuer_id,
+                  payment_method_id,
+                  transaction_amount: Number(amount),
+                  installments: Number(installments),
+                  description: "Product Description",
+                  paymentMethod: "cartao",
+                  payer: {
+                    email,
+                    identification: {
+                      type: identificationType,
+                      number: identificationNumber,
+                    },
+                  },
+                }),
+              });
+
+              // Tratar a resposta
+            } catch (error) {
+              console.error("Erro ao fazer a requisição:", error);
+            }
           },
           onFetching: (resource: any) => {
             console.log("Fetching resource: ", resource);
 
             // Animate progress bar
-            // const progressBar = document.querySelector(".progress-bar");
-            // progressBar.removeAttribute("value");
+            const progressBar = document.querySelector(".progress-bar");
+            if (progressBar) {
+              progressBar.removeAttribute("value");
 
-            // return () => {
-            //   progressBar.setAttribute("value", "0");
-            // };
+              return () => {
+                progressBar.setAttribute("value", "0");
+              };
+            }
           },
         },
       });
@@ -126,40 +137,80 @@ const PaymentForm = () => {
   }, []);
 
   return (
-    <div className="PaymentForm">
-      <form id="form-checkout">
-        <div id="form-checkout__cardNumber" className="container">
-          {" "}
-          teste{" "}
-        </div>
-        <div id="form-checkout__expirationDate" className="container"></div>
-        <div id="form-checkout__securityCode" className="container"></div>
-        <input type="text" id="form-checkout__cardholderName" />
-        <select id="form-checkout__issuer" className="container"></select>
-        <select id="form-checkout__installments" className="container"></select>
-        <select
-          id="form-checkout__identificationType"
-          className="container"
-        ></select>
-        <input
-          type="text"
-          id="form-checkout__identificationNumber"
-          className="container"
-        />
-        <input
-          type="email"
-          id="form-checkout__cardholderEmail"
-          className="container"
-        />
+    <Container>
+      <div className="PaymentForm">
+        <form id="form-checkout">
+          <Row>
+            <Col>
+              <div
+                id="form-checkout__cardNumber"
+                className="container mpFormInput"
+              ></div>
+            </Col>
+            <Col>
+              <div
+                id="form-checkout__expirationDate"
+                className="container mpFormInput"
+              ></div>
+            </Col>
+          </Row>
+          <Row>
+            <div
+              id="form-checkout__securityCode"
+              className="container mpFormInput"
+            ></div>
+          </Row>
+          <input
+            type="text"
+            id="form-checkout__cardholderName"
+            className="cardHolderName mpFormInput"
+          />
+          <Row>
+            <select
+              id="form-checkout__issuer"
+              className="container mpFormInput"
+            ></select>
+          </Row>
+          <Row>
+            <select
+              id="form-checkout__installments"
+              className="container mpFormInput"
+            ></select>
+          </Row>
+          <Row>
+            <select
+              id="form-checkout__identificationType"
+              className="container mpFormInput"
+            ></select>
+          </Row>
+          <Row>
+            <input
+              type="text"
+              id="form-checkout__identificationNumber"
+              className="container mpFormInput"
+            />
+          </Row>
+          <Row>
+            <input
+              type="email"
+              id="form-checkout__cardholderEmail"
+              className="container mpFormInput"
+            />
+          </Row>
 
-        <button type="submit" id="form-checkout__submit" className="container">
-          Pagar
-        </button>
-        <progress value="0" className="progress-bar">
-          Carregando...
-        </progress>
-      </form>
-    </div>
+          <Button
+            type="submit"
+            id="form-checkout__submit"
+            className="container"
+          >
+            Pagar
+          </Button>
+          <progress value="0" className="progress-bar">
+            Carregando...
+          </progress>
+        </form>
+      </div>
+    </Container>
   );
 };
 
