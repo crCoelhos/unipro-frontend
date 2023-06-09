@@ -6,7 +6,9 @@ const PaymentForm = () => {
   useEffect(() => {
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
-      const mp = new window.MercadoPago("TEST-3905bdb8-bd41-449b-9d83-a3a51c606620");
+      const mp = new window.MercadoPago(
+        "TEST-3905bdb8-bd41-449b-9d83-a3a51c606620"
+      );
 
       const cardForm = mp.cardForm({
         amount: "100.5",
@@ -71,10 +73,21 @@ const PaymentForm = () => {
             } = cardForm.getCardFormData();
 
             // mandar pro /bookticket
-            fetch("/admin/bookticket", {
+            const dataFromStorage = sessionStorage.getItem("user");
+            let authToken = "";
+
+            if (dataFromStorage) {
+              const parsedData = JSON.parse(dataFromStorage);
+              authToken = parsedData.token;
+            }
+
+            fetch("http://localhost:3003/admin/pay", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
+                Authorization: authToken,
+                Access: "123",
+                Confirm: "true",
               },
               body: JSON.stringify({
                 token,
@@ -83,6 +96,7 @@ const PaymentForm = () => {
                 transaction_amount: Number(amount),
                 installments: Number(installments),
                 description: "Product Description",
+                paymentMethod: "cartao",
                 payer: {
                   email,
                   identification: {
@@ -123,9 +137,20 @@ const PaymentForm = () => {
         <input type="text" id="form-checkout__cardholderName" />
         <select id="form-checkout__issuer" className="container"></select>
         <select id="form-checkout__installments" className="container"></select>
-        <select id="form-checkout__identificationType" className="container"></select>
-        <input type="text" id="form-checkout__identificationNumber"  className="container"/>
-        <input type="email" id="form-checkout__cardholderEmail" className="container" />
+        <select
+          id="form-checkout__identificationType"
+          className="container"
+        ></select>
+        <input
+          type="text"
+          id="form-checkout__identificationNumber"
+          className="container"
+        />
+        <input
+          type="email"
+          id="form-checkout__cardholderEmail"
+          className="container"
+        />
 
         <button type="submit" id="form-checkout__submit" className="container">
           Pagar
