@@ -78,3 +78,7 @@ export interface LoginData {
   user: string; // Alterado de "login" para "user"
   password: string;
 }
+
+export interface UseTermAreaProps {
+  pdfFile: string;
+}

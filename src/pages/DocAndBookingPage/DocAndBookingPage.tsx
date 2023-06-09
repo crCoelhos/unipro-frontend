@@ -10,7 +10,7 @@ const DocAndBookingPage = () => (
   <div className={styles.DocAndBookingPage}>
     <Menu/>
   <DocumentArea/>
-  <UseTermArea/>
+  <UseTermArea pdfFile={'https://www.africau.edu/images/default/sample.pdf'}/>
 
     <HomeComposedFooter/>
   </div>

@@ -17,10 +17,8 @@ const DocumentArea: React.FC = () => {
   const handleUpload = async () => {
     if (selectedImage) {
       const formData = new FormData();
-      formData.set("user", selectedImage);
-      for (var key of formData.entries()) {
-        console.log(key[0] + ", " + key[1]);
-      }
+      formData.append("user", selectedImage);
+  
       const dataFromStorage = sessionStorage.getItem("user");
       let token = "";
       let userName = "";
@@ -29,16 +27,16 @@ const DocumentArea: React.FC = () => {
         token = parsedData.token;
         userName = parsedData.name;
       }
-
+  
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          "Accept": "multipart/form-data",
-          'Authorization': token,
-          "Access": 123,
+          Accept: "application/json",
+          Authorization: token,
+          Access: "123",
         },
       };
-
+  
       try {
         await axios.post(url + "auth/photouser/", formData, config);
         console.log("foi");
@@ -47,6 +45,7 @@ const DocumentArea: React.FC = () => {
       }
     }
   };
+  
 
   return (
     <div className={styles.DocumentAreaContainer}>
