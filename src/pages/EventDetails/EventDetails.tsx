@@ -71,6 +71,7 @@ const SportEventDetails = () => {
     (ticketId: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
       navigate(`/sport-events/${eventId}/bookticket/${ticketId}`);
+      console.log(ticketId)
     };
 
   function handleCreateTicket() {

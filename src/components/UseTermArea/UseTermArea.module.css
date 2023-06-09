@@ -1,1 +1,21 @@
-.UseTermArea {}
+.UseTermAreaContainer {
+  margin: 112px 312px;
+
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+
+  width: 752px;
+}
+.UseTermArea {
+  border: 8px solid #111;
+}
+
+.ButtonsContainer{
+    margin: 12px 0;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+}

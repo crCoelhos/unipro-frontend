@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { UseTermAreaProps } from '../../types';
-
+import styles from './UseTermArea.module.css'
 
 
 const UseTermArea: React.FC<UseTermAreaProps> = ({ pdfFile }) => {
@@ -29,13 +29,13 @@ const UseTermArea: React.FC<UseTermAreaProps> = ({ pdfFile }) => {
   };
 
   return (
-    <div>
-      <div>
+    <div className={styles.UseTermAreaContainer}>
+      <div className={styles.ButtonsContainer}>
         <Button onClick={handlePreviousPage}>Anterior</Button>
-        <span>{currentPage}</span> de <span>{numPages}</span>
+        {/* <span>{currentPage}</span> de <span>{numPages}</span> */}
         <Button onClick={handleNextPage}>Seguinte</Button>
       </div>
-      <div>
+      <div className={styles.UseTermArea}>
         <object
           data={pdfFile}
           type="application/pdf"
