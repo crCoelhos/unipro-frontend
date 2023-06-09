@@ -1,4 +1,4 @@
 interface Window {
-    Mercadopago: any;
+    MercadoPago: any;
   }
   

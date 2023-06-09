@@ -1,5 +1,7 @@
 .PaymentFormContainer{
-  margin: 112px 312px
+  margin: 112px 312px;
+  display: flex;
+  flex-direction: column;
 }
 
 #form-checkout {
@@ -14,4 +16,6 @@
   border: 1px solid rgb(118, 118, 118);
   border-radius: 2px;
   padding: 1px 2px;
+
+  margin: 24px;
 }
