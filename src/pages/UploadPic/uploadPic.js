@@ -57,7 +57,7 @@ function UploadPic() {
       <form onSubmit={handleSubmit}>
         <Dropzone onDrop={handleDrop}>
           {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()} style={{ border: '1px solid black', height: '200px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div {...getRootProps()} >
               <input {...getInputProps()} />
               {file ? <p>{file.name}</p> : <p>Arraste e solte uma imagem aqui ou clique para selecionar um arquivo</p>}
             </div>

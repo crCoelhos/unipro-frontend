@@ -23,6 +23,7 @@ import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
+import DocAndBookingPage from './pages/DocAndBookingPage/DocAndBookingPage';
 
 
 function App() {
@@ -47,7 +48,7 @@ function App() {
 
           <Route exact path="/" element={<EventCatalogueFix />} />
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
-          <Route path="/sport-events/:eventId/payment/:id" element={<PaymentPage />} />
+          <Route path="/sport-events/:eventId/bookticket/:id" element={<DocAndBookingPage />} />
           {/* <Route path="/info-card/:id" element={<PaymentPage />} /> */}
 
 
