@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./PaymentForm.css";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import axios from "axios";
 
 const PaymentForm = () => {
   useEffect(() => {
@@ -69,6 +70,7 @@ const PaymentForm = () => {
               issuerId: issuer_id,
               cardholderEmail: email,
               amount,
+              token,
               installments,
               identificationNumber,
               identificationType,
@@ -77,8 +79,7 @@ const PaymentForm = () => {
             // mandar pro /bookticket
             const dataFromStorage = sessionStorage.getItem("user");
             let authToken = "";
-            console.log('user',dataFromStorage)
-            
+            console.log("user", dataFromStorage);
 
             if (dataFromStorage) {
               const parsedData = JSON.parse(dataFromStorage);
@@ -86,20 +87,37 @@ const PaymentForm = () => {
             }
 
             try {
-              const response = await fetch("http://localhost:3003/admin/pay", {
-                // entry point backend
-                method: "POST",
-                headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Request-Method":
-                    "GET, POST, DELETE, PUT, OPTIONS",
-                  "Content-Type": "application/json",
-                  Access: "123",
-                  Authorization : authToken
+              const response = await axios.post(
+                "http://localhost:3003/admin/pay",
+                {
+                  issuer_id: cardForm.issuerId,
+                  payment_method_id,
+                  amount,
+                  token,
+                  transaction_amount: 1000,
+                  installments: Number(installments),
+                  description: "Descrição do produto",
+                  paymentMethod: "cartao",
+                  payer: {
+                    email,
+                    identification: {
+                      type: identificationType,
+                      number: identificationNumber,
+                    },
+                  },
                 },
-                body: JSON.stringify({
+                {
+                  headers: {
+                    "Content-Type": "application/json",
+                    Access: "123",
+                    Authorization: authToken,
+                  },
+                }
+              );
+              console.log('teste: ',
+                JSON.stringify({
                   issuer_id,
-                  payment_method_id ,
+                  payment_method_id,
                   amount,
                   transaction_amount: 1000,
                   installments: Number(installments),
@@ -112,26 +130,8 @@ const PaymentForm = () => {
                       number: identificationNumber,
                     },
                   },
-                }),
-              });
-
-
-              console.log(JSON.stringify({
-                issuer_id,
-                payment_method_id,
-                amount,
-                transaction_amount: 1000,
-                installments: Number(installments),
-                description: "Descrição do produto",
-                paymentMethod: "cartao",
-                payer: {
-                  email,
-                  identification: {
-                    type: identificationType,
-                    number: identificationNumber,
-                  },
-                },
-              }))
+                })
+              );
               // Tratar a resposta
             } catch (error) {
               console.error("Erro ao fazer a requisição:", error);
