@@ -57,6 +57,7 @@ function App() {
           <Route path="/info-card/:id" element={<InfoCardDetailsPage />} />
 
 
+
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
           <Route path="/admin-area/create-events" element={<CreateEventPage />} />

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./PaymentPage.module.css";
 import { User } from "../../types";
-import PaymentForm from '../../components/PaymentForm/PaymentForm'
+import PaymentForm from "../../components/PaymentForm/PaymentForm";
+import MercadoPagoForm from "../../components/MercadoPago/MercadoPagoForm";
 
 const PaymentPage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -22,8 +23,8 @@ const PaymentPage = () => {
           <h1>{user.cpf}</h1>
         </>
       )}
-
-          <PaymentForm/>
+      <PaymentForm />
+      {/* <MercadoPagoForm/> */}
     </div>
   );
 };
