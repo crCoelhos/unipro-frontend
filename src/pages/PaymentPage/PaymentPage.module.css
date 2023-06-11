@@ -1,1 +1,10 @@
-.PaymentPage {}
+.PaymentPage {
+}
+.PaymetPageContainer {
+    margin: 254px;
+}
+
+.UserDirective {
+    text-align: center;
+  width: 64%;
+}

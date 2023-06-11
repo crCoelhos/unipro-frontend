@@ -1,9 +1,15 @@
+.OuterContainer{
+  padding-bottom:312px ;
+  margin-bottom: 512px;
+}
+
 .PaymentForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   
 }
+
 
 #form-checkout {
   display: flex;
@@ -42,7 +48,29 @@
   font-size: 16px;
 }
 
+#form-pix-submit{
+  margin: 12px;
+  width: auto;
+
+  font-size: 16px;
+  /* font-weight: bolder; */
+}
 .progress-bar {
   width: 100%;
   height: 20px;
+}
+
+
+.PixQrCodeContainer{
+  width: 512px;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.PixCodeBox{
+  margin: 18px;
+}
+.PixQrCodeBox{
+  margin: 18px;
 }

@@ -3,6 +3,8 @@ import styles from "./PaymentPage.module.css";
 import { User } from "../../types";
 import PaymentForm from "../../components/PaymentForm/PaymentForm";
 import MercadoPagoForm from "../../components/MercadoPago/MercadoPagoForm";
+import Menu from "../../components/Menu/Menu";
+import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 
 const PaymentPage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -17,14 +19,18 @@ const PaymentPage = () => {
 
   return (
     <div className={styles.PaymentPage}>
+      <Menu/>
+      <div className={styles.PaymetPageContainer}>
+
+      </div>
       {user && (
         <>
-          <h1>User: {user.name}</h1>
-          <h1>{user.cpf}</h1>
+          <h1 className={styles.UserDirective}>{user.name}, selecione uma forma de pagamento:</h1>
         </>
       )}
       <PaymentForm />
-      {/* <MercadoPagoForm/> */}
+
+      <HomeComposedFooter/>
     </div>
   );
 };

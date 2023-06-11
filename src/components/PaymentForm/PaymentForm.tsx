@@ -4,8 +4,10 @@ import { loadMercadoPago } from "@mercadopago/sdk-js";
 import {
   Accordion,
   Button,
+  Card,
   Col,
   Container,
+  Form,
   Row,
   ToastHeader,
 } from "react-bootstrap";
@@ -29,6 +31,9 @@ const PaymentForm = () => {
   const [pixNeighborhood, setPixNeighborhood] = useState("");
   const [pixCity, setPixCity] = useState("");
   const [pixFederalUnit, setPixFederalUnit] = useState("");
+
+  const [pixQrCode, setPixQrCode] = useState("");
+  const [pixQrCodeBase64, setPixQrCodeBase64] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,8 +83,13 @@ const PaymentForm = () => {
         }
       );
 
-      console.log("rogerio", pixIdentificationType);
-      console.log(pixPayment_data);
+      const pix_copypaste_code = response.data.pix_qr_code.qr_code;
+      setPixQrCode(pix_copypaste_code);
+      const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
+      setPixQrCodeBase64(pix_qr_code64);
+
+      console.log("sergio", pix_copypaste_code);
+      console.log("rogerio", pix_qr_code64);
 
       const pay_status = response.data.pay_status;
       setPayStatus(pay_status);
@@ -200,7 +210,7 @@ const PaymentForm = () => {
   }, []);
 
   return (
-    <Container>
+    <Container className="OuterContainer">
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>CARTÃO DE CREDITO</Accordion.Header>
@@ -289,134 +299,172 @@ const PaymentForm = () => {
         <Accordion.Item eventKey="1">
           <Accordion.Header>PIX</Accordion.Header>
           <Accordion.Body>
-            <form id="form-checkout" onSubmit={handleSubmit}>
-              <div>
-                <div>
-                  <label htmlFor="pixFirstName">Nome</label>
-                  <input
-                    id="form-checkout__pixFirstName"
-                    name="pixFirstName"
-                    type="text"
-                    value={pixFirstName}
-                    onChange={(e) => setPixFirstName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixLastName">Sobrenome</label>
-                  <input
-                    id="form-checkout__pixLastName"
-                    name="pixLastName"
-                    type="text"
-                    value={pixLastName}
-                    onChange={(e) => setPixLastName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixEmail">E-mail</label>
-                  <input
-                    id="form-checkout__pixEmail"
-                    name="pixEmail"
-                    type="text"
-                    value={pixEmail}
-                    onChange={(e) => setPixEmail(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixIdentificationType">
-                    Tipo de documento
-                  </label>
-                  <select
-                    id="form-checkout__pixIdentificationType"
-                    name="pixIdentificationType"
-                    value={pixIdentificationType}
-                    onChange={(e) => setPixIdentificationType(e.target.value)}
-                    defaultValue="CPF"
-                  >
-                    <option value=""></option>
-                    <option value="CPF">CPF</option>
-                    <option value="CNPJ">CNPJ</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="pixIdentificationNumber">
-                    Número do documento
-                  </label>
-                  <input
-                    id="form-checkout__pixIdentificationNumber"
-                    name="pixIdentificationNumber"
-                    type="text"
-                    value={pixIdentificationNumber}
-                    onChange={(e) => setPixIdentificationNumber(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixZipCode">CEP</label>
-                  <input
-                    id="form-checkout__pixZipCode"
-                    name="pixZipCode"
-                    type="text"
-                    value={pixZipCode}
-                    onChange={(e) => setPixZipCode(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixStreetName">Rua</label>
-                  <input
-                    id="form-checkout__pixStreetName"
-                    name="pixStreetName"
-                    type="text"
-                    value={pixStreetName}
-                    onChange={(e) => setPixStreetName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixStreetNumber">Número</label>
-                  <input
-                    id="form-checkout__pixStreetNumber"
-                    name="pixStreetNumber"
-                    type="text"
-                    value={pixStreetNumber}
-                    onChange={(e) => setPixStreetNumber(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixNeighborhood">Bairro</label>
-                  <input
-                    id="form-checkout__pixNeighborhood"
-                    name="pixNeighborhood"
-                    type="text"
-                    value={pixNeighborhood}
-                    onChange={(e) => setPixNeighborhood(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixCity">Cidade</label>
-                  <input
-                    id="form-checkout__pixCity"
-                    name="pixCity"
-                    type="text"
-                    value={pixCity}
-                    onChange={(e) => setPixCity(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="pixFederalUnit">Estado</label>
-                  <input
-                    id="form-checkout__pixFederalUnit"
-                    name="pixFederalUnit"
-                    type="text"
-                    value={pixFederalUnit}
-                    onChange={(e) => setPixFederalUnit(e.target.value)}
-                  />
-                </div>
-              </div>
+            <Form id="form-checkout" onSubmit={handleSubmit}>
+              <Row>
+                <Col md={6}>
+                  <Form.Group controlId="form-checkout__pixFirstName">
+                    <Form.Label>Nome</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixFirstName}
+                      onChange={(e) => setPixFirstName(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId="form-checkout__pixLastName">
+                    <Form.Label>Sobrenome</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixLastName}
+                      onChange={(e) => setPixLastName(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={5}>
+                  <Form.Group controlId="form-checkout__pixEmail">
+                    <Form.Label>E-mail</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixEmail}
+                      onChange={(e) => setPixEmail(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={3}>
+                  <Form.Group controlId="form-checkout__pixIdentificationType">
+                    <Form.Label>Tipo de documento</Form.Label>
+                    <Form.Control
+                      as="select"
+                      value={pixIdentificationType}
+                      onChange={(e) => setPixIdentificationType(e.target.value)}
+                    >
+                      <option value=""></option>
+                      <option value="CPF">CPF</option>
+                      <option value="CNPJ">CNPJ</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="form-checkout__pixIdentificationNumber">
+                    <Form.Label>Número do documento</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixIdentificationNumber}
+                      onChange={(e) =>
+                        setPixIdentificationNumber(e.target.value)
+                      }
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={3}>
+                  <Form.Group controlId="form-checkout__pixZipCode">
+                    <Form.Label>CEP</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixZipCode}
+                      onChange={(e) => setPixZipCode(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={5}>
+                  <Form.Group controlId="form-checkout__pixStreetName">
+                    <Form.Label>Rua</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixStreetName}
+                      onChange={(e) => setPixStreetName(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="form-checkout__pixStreetNumber">
+                    <Form.Label>Número</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixStreetNumber}
+                      onChange={(e) => setPixStreetNumber(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Form.Group controlId="form-checkout__pixCity">
+                    <Form.Label>Cidade</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixCity}
+                      onChange={(e) => setPixCity(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId="form-checkout__pixFederalUnit">
+                    <Form.Label>Estado</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixFederalUnit}
+                      onChange={(e) => setPixFederalUnit(e.target.value)}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row></Row>
               <Button type="submit" id="form-pix-submit" className="container">
-                Pagar
+                Gerar QR Code
               </Button>
-            </form>
+            </Form>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
+      <Col>
+        <div className="PixQrCodeContainer">
+          <Row>
+            <Col xl={5}>
+              <Card className="PixCodeBox">
+                {/* {pixQrCode !== null && pixQrCode !== undefined && pixQrCode} */}
+                {(() => {
+                  if (pixQrCode !== null && pixQrCode !== "") {
+                    return (
+                      <Card.Body>
+                        <Card.Title>Pix copia e cola:</Card.Title>
+                        <Card.Text>{pixQrCode}</Card.Text>
+                      </Card.Body>
+                    );
+                  }
+                  return <></>;
+                })()}
+              </Card>
+            </Col>
+
+            <Col xl={7}>
+              {(() => {
+                if (pixQrCodeBase64 !== null && pixQrCodeBase64 !== "") {
+                  return (
+                    <Card className="PixQrCodeBox">
+                      <Card.Body>
+                        <Card.Title>
+                          Abra o aplicativo de pagamento e aponte a câmera para
+                          o QR Code{" "}
+                        </Card.Title>
+                      </Card.Body>
+                      <Card.Img
+                        src={`data:image/jpeg;base64,${pixQrCodeBase64}`}
+                      />
+                    </Card>
+                  );
+                }
+                return <></>;
+              })()}
+            </Col>
+          </Row>
+        </div>
+      </Col>
     </Container>
   );
 };
