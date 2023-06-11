@@ -16,8 +16,11 @@ import PaymentSuccessToast from "../PaymentSuccessToast/PaymentSuccessToast";
 import PaymentFailedToast from "../PaymentFailedToast/PaymentFailedToast";
 import PaymentProcessingToast from "../PaymentProcessingToast/PaymentProcessingToast";
 import { formData } from "./formData";
+import { useNavigate } from "react-router-dom";
 
 const PaymentForm = () => {
+  const navigate = useNavigate();
+
   const [payStatus, setPayStatus] = useState(null);
 
   const [pixFirstName, setPixFirstName] = useState("");
@@ -35,7 +38,6 @@ const PaymentForm = () => {
   const [pixQrCode, setPixQrCode] = useState("");
   const [pixQrCodeBase64, setPixQrCodeBase64] = useState("");
 
-
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -48,7 +50,6 @@ const PaymentForm = () => {
       const parsedData = JSON.parse(dataFromStorage);
       authToken = parsedData.token;
     }
-
 
     const pixPayment_data = {
       transaction_amount: 1,
@@ -84,7 +85,8 @@ const PaymentForm = () => {
     try {
       const response = await axios.post(
         "http://localhost:3003/admin/pay",
-        pixPayment_data, pixHeaders
+        pixPayment_data,
+        pixHeaders
       );
 
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
@@ -106,7 +108,6 @@ const PaymentForm = () => {
       console.log(pixPayment_data);
     }
   };
-
 
   // card payment
   useEffect(() => {
@@ -183,13 +184,19 @@ const PaymentForm = () => {
 
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
-              console.log('resultado: ',response.data)
+              console.log("resultado: ", response.data);
 
               if (pay_status === "approved") {
                 console.log(payStatus);
+                setTimeout(() => {
+                  navigate("/sport-events");
+                }, 7000);
               }
             } catch (error) {
               console.error("Erro ao fazer a requisição:", error);
+              setTimeout(() => {
+                navigate("/sport-events");
+              }, 7000);
             }
           },
 
@@ -215,7 +222,7 @@ const PaymentForm = () => {
     };
 
     initializeMercadoPago();
-  }, []);
+  }, [payStatus, navigate]);
 
   return (
     <Container className="OuterContainer">
