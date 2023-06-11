@@ -17,15 +17,80 @@ import { formData } from "./formData";
 
 const PaymentForm = () => {
   const [payStatus, setPayStatus] = useState(null);
-  const [payerFirstName, setPayerFirstName] = useState("");
-  const [payerLastName, setPayerLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [identificationType, setIdentificationType] = useState("");
-  const [identificationNumber, setIdentificationNumber] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [pixFirstName, setPixFirstName] = useState("");
+  const [pixLastName, setPixLastName] = useState("");
+  const [pixEmail, setPixEmail] = useState("");
+  const [pixIdentificationType, setPixIdentificationType] = useState("");
+  const [pixIdentificationNumber, setPixIdentificationNumber] = useState("");
+  const [pixZipCode, setPixZipCode] = useState("");
+  const [pixStreetName, setPixStreetName] = useState("");
+  const [pixStreetNumber, setPixStreetNumber] = useState("");
+  const [pixNeighborhood, setPixNeighborhood] = useState("");
+  const [pixCity, setPixCity] = useState("");
+  const [pixFederalUnit, setPixFederalUnit] = useState("");
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission logic here
+
+    const pixPayment_data = {
+      transaction_amount: 100,
+      description: "Título do produto",
+      payment_method_id: "pix",
+      payer: {
+        email: pixEmail,
+        first_name: pixFirstName,
+        last_name: pixLastName,
+        identification: {
+          type: pixIdentificationType,
+          number: pixIdentificationNumber,
+        },
+        address: {
+          zip_code: pixZipCode,
+          street_name: pixStreetName,
+          street_number: pixStreetNumber,
+          neighborhood: pixNeighborhood,
+          city: pixCity,
+          federal_unit: pixFederalUnit,
+        },
+      },
+    };
+
+    const dataFromStorage = sessionStorage.getItem("user");
+    let authToken = "";
+    console.log("user", dataFromStorage);
+
+    if (dataFromStorage) {
+      const parsedData = JSON.parse(dataFromStorage);
+      authToken = parsedData.token;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3003/admin/pay",
+        { pixPayment_data },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Access: "123",
+            Authorization: authToken,
+          },
+        }
+      );
+
+      console.log('rogerio', pixIdentificationType)
+      console.log(pixPayment_data);
+
+      const pay_status = response.data.pay_status;
+      setPayStatus(pay_status);
+
+      if (pay_status === "approved") {
+        console.log(payStatus);
+      }
+    } catch (error) {
+      console.error("Erro ao fazer a requisição:", error);
+      console.log(pixPayment_data);
+    }
   };
   useEffect(() => {
     const initializeMercadoPago = async () => {
@@ -109,6 +174,7 @@ const PaymentForm = () => {
               console.error("Erro ao fazer a requisição:", error);
             }
           },
+
           onFetching: (resource: any) => {
             console.log("Fetching resource: ", resource);
 
@@ -124,14 +190,10 @@ const PaymentForm = () => {
           },
         },
       });
-    
+
       //teste
-    
-    
-    
-    
-    
-    //fechamento
+
+      //fechamento
     };
 
     initializeMercadoPago();
@@ -210,6 +272,7 @@ const PaymentForm = () => {
                 >
                   Pagar
                 </Button>
+
                 {payStatus === "approved" && <PaymentSuccessToast />}
                 {payStatus === "rejected" && <PaymentFailedToast />}
                 {payStatus === "in_process" && <PaymentProcessingToast />}
@@ -223,78 +286,127 @@ const PaymentForm = () => {
             <form id="form-checkout" onSubmit={handleSubmit}>
               <div>
                 <div>
-                  <label htmlFor="payerFirstName">Nome</label>
+                  <label htmlFor="pixFirstName">Nome</label>
                   <input
-                    id="form-checkout__payerFirstName"
-                    name="payerFirstName"
+                    id="form-checkout__pixFirstName"
+                    name="pixFirstName"
                     type="text"
-                    value={payerFirstName}
-                    onChange={(e) => setPayerFirstName(e.target.value)}
+                    value={pixFirstName}
+                    onChange={(e) => setPixFirstName(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label htmlFor="payerLastName">Sobrenome</label>
+                  <label htmlFor="pixLastName">Sobrenome</label>
                   <input
-                    id="form-checkout__payerLastName"
-                    name="payerLastName"
+                    id="form-checkout__pixLastName"
+                    name="pixLastName"
                     type="text"
-                    value={payerLastName}
-                    onChange={(e) => setPayerLastName(e.target.value)}
+                    value={pixLastName}
+                    onChange={(e) => setPixLastName(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label htmlFor="email">E-mail</label>
+                  <label htmlFor="pixEmail">E-mail</label>
                   <input
-                    id="form-checkout__email"
-                    name="email"
+                    id="form-checkout__pixEmail"
+                    name="pixEmail"
                     type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={pixEmail}
+                    onChange={(e) => setPixEmail(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label htmlFor="identificationType">Tipo de documento</label>
+                  <label htmlFor="pixIdentificationType">
+                    Tipo de documento
+                  </label>
                   <select
-                    id="form-checkout__identificationType"
-                    name="identificationType"
-                    value={identificationType}
-                    onChange={(e) => setIdentificationType(e.target.value)}
+                    id="form-checkout__pixIdentificationType"
+                    name="pixIdentificationType"
+                    value={pixIdentificationType}
+                    onChange={(e) => setPixIdentificationType(e.target.value)}
+                    defaultValue="CPF"
                   >
-                    {/* Add options for identification types */}
+                    <option value=""></option>
+                    <option value="CPF">CPF</option>
+                    <option value="CNPJ">CNPJ</option>
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="identificationNumber">
-                    NÃºmero do documento
+                  <label htmlFor="pixIdentificationNumber">
+                    Número do documento
                   </label>
                   <input
-                    id="form-checkout__identificationNumber"
-                    name="identificationNumber"
+                    id="form-checkout__pixIdentificationNumber"
+                    name="pixIdentificationNumber"
                     type="text"
-                    value={identificationNumber}
-                    onChange={(e) => setIdentificationNumber(e.target.value)}
+                    value={pixIdentificationNumber}
+                    onChange={(e) => setPixIdentificationNumber(e.target.value)}
                   />
                 </div>
-              </div>
-
-              <div>
                 <div>
+                  <label htmlFor="pixZipCode">CEP</label>
                   <input
-                    type="hidden"
-                    name="transactionAmount"
-                    id="transactionAmount"
-                    value="100"
+                    id="form-checkout__pixZipCode"
+                    name="pixZipCode"
+                    type="text"
+                    value={pixZipCode}
+                    onChange={(e) => setPixZipCode(e.target.value)}
                   />
+                </div>
+                <div>
+                  <label htmlFor="pixStreetName">Rua</label>
                   <input
-                    type="hidden"
-                    name="description"
-                    id="description"
-                    value="Nome do Produto"
+                    id="form-checkout__pixStreetName"
+                    name="pixStreetName"
+                    type="text"
+                    value={pixStreetName}
+                    onChange={(e) => setPixStreetName(e.target.value)}
                   />
-                  <br />
-                  <button type="submit">Pagar</button>
+                </div>
+                <div>
+                  <label htmlFor="pixStreetNumber">Número</label>
+                  <input
+                    id="form-checkout__pixStreetNumber"
+                    name="pixStreetNumber"
+                    type="text"
+                    value={pixStreetNumber}
+                    onChange={(e) => setPixStreetNumber(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pixNeighborhood">Bairro</label>
+                  <input
+                    id="form-checkout__pixNeighborhood"
+                    name="pixNeighborhood"
+                    type="text"
+                    value={pixNeighborhood}
+                    onChange={(e) => setPixNeighborhood(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pixCity">Cidade</label>
+                  <input
+                    id="form-checkout__pixCity"
+                    name="pixCity"
+                    type="text"
+                    value={pixCity}
+                    onChange={(e) => setPixCity(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="pixFederalUnit">Estado</label>
+                  <input
+                    id="form-checkout__pixFederalUnit"
+                    name="pixFederalUnit"
+                    type="text"
+                    value={pixFederalUnit}
+                    onChange={(e) => setPixFederalUnit(e.target.value)}
+                  />
                 </div>
               </div>
+              <Button type="submit" id="form-pix-submit" className="container">
+                Pagar
+              </Button>
             </form>
           </Accordion.Body>
         </Accordion.Item>
