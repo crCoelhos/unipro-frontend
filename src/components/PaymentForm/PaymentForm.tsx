@@ -68,7 +68,7 @@ const PaymentForm = () => {
     try {
       const response = await axios.post(
         "http://localhost:3003/admin/pay",
-        { pixPayment_data },
+        pixPayment_data,
         {
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const PaymentForm = () => {
         }
       );
 
-      console.log('rogerio', pixIdentificationType)
+      console.log("rogerio", pixIdentificationType);
       console.log(pixPayment_data);
 
       const pay_status = response.data.pay_status;
@@ -220,49 +220,55 @@ const PaymentForm = () => {
                       className="container mpFormInput"
                     ></div>
                   </Col>
+                  <Col>
+                    <div
+                      id="form-checkout__securityCode"
+                      className="container mpFormInput"
+                    ></div>
+                  </Col>
                 </Row>
                 <Row>
-                  <div
-                    id="form-checkout__securityCode"
-                    className="container mpFormInput"
-                  ></div>
+                  <Col>
+                    <select
+                      id="form-checkout__issuer"
+                      className="container mpFormInput"
+                      disabled
+                    ></select>
+                  </Col>
                 </Row>
                 <input
                   type="text"
                   id="form-checkout__cardholderName"
                   className="cardHolderName mpFormInput"
                 />
+                <input
+                  type="email"
+                  id="form-checkout__cardholderEmail"
+                  className="container mpFormInput"
+                />
                 <Row>
-                  <select
-                    id="form-checkout__issuer"
-                    className="container mpFormInput"
-                  ></select>
+                  <Col>
+                    <select
+                      id="form-checkout__installments"
+                      className="container mpFormInput"
+                    ></select>
+                  </Col>
                 </Row>
                 <Row>
-                  <select
-                    id="form-checkout__installments"
-                    className="container mpFormInput"
-                  ></select>
-                </Row>
-                <Row>
-                  <select
-                    id="form-checkout__identificationType"
-                    className="container mpFormInput"
-                  ></select>
-                </Row>
-                <Row>
-                  <input
-                    type="text"
-                    id="form-checkout__identificationNumber"
-                    className="container mpFormInput"
-                  />
-                </Row>
-                <Row>
-                  <input
-                    type="email"
-                    id="form-checkout__cardholderEmail"
-                    className="container mpFormInput"
-                  />
+                  <span>Tipo de documento:</span>
+                  <Col>
+                    <select
+                      id="form-checkout__identificationType"
+                      className="container mpFormInput"
+                    ></select>
+                  </Col>
+                  <Col>
+                    <input
+                      type="text"
+                      id="form-checkout__identificationNumber"
+                      className="container mpFormInput"
+                    />
+                  </Col>
                 </Row>
 
                 <Button
