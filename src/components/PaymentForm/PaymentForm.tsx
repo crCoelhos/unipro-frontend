@@ -35,11 +35,23 @@ const PaymentForm = () => {
   const [pixQrCode, setPixQrCode] = useState("");
   const [pixQrCodeBase64, setPixQrCodeBase64] = useState("");
 
+
+  // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const dataFromStorage = sessionStorage.getItem("user");
+    let authToken = "";
+    console.log("user", dataFromStorage);
+
+    if (dataFromStorage) {
+      const parsedData = JSON.parse(dataFromStorage);
+      authToken = parsedData.token;
+    }
+
+
     const pixPayment_data = {
-      transaction_amount: 100,
+      transaction_amount: 1,
       description: "Título do produto",
       payment_method_id: "pix",
       payer: {
@@ -61,26 +73,18 @@ const PaymentForm = () => {
       },
     };
 
-    const dataFromStorage = sessionStorage.getItem("user");
-    let authToken = "";
-    console.log("user", dataFromStorage);
-
-    if (dataFromStorage) {
-      const parsedData = JSON.parse(dataFromStorage);
-      authToken = parsedData.token;
-    }
+    const pixHeaders = {
+      headers: {
+        "Content-Type": "application/json",
+        Access: "123",
+        Authorization: authToken,
+      },
+    };
 
     try {
       const response = await axios.post(
         "http://localhost:3003/admin/pay",
-        pixPayment_data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Access: "123",
-            Authorization: authToken,
-          },
-        }
+        pixPayment_data, pixHeaders
       );
 
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
@@ -102,6 +106,9 @@ const PaymentForm = () => {
       console.log(pixPayment_data);
     }
   };
+
+
+  // card payment
   useEffect(() => {
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
@@ -176,6 +183,7 @@ const PaymentForm = () => {
 
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
+              console.log('resultado: ',response.data)
 
               if (pay_status === "approved") {
                 console.log(payStatus);
