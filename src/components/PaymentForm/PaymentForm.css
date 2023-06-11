@@ -1,5 +1,5 @@
-.OuterContainer{
-  padding-bottom:312px ;
+.OuterContainer {
+  padding-bottom: 312px;
   margin-bottom: 512px;
 }
 
@@ -7,9 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
-
 
 #form-checkout {
   display: flex;
@@ -23,7 +21,7 @@
   min-width: 300px;
   margin-bottom: 10px;
 }
-.cardHolderName{
+.cardHolderName {
   width: 752px;
 }
 .mpFormInput {
@@ -48,7 +46,14 @@
   font-size: 16px;
 }
 
-#form-pix-submit{
+#form-checkout__submit:focus {
+  cursor: wait;
+}
+#form-checkout__submit:active {
+  cursor: wait;
+}
+
+#form-pix-submit {
   margin: 12px;
   width: auto;
 
@@ -60,17 +65,15 @@
   height: 20px;
 }
 
-
-.PixQrCodeContainer{
+.PixQrCodeContainer {
   width: 512px;
   display: flex;
   flex-direction: row;
-  
 }
 
-.PixCodeBox{
+.PixCodeBox {
   margin: 18px;
 }
-.PixQrCodeBox{
+.PixQrCodeBox {
   margin: 18px;
 }

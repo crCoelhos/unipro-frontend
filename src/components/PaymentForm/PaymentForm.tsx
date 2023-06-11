@@ -265,11 +265,15 @@ const PaymentForm = () => {
                   type="text"
                   id="form-checkout__cardholderName"
                   className="cardHolderName mpFormInput"
+                  required
+
                 />
                 <input
                   type="email"
                   id="form-checkout__cardholderEmail"
                   className="container mpFormInput"
+                  required
+
                 />
                 <Row>
                   <Col>
@@ -292,6 +296,8 @@ const PaymentForm = () => {
                       type="text"
                       id="form-checkout__identificationNumber"
                       className="container mpFormInput"
+                      required
+
                     />
                   </Col>
                 </Row>
