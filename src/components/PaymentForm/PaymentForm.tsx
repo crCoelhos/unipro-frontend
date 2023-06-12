@@ -38,22 +38,76 @@ const PaymentForm = () => {
   const [pixQrCode, setPixQrCode] = useState("");
   const [pixQrCodeBase64, setPixQrCodeBase64] = useState("");
 
+  const [eventData, setEventData] = useState<{}>({});
+  const [categorytDataId, setCategortDataId] = useState("");
+  const [categorytDataPrice, setCategortDataPrice] = useState("");
+
+  const path = window.location.pathname;
+  const code = path.split("/buyticket/")[1];
+
+  // getCategoryById
+
+  const dataFromStorage = sessionStorage.getItem("user");
+  let authToken = "";
+
+  if (dataFromStorage) {
+    const parsedData = JSON.parse(dataFromStorage);
+    authToken = parsedData.token;
+  }
+
+  const eventHeaders = {
+    headers: {
+      "Content-Type": "application/json",
+      Access: "123",
+      Authorization: authToken,
+    },
+  };
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3003/admin/category/" + code,
+          eventHeaders
+        );
+        const event_Data = response.data;
+        // const parsedEventData = JSON.parse(response.data);
+
+        setEventData(event_Data);
+        const testeID = event_Data.id;
+        
+        
+        setCategortDataPrice(event_Data.price);
+        
+        console.log("leticia: ", event_Data);
+        
+        // TA DANDO ERRO, RODA, TESTA E CORRIGE.
+      } catch (error) {
+        console.error("Erro ao fazer a requisição:", error);
+      }
+    };
+    fetchEvents();
+  }, []);
+  
+  // setCategortDataId(eventData);
+  console.log("leticia2: ", eventData);
+  const testando = eventData.id
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const dataFromStorage = sessionStorage.getItem("user");
     let authToken = "";
-    console.log("user", dataFromStorage);
 
     if (dataFromStorage) {
       const parsedData = JSON.parse(dataFromStorage);
       authToken = parsedData.token;
     }
 
+    // amount to id so the backend can define the price by themselves
     const pixPayment_data = {
-      transaction_amount: 0.1,
-      description: "Título do produto",
+      // id: event_,
+      description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
       payer: {
         email: pixEmail,
@@ -81,7 +135,6 @@ const PaymentForm = () => {
         Authorization: authToken,
       },
     };
-
     try {
       const response = await axios.post(
         "http://localhost:3003/admin/pay",
@@ -118,7 +171,7 @@ const PaymentForm = () => {
       );
 
       const cardForm = mp.cardForm({
-        amount: "100.5",
+        amount: "0.5",
         iframe: true,
         form: formData,
         callbacks: {
@@ -156,6 +209,7 @@ const PaymentForm = () => {
               const response = await axios.post(
                 "http://localhost:3003/admin/pay",
                 {
+                  id: categorytDataId,
                   issuer_id: cardForm.issuerId,
                   payment_method_id,
                   amount,
@@ -184,6 +238,7 @@ const PaymentForm = () => {
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
               console.log("resultado: ", response.data);
+              console.log("rogerio: ", categorytDataId);
 
               if (pay_status === "approved") {
                 console.log(payStatus);
@@ -225,6 +280,7 @@ const PaymentForm = () => {
 
   return (
     <Container className="OuterContainer">
+      <h1>{code}</h1>
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>CARTÃO DE CREDITO</Accordion.Header>

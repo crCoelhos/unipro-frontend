@@ -5,6 +5,7 @@ import styles from "./CreateTicketForm.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Event } from "../../types";
 
+
 //padronizar todos as interfaces num types
 
 
@@ -50,6 +51,7 @@ const CreateTicketForm = () => {
     e.preventDefault();
     createTicket();
     navigate(`/sport-events/${eventId}`)
+    
   };
 
   return (
@@ -113,6 +115,7 @@ const CreateTicketForm = () => {
             name="eventId"
             value={eventId}
             onChange={handleChange}
+            disabled
           >
             {eventList.map((event) => (
               <option key={event.id} value={event.id}>
