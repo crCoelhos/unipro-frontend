@@ -52,7 +52,7 @@ const PaymentForm = () => {
     }
 
     const pixPayment_data = {
-      transaction_amount: 1,
+      transaction_amount: 0.1,
       description: "Título do produto",
       payment_method_id: "pix",
       payer: {
@@ -101,7 +101,7 @@ const PaymentForm = () => {
       setPayStatus(pay_status);
 
       if (pay_status === "approved") {
-        console.log(payStatus);
+        console.log(pixPayment_data);
       }
     } catch (error) {
       console.error("Erro ao fazer a requisição:", error);
@@ -114,7 +114,7 @@ const PaymentForm = () => {
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
       const mp = new window.MercadoPago(
-        "TEST-3905bdb8-bd41-449b-9d83-a3a51c606620"
+        "APP_USR-af1ae5de-2f62-4b52-9e08-131dd1ef14bd"
       );
 
       const cardForm = mp.cardForm({
@@ -146,7 +146,6 @@ const PaymentForm = () => {
             // mandar pro /bookticket
             const dataFromStorage = sessionStorage.getItem("user");
             let authToken = "";
-            console.log("user", dataFromStorage);
 
             if (dataFromStorage) {
               const parsedData = JSON.parse(dataFromStorage);
@@ -266,14 +265,12 @@ const PaymentForm = () => {
                   id="form-checkout__cardholderName"
                   className="cardHolderName mpFormInput"
                   required
-
                 />
                 <input
                   type="email"
                   id="form-checkout__cardholderEmail"
                   className="container mpFormInput"
                   required
-
                 />
                 <Row>
                   <Col>
@@ -297,7 +294,6 @@ const PaymentForm = () => {
                       id="form-checkout__identificationNumber"
                       className="container mpFormInput"
                       required
-
                     />
                   </Col>
                 </Row>
@@ -411,6 +407,27 @@ const PaymentForm = () => {
                       onChange={(e) => setPixStreetNumber(e.target.value)}
                     />
                   </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="form-checkout__pixNeighborhood">
+                    <Form.Label>Bairro</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={pixNeighborhood}
+                      onChange={(e) => setPixNeighborhood(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  {/* <div>
+                  <label htmlFor="pixNeighborhood">Bairro</label>
+                  <input
+                    id="form-checkout__pixNeighborhood"
+                    name="pixNeighborhood"
+                    type="text"
+                    value={pixNeighborhood}
+                    onChange={(e) => setPixNeighborhood(e.target.value)}
+                  />
+                </div> */}
                 </Col>
               </Row>
               <Row>
