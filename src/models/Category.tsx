@@ -4,8 +4,8 @@ interface Category {
     price:string;
     descricao: string,
     quantity: number,
-    state: string,
+    state: boolean,
     startDate:string;
     finishDate:string;
-    eventId:number;
+    event:{name:string};
 }

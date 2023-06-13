@@ -16,11 +16,11 @@ import PaymentSuccessToast from "../PaymentSuccessToast/PaymentSuccessToast";
 import PaymentFailedToast from "../PaymentFailedToast/PaymentFailedToast";
 import PaymentProcessingToast from "../PaymentProcessingToast/PaymentProcessingToast";
 import { formData } from "./formData";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const PaymentForm = () => {
   const navigate = useNavigate();
-  // const productCost = document.getElementById('amount').value;
+  const location = useLocation();
 
   const [payStatus, setPayStatus] = useState(null);
 
@@ -39,18 +39,12 @@ const PaymentForm = () => {
   const [pixQrCode, setPixQrCode] = useState("");
   const [pixQrCodeBase64, setPixQrCodeBase64] = useState("");
 
-  const [eventData, setEventData] = useState<Category>();
+  const [eventData, setEventData] = useState({});
   const [categorytDataId, setCategortDataId] = useState("");
-  const [categorytDataPrice, setCategortDataPrice] = useState("");
 
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
-  const category = {
-    id:"",
-    price: "",
-    name:""
-  }
-
+ 
   // getCategoryById
 
   const dataFromStorage = sessionStorage.getItem("user");
@@ -68,7 +62,7 @@ const PaymentForm = () => {
       Authorization: authToken,
     },
   };
- 
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -78,12 +72,8 @@ const PaymentForm = () => {
         );
         const event_Data = response.data;
         // const parsedEventData = JSON.parse(response.data);
-        category.price = event_Data.price
-        category.name = event_Data.name
-        category.id = event_Data.id
         setEventData(event_Data);
         setCategortDataId(event_Data.id)
-        setCategortDataPrice(event_Data.price);
 
 
         // TA DANDO ERRO, RODA, TESTA E CORRIGE.
@@ -166,13 +156,14 @@ const PaymentForm = () => {
 
   // card payment
   useEffect(() => {
+
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
       const mp = new window.MercadoPago(
         "APP_USR-af1ae5de-2f62-4b52-9e08-131dd1ef14bd"
       );
       const cardForm = mp.cardForm({
-        amount: category.price,
+        amount: location.state.category.price,
         iframe: true,
         form: formData,
         callbacks: {
@@ -211,14 +202,14 @@ const PaymentForm = () => {
               const response = await axios.post(
                 "http://localhost:3003/admin/pay",
                 {
-                  id: category.id,
+                  id: location.state.category.id,
                   issuer_id: cardForm.issuerId,
                   payment_method_id,
                   amount,
                   token,
-                  transaction_amount: category.price,
+                  transaction_amount: location.state.category.price,
                   installments: Number(installments),
-                  description: category.name,
+                  description: location.state.category.name,
                   paymentMethod: "cartao",
                   payer: {
                     email,
@@ -276,12 +267,12 @@ const PaymentForm = () => {
     };
 
     initializeMercadoPago();
-  }, [payStatus, categorytDataId, navigate]);
+  }, [payStatus, eventData, categorytDataId, navigate]);
 
   return (
     <Container className="OuterContainer">
-      <h1>{eventData?.name}</h1>
-      <h2 id="amount">{eventData?.price}</h2>
+      <h1>{location.state.category.name}</h1>
+      <h1 id="amount">{location.state.category.price}</h1>
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>CARTÃO DE CREDITO</Accordion.Header>

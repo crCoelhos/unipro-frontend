@@ -38,7 +38,6 @@ const SportEventDetails = () => {
         setEventDetails(eventData);
         const categoryList = eventData.event.category;
         setEventTickets(categoryList);
-        console.log("categories: ", categoryList);
       } catch (error) {
         console.error(error);
       }
@@ -62,11 +61,12 @@ const SportEventDetails = () => {
     }
   };
 
-  const handleBuy = (ticketId: string) => (
+  const handleBuy = (category: any) => (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
-    navigate(`/sport-events/${eventId}/bookticket/${ticketId}`);
+    navigate(`/sport-events/${eventId}/bookticket/${category.id}`, 
+    {state:{category}});
   };
 
   function handleCreateTicket() {
@@ -100,18 +100,18 @@ const SportEventDetails = () => {
             <Card.Body className={styles.LocationCardBox}>
               <div className="d-grid gap-2">
                 {eventTickets &&
-                  eventTickets.map((ticket) => (
-                    <Card key={ticket.id}>
+                  eventTickets.map((category) => (
+                    <Card key={category.id}>
                       <Card.Body>
-                        <Card.Title>{ticket.name}</Card.Title>
-                        <Card.Text> teste: {ticket.id}</Card.Text>
-                        <Card.Text>Preço: R$ {ticket.price}</Card.Text>
-                        <Card.Text>Data de início: {ticket.startDate}</Card.Text>
-                        <Card.Text>Data de término: {ticket.finishDate}</Card.Text>
+                        <Card.Title>{category.name}</Card.Title>
+                        <Card.Text> teste: {category.id}</Card.Text>
+                        <Card.Text>Preço: R$ {category.price}</Card.Text>
+                        <Card.Text>Data de início: {category.startDate}</Card.Text>
+                        <Card.Text>Data de término: {category.finishDate}</Card.Text>
                         <div className="d-grid gap-2">
                           <Button
                             size="lg"
-                            onClick={(event) => handleBuy(ticket.id)(event)}
+                            onClick={(event) => handleBuy(category)(event)}
                           >
                             Comprar
                           </Button>
