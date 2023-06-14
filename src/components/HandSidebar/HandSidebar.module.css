@@ -1,6 +1,6 @@
 .hand-sidebar {
   width: 80px;
-  height: 100vh;
+  height: 100%;
   background-color: #5c26db;
   color: #fff;
   transition: width 0.3s ease;

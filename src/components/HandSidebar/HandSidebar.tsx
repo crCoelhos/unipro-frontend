@@ -10,7 +10,6 @@ const HandSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // const HandSidebar = () => {
   return (
     <div
       className={`${styles["hand-sidebar"]} ${sidebarOpen ? styles.open : ""}`}

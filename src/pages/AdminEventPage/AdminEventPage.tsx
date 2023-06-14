@@ -5,6 +5,7 @@ import AdminEventCatalogue from '../../components/AdminEventCatalogue/AdminEvent
 import HandSidebar from '../../components/HandSidebar/HandSidebar';
 import { Row, Col } from 'react-bootstrap'
 import EventCatalogueFix from '../../components/eventCatalogueFix/eventCatalogueFix';
+import CreateEventModal from '../../components/CreateEventModal/CreateEventModal';
 
 const AdminEventPage = () => (
   <div className={styles.AdminEventPage}>
@@ -14,6 +15,7 @@ const AdminEventPage = () => (
       </Col>
       <Col lg={9}>
         <EventCatalogueFix />
+        <CreateEventModal/>
       </Col>
     </Row>
   </div>

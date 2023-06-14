@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import EventController from '../../controllers/EventController';
-import styles from './CreateEventBox.module.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import EventController from "../../controllers/EventController";
+import styles from "./CreateEventBox.module.css";
+import { useNavigate } from "react-router-dom";
 
-const CreateEventBox: React.FC = () => {
-  const [name, setName] = useState('');
+function CreateEventBox() {
+  const [name, setName] = useState("");
   const [state, setState] = useState(1);
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [policy, setPolicy] = useState('');
-  const [description, setDescription] = useState('');
-  const [bannerEvent, setBannerEvent] = useState('');
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [policy, setPolicy] = useState("");
+  const [description, setDescription] = useState("");
+  const [bannerEvent, setBannerEvent] = useState("");
   const navigate = useNavigate(); // Obter a função de navegação
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,7 +28,7 @@ const CreateEventBox: React.FC = () => {
     };
 
     await EventController.createEvent(eventData); // Chamar o método createEvent sem o parâmetro navigate
-    navigate('/admin-area/events'); // Navegar para o endpoint após a requisição bem-sucedida
+    navigate("/admin-area/events"); // Navegar para o endpoint após a requisição bem-sucedida
   };
   return (
     <Form onSubmit={handleSubmit} className={styles.CreateEventBoxContainer}>
@@ -47,7 +47,7 @@ const CreateEventBox: React.FC = () => {
         <Form.Check
           type="switch"
           id="stateSwitch"
-          label={state === 1 ? 'Ativo' : 'Inativo'}
+          label={state === 1 ? "Ativo" : "Inativo"}
           checked={state === 1}
           onChange={() => setState(state === 1 ? 0 : 1)}
           required
@@ -106,11 +106,15 @@ const CreateEventBox: React.FC = () => {
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit" className={styles.CreateEventButton}>
+      <Button
+        variant="primary"
+        type="submit"
+        className={styles.CreateEventButton}
+      >
         Criar Evento
       </Button>
     </Form>
   );
-};
+}
 
 export default CreateEventBox;
