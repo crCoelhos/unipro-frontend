@@ -7,7 +7,7 @@ import Menu from "../../components/Menu/Menu";
 import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { EventDetails } from "../../types";
-import CreateTicketModal from "../../components/CreateTicketModal/CreateTicketModal";
+import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 
 const url = "http://localhost:3003/";
 const dataFromStorage = sessionStorage.getItem("user");
@@ -145,11 +145,11 @@ const SportEventDetails = () => {
                       size="lg"
                       className={styles.ExcludeEventButton}
                     >
-                      Deletar
+                      DESATIVAR EVENTO
                     </Button>
                   </Col>
                   <Col>
-                    <CreateTicketModal />
+                    <CreateCategoryModal />
                   </Col>
                 </Row>
               )}
