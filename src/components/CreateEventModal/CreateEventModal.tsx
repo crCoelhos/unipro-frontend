@@ -55,7 +55,7 @@ function CreateEventModal() {
         CRIAR EVENTO
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>CRIAR EVENTO</Modal.Title>
         </Modal.Header>
@@ -68,7 +68,7 @@ function CreateEventModal() {
               <Form.Label>Nome do Evento</Form.Label>
               <Form.Control
                 type="text"
-                value={name}
+                // value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
@@ -90,7 +90,7 @@ function CreateEventModal() {
               <Form.Label>Data do Evento</Form.Label>
               <Form.Control
                 type="date"
-                value={date}
+                // value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
               />
@@ -100,7 +100,7 @@ function CreateEventModal() {
               <Form.Label>Localização do Evento</Form.Label>
               <Form.Control
                 type="text"
-                value={location}
+                // value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
               />
@@ -110,7 +110,7 @@ function CreateEventModal() {
               <Form.Label>Termos de compra</Form.Label>
               <Form.Control
                 type="text"
-                value={policy}
+                // value={policy}
                 onChange={(e) => setPolicy(e.target.value)}
                 required
               />
@@ -121,7 +121,7 @@ function CreateEventModal() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                value={description}
+                // value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
@@ -132,22 +132,23 @@ function CreateEventModal() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                value={bannerEvent}
+                // value={bannerEvent}
                 onChange={(e) => setBannerEvent(e.target.value)}
                 required
               />
             </Form.Group>
 
-            <Button
-              variant="primary"
-              type="submit"
-              className={styles.CreateEventButton}
-            >
-              Enviar Evento
-            </Button>
+
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          <Button
+            variant="primary"
+            type="submit"
+            className={styles.CreateEventButton}
+          >
+            Enviar Evento
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Fechar
           </Button>
