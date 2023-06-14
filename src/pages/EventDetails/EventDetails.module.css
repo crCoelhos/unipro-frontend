@@ -56,10 +56,17 @@
 }
 .ButtonOptionsRow{
   margin: 24px;
+  width: 128px;
+
+  block-size: fit-content;
 }
 
 .EventImageBox {
   width: 312px;
 
   outline: dashed green 3px;
+}
+
+.jorge{
+  width: 200px;
 }

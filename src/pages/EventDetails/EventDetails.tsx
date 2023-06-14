@@ -7,6 +7,7 @@ import Menu from "../../components/Menu/Menu";
 import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { EventDetails } from "../../types";
+import CreateTicketModal from "../../components/CreateTicketModal/CreateTicketModal";
 
 const url = "http://localhost:3003/";
 const dataFromStorage = sessionStorage.getItem("user");
@@ -61,13 +62,13 @@ const SportEventDetails = () => {
     }
   };
 
-  const handleBuy = (category: any) => (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    navigate(`/sport-events/${eventId}/bookticket/${category.id}`, 
-    {state:{category}});
-  };
+  const handleBuy =
+    (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
+        state: { category },
+      });
+    };
 
   function handleCreateTicket() {
     navigate(`/admin-area/create-tickets/${eventId}`);
@@ -76,6 +77,7 @@ const SportEventDetails = () => {
   return (
     <>
       <Menu />
+
       <Row className={styles.EventDetailsContainer}>
         <Col xl={6} md={12} sm={12}>
           {eventDetails && (
@@ -106,8 +108,12 @@ const SportEventDetails = () => {
                         <Card.Title>{category.name}</Card.Title>
                         <Card.Text> teste: {category.id}</Card.Text>
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
-                        <Card.Text>Data de início: {category.startDate}</Card.Text>
-                        <Card.Text>Data de término: {category.finishDate}</Card.Text>
+                        <Card.Text>
+                          Data de início: {category.startDate}
+                        </Card.Text>
+                        <Card.Text>
+                          Data de término: {category.finishDate}
+                        </Card.Text>
                         <div className="d-grid gap-2">
                           <Button
                             size="lg"
@@ -131,20 +137,21 @@ const SportEventDetails = () => {
             <Col></Col>
             <Col xl={5} md={12} sm={12}>
               {user.role === "ADMIN" && (
-                <div className="d-grid gap-2">
-                  <Button
-                    onClick={handleDelete}
-                    variant="danger"
-                    size="lg"
-                    className={styles.ExcludeEventButton}
-                  >
-                    Deletar
-                  </Button>
-
-                  <Button onClick={handleCreateTicket} variant="info" size="lg">
-                    Criar ingresso
-                  </Button>
-                </div>
+                <Row>
+                  <Col>
+                    <Button
+                      onClick={handleDelete}
+                      variant="danger"
+                      size="lg"
+                      className={styles.ExcludeEventButton}
+                    >
+                      Deletar
+                    </Button>
+                  </Col>
+                  <Col>
+                    <CreateTicketModal />
+                  </Col>
+                </Row>
               )}
             </Col>
           </Row>
