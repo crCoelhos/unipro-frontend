@@ -17,8 +17,7 @@ import PaymentFailedToast from "../PaymentFailedToast/PaymentFailedToast";
 import PaymentProcessingToast from "../PaymentProcessingToast/PaymentProcessingToast";
 import { formData } from "./formData";
 import { useNavigate, useLocation } from "react-router-dom";
-import copyIcon from '../../assets2/icons/copy.png'
-
+import copyIcon from "../../assets2/icons/copy.png";
 
 const PaymentForm = () => {
   const navigate = useNavigate();
@@ -235,6 +234,10 @@ const PaymentForm = () => {
                 setTimeout(() => {
                   navigate("/sport-events");
                 }, 7000);
+              } else if (pay_status === "rejected") {
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000);
               }
             } catch (error) {
               console.error("Erro ao fazer a requisição:", error);
@@ -519,12 +522,17 @@ const PaymentForm = () => {
                       <Card.Body>
                         <Card.Title>
                           {pixQrCode && (
-                            <Button variant="outline-info"
+                            <Button
+                              variant="outline-info"
                               onClick={() =>
                                 navigator.clipboard.writeText(pixQrCode)
                               }
                             >
-                              <img src={copyIcon} alt="icone de copiar para area de transferência" className='CopyIcon' />
+                              <img
+                                src={copyIcon}
+                                alt="icone de copiar para area de transferência"
+                                className="CopyIcon"
+                              />
                             </Button>
                           )}
                         </Card.Title>
