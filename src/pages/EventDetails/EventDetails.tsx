@@ -122,9 +122,11 @@ const SportEventDetails = () => {
                             Comprar
                           </Button>
                           {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
-                          <Button variant="warning" size="lg">
-                            Desativar
-                          </Button>
+                          {user.role === "ADMIN" && (
+                            <Button variant="warning" size="lg">
+                              Desativar
+                            </Button>
+                          )}
                         </div>
                       </Card.Body>
                     </Card>
