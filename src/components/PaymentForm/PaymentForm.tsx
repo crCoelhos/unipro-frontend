@@ -506,6 +506,7 @@ const PaymentForm = () => {
               <Button type="submit" id="form-pix-submit" className="container">
                 Gerar QR Code
               </Button>
+              
             </Form>
           </Accordion.Body>
         </Accordion.Item>

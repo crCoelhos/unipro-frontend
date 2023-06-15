@@ -82,3 +82,19 @@ export interface LoginData {
 export interface UseTermAreaProps {
   pdfFile: string;
 }
+
+export interface Athletic {
+  id: number;
+  name: string;
+  college_course: {
+    [key: string]: string;
+  };
+  img_url: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AthleticsResponse {
+  athletics: Athletic[];
+}
+

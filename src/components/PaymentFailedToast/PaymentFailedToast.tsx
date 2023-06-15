@@ -16,7 +16,7 @@ const PaymentFailedToast = () => (
           <small className="text-muted"><CurrentTime/></small>
         </Toast.Header>
         <Toast.Body>
-          A compra do ingresso não foi realizada.
+          A compra do ingresso não foi realizada, tente novamente.
         </Toast.Body>
       </Toast>
     </ToastContainer>{" "}
