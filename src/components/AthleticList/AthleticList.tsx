@@ -38,6 +38,27 @@ const AthleticList: FC = () => {
 
     fetchData();
   }, []);
+  const handleDelete = async (id: number) => {
+    try {
+      const dataFromStorage = sessionStorage.getItem("user");
+      let token = "";
+
+      if (dataFromStorage) {
+        const parsedData = JSON.parse(dataFromStorage);
+        token = parsedData.token;
+      }
+
+      await axios.delete(`${url}athletics/${id}`, {
+        headers: { Authorization: token },
+      });
+
+      // Atualizar a lista de atleticas após a exclusão
+      const updatedAthletics = athletics.athletics.filter((athletic) => athletic.id !== id);
+      setAthletics({ athletics: updatedAthletics });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={styles.AthleticList}>
@@ -79,6 +100,7 @@ const AthleticList: FC = () => {
                   <Button
                     variant="danger"
                     className={styles.ActionButton}
+                    onClick={() => handleDelete(athletic.id)}
                   >
                     Excluir
                   </Button>
