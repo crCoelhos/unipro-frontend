@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./PaymentFailedToast.module.css";
 import { Toast, ToastContainer } from "react-bootstrap";
+import CurrentTime from "../CurrentTime/CurrentTime";
+
+
 
 const PaymentFailedToast = () => (
   <div className={styles.PaymentFailedToast}>
@@ -9,11 +12,11 @@ const PaymentFailedToast = () => (
       <Toast>
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <strong className="me-auto">$$tipo de erro$$</strong>
-          <small className="text-muted">por timestamp aqui</small>
+          <strong className="me-auto">Pagamento recusado</strong>
+          <small className="text-muted"><CurrentTime/></small>
         </Toast.Header>
         <Toast.Body>
-          A compra do ingresso $$ticket.name$$ não foi realizada.
+          A compra do ingresso não foi realizada.
         </Toast.Body>
       </Toast>
     </ToastContainer>{" "}

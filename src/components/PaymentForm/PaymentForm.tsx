@@ -17,6 +17,7 @@ import PaymentFailedToast from "../PaymentFailedToast/PaymentFailedToast";
 import PaymentProcessingToast from "../PaymentProcessingToast/PaymentProcessingToast";
 import { formData } from "./formData";
 import { useNavigate, useLocation } from "react-router-dom";
+import copyIcon from "../../assets2/icons/copy.png";
 
 const PaymentForm = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const PaymentForm = () => {
 
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
- 
+
   // getCategoryById
 
   const dataFromStorage = sessionStorage.getItem("user");
@@ -73,8 +74,7 @@ const PaymentForm = () => {
         const event_Data = response.data;
         // const parsedEventData = JSON.parse(response.data);
         setEventData(event_Data);
-        setCategortDataId(event_Data.id)
-
+        setCategortDataId(event_Data.id);
 
         // TA DANDO ERRO, RODA, TESTA E CORRIGE.
       } catch (error) {
@@ -85,7 +85,7 @@ const PaymentForm = () => {
   }, []);
 
   // setCategortDataId(eventData);
-  const testando = eventData
+  const testando = eventData;
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -101,6 +101,7 @@ const PaymentForm = () => {
     // amount to id so the backend can define the price by themselves
     const pixPayment_data = {
       // id: event_,
+      transaction_amount: 0.1,
       description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
       payer: {
@@ -141,7 +142,6 @@ const PaymentForm = () => {
       const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
       setPixQrCodeBase64(pix_qr_code64);
 
-
       const pay_status = response.data.pay_status;
       setPayStatus(pay_status);
 
@@ -156,7 +156,6 @@ const PaymentForm = () => {
 
   // card payment
   useEffect(() => {
-
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
       const mp = new window.MercadoPago(
@@ -198,7 +197,6 @@ const PaymentForm = () => {
             }
 
             try {
-
               const response = await axios.post(
                 "http://localhost:3003/admin/pay",
                 {
@@ -236,6 +234,10 @@ const PaymentForm = () => {
                 setTimeout(() => {
                   navigate("/sport-events");
                 }, 7000);
+              } else if (pay_status === "rejected") {
+                setTimeout(() => {
+                  window.location.reload();
+                }, 2000);
               }
             } catch (error) {
               console.error("Erro ao fazer a requisição:", error);
@@ -518,7 +520,23 @@ const PaymentForm = () => {
                   if (pixQrCode !== null && pixQrCode !== "") {
                     return (
                       <Card.Body>
-                        <Card.Title>Pix copia e cola:</Card.Title>
+                        <Card.Title>
+                          {pixQrCode && (
+                            <Button
+                              variant="outline-info"
+                              onClick={() =>
+                                navigator.clipboard.writeText(pixQrCode)
+                              }
+                            >
+                              <img
+                                src={copyIcon}
+                                alt="icone de copiar para area de transferência"
+                                className="CopyIcon"
+                              />
+                            </Button>
+                          )}
+                        </Card.Title>
+
                         <Card.Text>{pixQrCode}</Card.Text>
                       </Card.Body>
                     );
@@ -536,7 +554,7 @@ const PaymentForm = () => {
                       <Card.Body>
                         <Card.Title>
                           Abra o aplicativo de pagamento e aponte a câmera para
-                          o QR Code{" "}
+                          o QR Code
                         </Card.Title>
                       </Card.Body>
                       <Card.Img

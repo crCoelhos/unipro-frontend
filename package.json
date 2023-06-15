@@ -19,7 +19,6 @@
     "brazilian-values": "^0.12.0",
     "cdbreact": "^1.5.17",
     "cors": "^2.8.5",
-    "date-fns": "^2.30.0",
     "mdb-react-ui-kit": "^6.0.0",
     "mdb-ui-kit": "^6.3.1",
     "mercadopago": "^1.5.16",
