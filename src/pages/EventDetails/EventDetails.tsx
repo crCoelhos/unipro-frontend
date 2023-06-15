@@ -151,7 +151,7 @@ const SportEventDetails = () => {
                     </Button>
                   </Col>
                   <Col>
-                    <CreateCategoryModal />
+                    <CreateCategoryModal event={eventDetails} />
                   </Col>
                 </Row>
               )}

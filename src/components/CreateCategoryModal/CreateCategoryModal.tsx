@@ -4,13 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import CategoryController from "../../controllers/CategoryController";
 import styles from "./CreateCategoryModal.module.css";
 
-function CreateCategoryModal() {
+function CreateCategoryModal({event}:any) {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
-
   const [name, setName] = useState("");
-  const [eventId, setEventId] = useState("");
+  // const [eventId, setEventId] = useState("");
   const [price, setPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
@@ -19,8 +18,8 @@ function CreateCategoryModal() {
 
   const [categoryCreated, setCategoryCreated] = useState(false);
 
-  // const { event_id } = useParams(); //não ta funcionando, checkar.
-  // console.log("sergio ",event_id)
+  const { eventId } = useParams(); //não ta funcionando, checkar.
+  console.log("sergio ",event)
 
   const path = window.location.pathname;
   const code = path.split("/sport-events/")[1];
@@ -28,13 +27,13 @@ function CreateCategoryModal() {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-
+    console.log("abimael",eventId)
     const categoryData = {
       name,
       price: parseFloat(price),
       startDate,
       finishDate,
-      eventId: parseInt(code),
+      eventId: Number(eventId),
       quantity: parseInt(quantity),
     };
 
@@ -103,14 +102,9 @@ function CreateCategoryModal() {
                 />
               </Form.Group>
 
-              {/* <Form.Group controlId="formEventId">
-                <Form.Label>Evento</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={code}
-                  disabled
-                />
-              </Form.Group> */}
+              <Form.Group controlId="formEventId">
+                <Form.Label>Evento: {event?.event?.name}</Form.Label>
+              </Form.Group>
 
               <Form.Group controlId="formQuantity">
                 <Form.Label>Quantidade</Form.Label>
