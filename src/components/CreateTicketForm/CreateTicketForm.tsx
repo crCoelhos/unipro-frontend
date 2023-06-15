@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import useTicketController from "../../controllers/CategoryController";
 import styles from "./CreateTicketForm.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Event } from "../../types";
