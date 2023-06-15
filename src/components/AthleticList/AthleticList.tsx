@@ -39,30 +39,37 @@ const AthleticList: FC = () => {
     fetchData();
   }, []);
   const handleDelete = async (id: number) => {
-    try {
-      const dataFromStorage = sessionStorage.getItem("user");
-      let token = "";
+    let confirmation = window.confirm("Deletar atlética?");
 
-      if (dataFromStorage) {
-        const parsedData = JSON.parse(dataFromStorage);
-        token = parsedData.token;
+    if (confirmation === true)
+      try {
+        const dataFromStorage = sessionStorage.getItem("user");
+        let token = "";
+
+        if (dataFromStorage) {
+          const parsedData = JSON.parse(dataFromStorage);
+          token = parsedData.token;
+        }
+
+        await axios.delete(`${url}athletics/${id}`, {
+          headers: { Authorization: token },
+        });
+
+        // Atualizar a lista de atleticas após a exclusão
+        const updatedAthletics = athletics.athletics.filter(
+          (athletic) => athletic.id !== id
+        );
+        setAthletics({ athletics: updatedAthletics });
+      } catch (error) {
+        console.error(error);
       }
-
-      await axios.delete(`${url}athletics/${id}`, {
-        headers: { Authorization: token },
-      });
-
-      // Atualizar a lista de atleticas após a exclusão
-      const updatedAthletics = athletics.athletics.filter((athletic) => athletic.id !== id);
-      setAthletics({ athletics: updatedAthletics });
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
     <div className={styles.AthleticList}>
       <Container>
+        <h1>Atléticas registradas</h1>
+        <hr />
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -91,16 +98,13 @@ const AthleticList: FC = () => {
                   )}
                 </td>
                 <td>
-                  <Button
-                    variant="warning"
-                    className={styles.ActionButton}
-                  >
+                  <Button variant="warning" className={styles.ActionButton}>
                     Editar
                   </Button>
                   <Button
                     variant="danger"
                     className={styles.ActionButton}
-                    onClick={() => handleDelete(athletic.id)}
+                    onClick={() => athletic.id && handleDelete(athletic.id)}
                   >
                     Excluir
                   </Button>

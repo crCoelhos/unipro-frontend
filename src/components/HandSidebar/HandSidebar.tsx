@@ -22,12 +22,12 @@ const HandSidebar = () => {
           <ul>
             <li className={styles.SidebarListOptions}>
               <NavLink to="/home" className={styles.active}>
-                Home
+                Voltar
               </NavLink>
             </li>
             <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/about" className={styles.active}>
-                About
+              <NavLink to="/admin-area/athletics" className={styles.active}>
+                Atléticas
               </NavLink>
             </li>
             <li className={styles.SidebarListOptions}>
@@ -35,16 +35,12 @@ const HandSidebar = () => {
                 Eventos
               </NavLink>
             </li>
-            <li className={styles.SidebarListOptions}>
+            {/* <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/create-events" className={styles.active}>
                 Criar eventos
               </NavLink>
-            </li>
-            <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/create-tickets" className={styles.active}>
-                Criar ingresso
-              </NavLink>
-            </li>
+            </li> */}
+            
             <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/users" className={styles.active}>
                 Usuarios

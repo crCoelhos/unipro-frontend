@@ -84,14 +84,15 @@ export interface UseTermAreaProps {
 }
 
 export interface Athletic {
-  id: number;
+  id?: number;
   name: string;
   college_course: {
     [key: string]: string;
   };
+  direction: string;
   img_url: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AthleticsResponse {
