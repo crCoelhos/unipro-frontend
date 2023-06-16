@@ -5,9 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import LoginPage from "./pages/Login/Login.tsx";
 import HomePage from "./pages/Home/Home";
-import PasswordRecoveryPage from "./pages/PasswordRecovery/PasswordRecovery"
 
-import ContactUsPage from "./pages/ContactUs/ContactUs"
 import Menu from "./components/Menu/Menu"
 import React from 'react';
 import { AuthProvider } from './contexts/authContext';
@@ -35,13 +33,11 @@ function App() {
 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
 
           <Route path="/home" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />
 
-          <Route path="/contact-us" element={<ContactUsPage />} />
 
           <Route path="/sport-events" element={<SportEventPage />} />
           {/* <Route path="/cultural-events" element={<CulturalEventPage />} /> */}
