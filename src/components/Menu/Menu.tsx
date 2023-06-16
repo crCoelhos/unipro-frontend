@@ -4,8 +4,8 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import styles from "./Menu.module.css";
 import useLoginController from "../../controllers/LoginController";
 import useProfileController from "../../controllers/profileController";
-import uniLogoBranco from "../../assets2/icons/uni2023.png";
-import settingsIcon from "../../assets2/icons/settings-mono-white.png";
+import uniLogoBranco from "../../assets/icons/uni2023.png";
+import settingsIcon from "../../assets/icons/settings-mono-white.png";
 
 const Menu = () => {
   const navigate = useNavigate();

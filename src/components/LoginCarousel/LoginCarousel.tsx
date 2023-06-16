@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styles from './LoginCarousel.module.css';
 import { Carousel } from 'react-bootstrap';
 
-import sh1 from '../../assets2/images/show1.jpg'
-import sh2 from '../../assets2/images/show2.jpg'
-import sh3 from '../../assets2/images/show3.jpg'
-import sh4 from '../../assets2/images/show4.jpg'
-import sh5 from '../../assets2/images/show5.jpg'
+import sh1 from '../../assets/images/show1.jpg'
+import sh2 from '../../assets/images/show2.jpg'
+import sh3 from '../../assets/images/show3.jpg'
+import sh4 from '../../assets/images/show4.jpg'
+import sh5 from '../../assets/images/show5.jpg'
 
 const LoginCarousel = () => (
   <div className={styles.LoginCarousel}>

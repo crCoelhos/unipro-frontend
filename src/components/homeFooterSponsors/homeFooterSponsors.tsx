@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styles from './homeFooterSponsors.module.scss';
 
-import imgPlaceholder from '../../assets2/images/dogola-removebg-preview.png'
+import imgPlaceholder from '../../assets/images/dogola-removebg-preview.png'
 
 interface HomeFooterSponsorsProps { }
 
