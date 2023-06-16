@@ -10,6 +10,7 @@ const useLoginController = () => {
   const [authenticator, setAuthenticator] = useState<string>("");
   const [user, setUser] = useState<any>(null);
   const [loginError, setLoginError] = useState<boolean>(false);
+  const [loginErrorPasswordOrUser, setLoginErrorPasswordOrUser] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +46,10 @@ const useLoginController = () => {
       .catch((error) => {
         console.error(error.response.data);
         setLoginError(true);
-        setLoggedIn(false);
+        if (error.response.status === 400) {
+          setLoggedIn(false);
+          setLoginErrorPasswordOrUser(true)
+        }
       });
   };
 
@@ -81,6 +85,7 @@ const useLoginController = () => {
     updateSessionUser,
     loginError,
     loggedIn,
+    loginErrorPasswordOrUser
   };
 };
 

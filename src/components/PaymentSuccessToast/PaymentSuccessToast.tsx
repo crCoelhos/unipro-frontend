@@ -5,17 +5,17 @@ import { Toast, ToastContainer } from 'react-bootstrap';
 import CurrentTime from '../CurrentTime/CurrentTime';
 
 
-function getFormattedTime() {
-  const currentDate = new Date();
-  const hours = String(currentDate.getHours()).padStart(2, '0');
-  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-  const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+// function getFormattedTime() {
+//   const currentDate = new Date();
+//   const hours = String(currentDate.getHours()).padStart(2, '0');
+//   const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+//   const seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
-  return `${hours}:${minutes}:${seconds}`;
-}
+//   return `${hours}:${minutes}:${seconds}`;
+// }
 
-const currentTime = getFormattedTime();
-console.log(currentTime);
+// const currentTime = getFormattedTime();
+// console.log(currentTime);
 
 
 const PaymentSuccessToast = () => (
