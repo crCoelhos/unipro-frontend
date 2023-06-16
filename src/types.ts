@@ -12,6 +12,9 @@ export interface User {
   role: {
     name: string;
   };
+  athletic: {
+    name: string;
+  };
 }
 
 export interface Event {

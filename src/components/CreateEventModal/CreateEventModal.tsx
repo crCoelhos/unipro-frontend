@@ -139,9 +139,6 @@ function CreateEventModal() {
             </Form.Group>
 
 
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
           <Button
             variant="primary"
             type="submit"
@@ -149,6 +146,9 @@ function CreateEventModal() {
           >
             Enviar Evento
           </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Fechar
           </Button>

@@ -69,6 +69,8 @@ const UserList = () => {
           <tr>
             <th>Id</th>
             <th>Nome</th>
+            <th>Email</th>
+            <th>Atlética</th>
             <th>Role</th>
             <th>Ação</th>
           </tr>
@@ -78,6 +80,12 @@ const UserList = () => {
             <tr>
               <td>{user.id}</td>
               <td>{user.name}</td>
+              <td>{user.email}</td>
+              {user.athletic?.name
+                ? <td>{user.athletic?.name} </td>
+                : <td>Não associado</td>
+              }
+              
               <td>{user.role.name}</td>
               <td>
                 <Button
