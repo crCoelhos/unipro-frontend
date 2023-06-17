@@ -57,8 +57,8 @@ function App() {
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
           <Route path="/admin-area/athletics" element={<AdminAthleticPage />} />
-          <Route path="/admin-area/create-events" element={<CreateEventPage />} />
-          <Route path="/admin-area/create-tickets/:eventId" element={<CreateTicketPage />} />
+          {/* <Route path="/admin-area/create-events" element={<CreateEventPage />} />
+          <Route path="/admin-area/create-tickets/:eventId" element={<CreateTicketPage />} /> */}
           <Route path="/admin-area/events/:eventId" element={<EventDetails />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 
