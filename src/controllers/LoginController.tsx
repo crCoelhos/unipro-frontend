@@ -65,6 +65,8 @@ const useLoginController = () => {
   const logout = () => {
     sessionStorage.removeItem("user");
     setUser(null);
+    window.location.reload();
+    localStorage.clear();
   };
 
   //                                  revisar ↓
