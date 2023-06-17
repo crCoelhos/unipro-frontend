@@ -52,7 +52,7 @@ const EventCatalogueFix = () => {
     fetchEvents();
   }, []);
 
-  const filteredEvents = events.filter((event) => event.state);
+  const filteredEvents = events.filter((event) => event.status);
 
   const handleCardClick = (event: Event) => {
     setShow(true);

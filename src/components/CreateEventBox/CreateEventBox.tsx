@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function CreateEventBox() {
   const [name, setName] = useState("");
-  const [state, setState] = useState(1);
+  const [status, setStatus] = useState(1);
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [policy, setPolicy] = useState("");
@@ -19,7 +19,7 @@ function CreateEventBox() {
 
     const eventData = {
       name,
-      state,
+      status,
       date,
       location,
       policy,
@@ -47,9 +47,9 @@ function CreateEventBox() {
         <Form.Check
           type="switch"
           id="stateSwitch"
-          label={state === 1 ? "Ativo" : "Inativo"}
-          checked={state === 1}
-          onChange={() => setState(state === 1 ? 0 : 1)}
+          label={status === 1 ? "Ativo" : "Inativo"}
+          checked={status === 1}
+          onChange={() => setStatus(status === 1 ? 0 : 1)}
           required
         />
       </Form.Group>

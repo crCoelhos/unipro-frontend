@@ -3,7 +3,7 @@ import axios from 'axios';
 class EventController {
   static createEvent = async (eventData: {
     name: string;
-    state: number;
+    status: number;
     date: string;
     location: string;
     policy: string | Text;

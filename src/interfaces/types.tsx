@@ -25,7 +25,7 @@ export interface TicketBatch {
     event: {
         id: number;
         name: string;
-        state: boolean;
+        status: boolean;
         date: string;
         location: string;
         description: string;

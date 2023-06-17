@@ -20,7 +20,7 @@ export interface User {
 export interface Event {
   id: number;
   name: string;
-  state: boolean;
+  status: boolean;
   date: string;
   location: string;
   description: string;
@@ -32,7 +32,7 @@ export interface EventDetails {
   event: {
     id: number;
     name: string;
-    state: boolean;
+    status: boolean;
     date: string;
     location: string;
     policy: string;
