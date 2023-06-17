@@ -151,7 +151,7 @@ const SportEventDetails = () => {
                     </Button>
                   </Col>
                   <Col>
-                    <CreateCategoryModal event={eventDetails} />
+                    <CreateCategoryModal event={{event:eventDetails, token:token}} />
                   </Col>
                 </Row>
               )}

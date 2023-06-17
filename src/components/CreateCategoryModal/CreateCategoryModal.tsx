@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, FormGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import CategoryController from "../../controllers/CategoryController";
 import styles from "./CreateCategoryModal.module.css";
 
-function CreateCategoryModal({event}:any) {
+function CreateCategoryModal({ data }: any) {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -14,12 +15,16 @@ function CreateCategoryModal({event}:any) {
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
   const [quantity, setQuantity] = useState("");
-  const navigate = useNavigate();
+  const [typeTickets, setTypeTickets] = useState<any[]>([]);
+  const [typeTicket, setTypeTicket] = useState("");
+
+  const url = "http://localhost:3003/";
+  const dataFromStorage = sessionStorage.getItem("user");
 
   const [categoryCreated, setCategoryCreated] = useState(false);
 
   const { eventId } = useParams(); //não ta funcionando, checkar.
-  console.log("sergio ",event)
+  console.log("sergio ", typeTickets)
 
   const path = window.location.pathname;
   const code = path.split("/sport-events/")[1];
@@ -27,13 +32,13 @@ function CreateCategoryModal({event}:any) {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log("abimael",eventId)
     const categoryData = {
       name,
       price: parseFloat(price),
       startDate,
       finishDate,
       eventId: Number(eventId),
+      typeTicketId: Number(typeTicket),
       quantity: parseInt(quantity),
     };
 
@@ -43,6 +48,19 @@ function CreateCategoryModal({event}:any) {
   };
 
   useEffect(() => {
+    async function getTypes() {
+      try {
+        const response = await axios.get(`${url}admin/typetickets/`, {
+          headers: { Authorization: data.token, Access: "123" },
+        });
+        console.log(response)
+        setTypeTickets(response.data)
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getTypes();
     if (categoryCreated) {
       window.location.reload();
       setCategoryCreated(false);
@@ -54,7 +72,7 @@ function CreateCategoryModal({event}:any) {
       <Button
         variant="primary"
         onClick={handleShow}
-        style={{ fontSize: "18px", width:"205px"}}
+        style={{ fontSize: "18px", width: "205px" }}
       >
         CRIAR INGRESSO
       </Button>
@@ -74,7 +92,17 @@ function CreateCategoryModal({event}:any) {
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
+              <FormGroup controlId="formType">
+              <Form.Label>Tipo do ingresso</Form.Label>
 
+                <Form.Select
+                  onChange={(e) => setTypeTicket(e.target.value)}>
+                    <option value=""></option>
+                  {typeTickets.map((type, index) => {
+                    return (<option key={index+1} value={type.name}>{type.name}</option>)
+                  })}
+                </Form.Select>
+              </FormGroup>
               <Form.Group controlId="formPrice">
                 <Form.Label>Preço</Form.Label>
                 <Form.Control
@@ -103,7 +131,7 @@ function CreateCategoryModal({event}:any) {
               </Form.Group>
 
               <Form.Group controlId="formEventId">
-                <Form.Label>Evento: {event?.event?.name}</Form.Label>
+                <Form.Label>Evento: {data?.event?.name}</Form.Label>
               </Form.Group>
 
               <Form.Group controlId="formQuantity">
