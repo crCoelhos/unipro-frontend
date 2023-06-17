@@ -5,9 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import LoginPage from "./pages/Login/Login.tsx";
 import HomePage from "./pages/Home/Home";
-import PasswordRecoveryPage from "./pages/PasswordRecovery/PasswordRecovery"
 
-import ContactUsPage from "./pages/ContactUs/ContactUs"
 import Menu from "./components/Menu/Menu"
 import React from 'react';
 import { AuthProvider } from './contexts/authContext';
@@ -35,13 +33,11 @@ function App() {
 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
 
           <Route path="/home" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />
 
-          <Route path="/contact-us" element={<ContactUsPage />} />
 
           <Route path="/sport-events" element={<SportEventPage />} />
           {/* <Route path="/cultural-events" element={<CulturalEventPage />} /> */}
@@ -61,8 +57,8 @@ function App() {
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
           <Route path="/admin-area/athletics" element={<AdminAthleticPage />} />
-          <Route path="/admin-area/create-events" element={<CreateEventPage />} />
-          <Route path="/admin-area/create-tickets/:eventId" element={<CreateTicketPage />} />
+          {/* <Route path="/admin-area/create-events" element={<CreateEventPage />} />
+          <Route path="/admin-area/create-tickets/:eventId" element={<CreateTicketPage />} /> */}
           <Route path="/admin-area/events/:eventId" element={<EventDetails />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 

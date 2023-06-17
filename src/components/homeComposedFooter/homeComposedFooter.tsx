@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./homeComposedFooter.module.css";
 import HomeFooter from "../homeFooter/homeFooter";
 
-import instagram from "../../assets2/icons/instagram.png";
-import twitter from "../../assets2/icons/twitter.png";
-import whatsapp from "../../assets2/icons/whatsapp.png";
-import facebook from "../../assets2/icons/facebook.png";
+import instagram from "../../assets/icons/instagram.png";
+import twitter from "../../assets/icons/twitter.png";
+import whatsapp from "../../assets/icons/whatsapp.png";
+import facebook from "../../assets/icons/facebook.png";
 
 const HomeComposedFooter = () => (
   <footer className={styles.HomeComposedFooter}>

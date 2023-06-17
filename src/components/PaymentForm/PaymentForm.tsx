@@ -17,7 +17,7 @@ import PaymentFailedToast from "../PaymentFailedToast/PaymentFailedToast";
 import PaymentProcessingToast from "../PaymentProcessingToast/PaymentProcessingToast";
 import { formData } from "./formData";
 import { useNavigate, useLocation } from "react-router-dom";
-import copyIcon from "../../assets2/icons/copy.png";
+import copyIcon from "../../assets/icons/copy.png";
 
 const PaymentForm = () => {
   const navigate = useNavigate();

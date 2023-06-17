@@ -1,10 +1,11 @@
-import React from 'react';
-import { Carousel, Form } from 'react-bootstrap';
-import { Link, Navigate } from 'react-router-dom';
-import styles from './Login.module.css';
-import useLoginController from '../../controllers/LoginController';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import LoginCarousel from '../../components/LoginCarousel/LoginCarousel';
+import React from "react";
+import { Carousel, Form } from "react-bootstrap";
+import { Link, Navigate } from "react-router-dom";
+import styles from "./Login.module.css";
+import useLoginController from "../../controllers/LoginController";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import LoginCarousel from "../../components/LoginCarousel/LoginCarousel";
+import LoginErrorToast from "../../components/LoginErrorToast/LoginErrorToast";
 
 const LoginPage: React.FC = () => {
   const {
@@ -14,18 +15,19 @@ const LoginPage: React.FC = () => {
     handlePasswordChange,
     handleSubmit,
     loginError,
-    loggedIn
+    loggedIn,
+    loginErrorPasswordOrUser
   } = useLoginController();
 
   if (loggedIn) {
-    return <Navigate to='/home' />;
+    return <Navigate to="/home" />;
   }
 
   return (
     <div className={styles.loginContent}>
       <Container>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
-          <Col lg={6} xs={6} style={{ margin: '0px' }}>
+          <Col lg={6} xs={6} style={{ margin: "0px" }}>
             <Card className="shadow">
               <Card.Body>
                 <div className="mb-3 mt-md-4">
@@ -33,7 +35,7 @@ const LoginPage: React.FC = () => {
                   <div className="mb-3">
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3">
-                        <Form.Label className={styles['text-center']}>
+                        <Form.Label className={styles["text-center"]}>
                           Insira seu CPF ou EMAIL
                         </Form.Label>
                         <Form.Control
@@ -41,7 +43,7 @@ const LoginPage: React.FC = () => {
                           type="text"
                           value={username}
                           onChange={handleUsernameChange}
-                          placeholder='Ex: 12345678910 ou usuario@email.com'
+                          placeholder="Ex: 12345678910 ou usuario@email.com"
                           required
                         />
                       </Form.Group>
@@ -50,13 +52,14 @@ const LoginPage: React.FC = () => {
                         <Form.Label>Senha</Form.Label>
                         <Form.Control
                           className={styles.inputFieldPassword}
-                          id='userInput'
+                          id="userInput"
                           type="password"
                           value={password}
                           onChange={handlePasswordChange}
                           required
                         />
                       </Form.Group>
+                      {loginErrorPasswordOrUser && <LoginErrorToast />}
                       <Form.Group className="mb-3">
                         <p className="small">
                           <a className="text-primary" href="#!">
@@ -72,7 +75,7 @@ const LoginPage: React.FC = () => {
                     </Form>
                     <div className="mt-3">
                       <p className="mb-0  text-center">
-                        Não possui conta?{' '}
+                        Não possui conta?{" "}
                         <Link to="/signup" className="text-primary fw-bold">
                           Crie uma
                         </Link>
@@ -85,7 +88,7 @@ const LoginPage: React.FC = () => {
           </Col>
           <Col>
             <div>
-              <LoginCarousel/>
+              <LoginCarousel />
             </div>
           </Col>
         </Row>

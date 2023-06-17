@@ -9,7 +9,7 @@ import cx from "classnames";
 
 import { Sponsors } from "../../types";
 
-import sticker from "../../assets2/img/JOGOSUNI_2023.png";
+import sticker from "../../assets/img/JOGOSUNI_2023.png";
 
 
 
