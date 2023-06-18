@@ -62,6 +62,7 @@ const SportEventDetails = () => {
     }
   };
 
+  console.log("abimael", eventTickets)
   const handleBuy =
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -106,7 +107,7 @@ const SportEventDetails = () => {
                     <Card key={category.id}>
                       <Card.Body>
                         <Card.Title>{category.name}</Card.Title>
-                        <Card.Text> teste: {category.id}</Card.Text>
+                        <Card.Text> teste: {category.typeTicket.name}</Card.Text>
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
                         <Card.Text>
                           Data de início: {category.startDate}
