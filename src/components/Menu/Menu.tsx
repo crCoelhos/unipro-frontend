@@ -200,7 +200,7 @@ const Menu = () => {
                   className={styles.navBarMenuLinks}
                 >
                   <NavDropdown.Item>
-                    <Link to="/sport-events" className={styles.navBarMenuLinks}>
+                    <Link to="/user-profile" className={styles.navBarMenuLinks}>
                       <span
                         className={styles.adminSection}
                         style={{ fontSize: "18px" }}
