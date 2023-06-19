@@ -36,7 +36,7 @@ const UserProfileForm: React.FC = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `${url}/admin/useremail/${userEmail}`,
+          `${url}admin/useremail/${userEmail}`,
           config
         );
         const userData = response.data[0];
@@ -70,7 +70,7 @@ const UserProfileForm: React.FC = () => {
     try {
       if (user && updatedUser) {
         const response = await axios.put(
-          `${url}/admin/user/${user.id}`,
+          `${url}admin/user/${user.id}`,
           updatedUser,
           config
         );

@@ -35,7 +35,7 @@ const SportEventDetails = () => {
     const fetchEventDetails = async () => {
       try {
         const response = await axios.get<EventDetails>(
-          `${url}/admin/event/${eventId}`,
+          `${url}admin/event/${eventId}`,
           {
             headers: { Authorization: token, Access: serverSideAccessToken },
           }
@@ -57,7 +57,7 @@ const SportEventDetails = () => {
 
     if (confirmation === true) {
       try {
-        await axios.delete(`${url}/admin/event/${eventId}`, {
+        await axios.delete(`${url}admin/event/${eventId}`, {
           headers: { Authorization: token, Access: serverSideAccessToken },
         });
         navigate("/admin-area/events");

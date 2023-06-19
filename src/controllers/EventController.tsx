@@ -30,7 +30,7 @@ class EventController {
 
     try {
       const response = await axios.post(
-        `${url}/admin/event`,
+        `${url}admin/event`,
         eventData,
         config
       );

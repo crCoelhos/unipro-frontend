@@ -75,7 +75,7 @@ const PaymentForm = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `${url}/admin/category/${code}`,
+          `${url}admin/category/${code}`,
           eventHeaders
         );
         const event_Data = response.data;
@@ -139,7 +139,7 @@ const PaymentForm = () => {
     };
     try {
       const response = await axios.post(
-        `${url}/admin/pay`,
+        `${url}admin/pay`,
         pixPayment_data,
         pixHeaders
       );
@@ -201,7 +201,7 @@ const PaymentForm = () => {
 
             try {
               const response = await axios.post(
-                `${url}/admin/pay`,
+                `${url}admin/pay`,
                 {
                   id: location.state.category.id,
                   issuer_id: cardForm.issuerId,

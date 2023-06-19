@@ -6,7 +6,7 @@ const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 // Função para obter os lotes através da requisição GET
 const getLots = async (req: any, res: any) => {
   try {
-    const response = await axios.get(`${url}/admin/lots`);
+    const response = await axios.get(`${url}admin/lots`);
     const lots = response.data;
     res.json(lots);
   } catch (error) {

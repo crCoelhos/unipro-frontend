@@ -12,7 +12,7 @@ const authService = {
         Access: "123",
       },
     };
-    return axios.post(`${url}/auth/login`, data, config);
+    return axios.post(`${url}auth/login`, data, config);
   },
 };
 

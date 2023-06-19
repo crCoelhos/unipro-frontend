@@ -22,7 +22,7 @@ const UserList = () => {
           token = parsedData.token;
         }
 
-        const response = await axios.get<User[]>(`${url}/admin/user/`, {
+        const response = await axios.get<User[]>(`${url}admin/user/`, {
           headers: { Authorization: token },
         });
 
@@ -48,7 +48,7 @@ const UserList = () => {
           token = parsedData.token;
         }
 
-        await axios.delete(`${url}/admin/user/${id}`, {
+        await axios.delete(`${url}admin/user/${id}`, {
           headers: { Authorization: token },
         });
         setUsers(users.filter((user) => user.id !== id));
