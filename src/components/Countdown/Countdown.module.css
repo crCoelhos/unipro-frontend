@@ -1,0 +1,21 @@
+.Countdown {
+}
+
+.timerStyle {
+  font-size: 22px;
+  width: 72px;
+  height: 44px;
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bolder;
+  color: red;
+  background-color: #fff;
+  border: 3px solid red;
+  border-radius: 6px;
+}

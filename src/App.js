@@ -44,7 +44,7 @@ function App() {
           <Route path="/sport-events" element={<SportEventPage />} />
           {/* <Route path="/cultural-events" element={<CulturalEventPage />} /> */}
 
-          <Route exact path="/" element={<EventCatalogueFix />} />
+          {/* <Route exact path="/" element={<EventCatalogueFix />} /> */}
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
           <Route path="/sport-events/:eventId/bookticket/:categoryId" element={<DocAndBookingPage />} />
           <Route path="/sport-events/buyticket/:categoryId" element={<PaymentPage />} />
