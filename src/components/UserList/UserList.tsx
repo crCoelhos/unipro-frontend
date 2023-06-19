@@ -57,7 +57,6 @@ const UserList = () => {
   };
 
   const handleEdit = async (id: number) => {
-    console.log(`Editar user de ID: ${id}`);
   };
 
   return (

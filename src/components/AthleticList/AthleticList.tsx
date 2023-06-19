@@ -32,7 +32,6 @@ const AthleticList: FC = () => {
         );
 
         setAthletics(response.data);
-        console.log("athletics: ", response.data.athletics);
       } catch (error) {
         console.error(error);
       }

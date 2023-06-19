@@ -27,7 +27,6 @@ class AthleticController {
         athleticData,
         config
       );
-      console.log('leticia: ',response);
     } catch (error) {
       console.error(error);
     }

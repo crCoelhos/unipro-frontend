@@ -67,7 +67,6 @@ const SportEventDetails = () => {
     }
   };
 
-  console.log("abimael", eventTickets);
   const handleBuy =
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();

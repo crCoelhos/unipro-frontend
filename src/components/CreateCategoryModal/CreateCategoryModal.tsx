@@ -26,11 +26,9 @@ function CreateCategoryModal({ data }: any) {
   const [categoryCreated, setCategoryCreated] = useState(false);
 
   const { eventId } = useParams(); //não ta funcionando, checkar.
-  console.log("sergio ", typeTickets)
 
   const path = window.location.pathname;
   const code = path.split("/sport-events/")[1];
-  console.log(code)
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -55,7 +53,6 @@ function CreateCategoryModal({ data }: any) {
         const response = await axios.get(`${url}admin/typetickets/`, {
           headers: { Authorization: data.token, Access: serverSideAccessToken },
         });
-        console.log(response)
         setTypeTickets(response.data)
 
       } catch (error) {

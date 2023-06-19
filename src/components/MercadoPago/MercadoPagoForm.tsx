@@ -79,7 +79,6 @@ const PaymentForm: React.FC = () => {
 
     const dataFromStorage = sessionStorage.getItem("user");
             let authToken = "";
-            console.log("user", dataFromStorage);
 
             if (dataFromStorage) {
               const parsedData = JSON.parse(dataFromStorage);
@@ -102,7 +101,6 @@ const PaymentForm: React.FC = () => {
         data,
         config
       );
-      console.log(response.data);
       // Faça algo com a resposta do backend, por exemplo, exiba uma mensagem de sucesso para o usuário.
     } catch (error) {
       console.error(error);

@@ -153,11 +153,9 @@ const PaymentForm = () => {
       setPayStatus(pay_status);
 
       if (pay_status === "approved") {
-        console.log(pixPayment_data);
       }
     } catch (error) {
       console.error("Erro ao fazer a requisição:", error);
-      console.log(pixPayment_data);
     }
   };
 

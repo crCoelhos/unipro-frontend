@@ -4,6 +4,8 @@ import axios from "axios";
 import { User } from "../../types";
 import styles from "./UserProfileForm.module.css";
 import { useNavigate } from "react-router-dom";
+import UserProfileSubmtionSuccessToast from "../UserProfileSubmtionSuccessToast/UserProfileSubmitionSuccessToast";
+import UserProfileSubmitionFailToast from "../UserProfileSubmitionFailToast/UserProfileSubmitionFailToast";
 
 const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -41,7 +43,6 @@ const UserProfileForm: React.FC = () => {
         setUser(userData);
         setUpdatedUser(userData);
 
-        console.log("leticia: ", userData);
       } catch (error) {
         console.error(error);
       }
@@ -73,11 +74,11 @@ const UserProfileForm: React.FC = () => {
           updatedUser,
           config
         );
-          setUpdatedUserState(true);
-          
+        setUpdatedUserState(true);
+
         setTimeout(() => {
           navigate("/home");
-        }, 5000);
+        }, 3000);
       }
     } catch (error) {
       console.error(error);
@@ -86,7 +87,10 @@ const UserProfileForm: React.FC = () => {
 
   return (
     <div className={styles.UserProfileForm}>
-    
+      <div className={styles.SubmitionStatusToast}>
+        {updatedUserState && <UserProfileSubmtionSuccessToast />}
+        {/* {updatedUserState ? <UserProfileSubmtionSuccessToast /> : <UserProfileSubmitionFailToast/>} */}
+      </div>
 
       <Form onSubmit={handleSubmit}>
         {user && (

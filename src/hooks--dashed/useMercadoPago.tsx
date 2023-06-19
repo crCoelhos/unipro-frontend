@@ -80,7 +80,6 @@ export default function useMercadoPago() {
                 });
             },
             onFetching: (resource: any) => {
-              console.log("jorge");
             },
           },
         });
