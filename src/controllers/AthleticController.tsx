@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Athletic } from "../types";
 
-const url = "http://localhost:3003";
+const url = process.env.REACT_APP_SERVER_URL;
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 class AthleticController {
   static createAthletic = async (athleticData: Athletic) => {
@@ -17,7 +18,7 @@ class AthleticController {
     const config = {
       headers: {
         Authorization: token,
-        Access: 123,
+        Access: serverSideAccessToken,
       },
     };
 

@@ -4,7 +4,9 @@ import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
 import { Event } from "../../types";
 
-const url = "http://localhost:3003/";
+const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  
 
 //padronizar todos as interfaces num types
 
