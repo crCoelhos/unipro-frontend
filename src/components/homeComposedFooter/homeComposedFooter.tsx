@@ -13,14 +13,14 @@ const HomeComposedFooter = () => (
       <div className={styles.SocialMediaArea}>
         <div className={styles.SocialMediaAreaBg}>
           <a
-            href="https://www.instagram.com/"
+            href="https://www.instagram.com/jogosuni "
             target="_blank"
             rel="noopener noreferrer"
           >
             <img className={styles.Instagram} src={instagram} alt="Instagram" />
           </a>
           <a
-            href="https://twitter.com/"
+            href="https://twitter.com/jogosuni"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -34,7 +34,7 @@ const HomeComposedFooter = () => (
             <img className={styles.WhatsApp} src={whatsapp} alt="WhatsApp" />
           </a>
           <a
-            href="https://www.facebook.com/"
+            href="https://www.facebook.com/jogosuniac"
             target="_blank"
             rel="noopener noreferrer"
           >

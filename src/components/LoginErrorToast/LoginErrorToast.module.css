@@ -1,5 +1,8 @@
-.LoginErrorToast {}
+.LoginErrorToast {
+  margin: 12px;
+  margin-left: 24%;
+}
 
-.ToastBody{
-    color: white;
+.ToastBody {
+  color: white;
 }

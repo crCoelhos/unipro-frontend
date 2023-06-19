@@ -123,11 +123,10 @@ const HomeFooter: React.FC = () => {
                 </Row>
                 <Row>
                   <Col lg={12}>
-                    <div className={cx(styles.lowerFooter, styles["col-md-3"])}>
+                    <div className={styles["col-md-3"]}>
                       <h4>
                         Todos os direitos reservados <span>UniProduções</span>
                       </h4>
-                      <HomeFooterCreatedBy />
                     </div>
                   </Col>
                 </Row>

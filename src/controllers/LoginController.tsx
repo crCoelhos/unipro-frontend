@@ -42,6 +42,8 @@ const useLoginController = () => {
         setUser(userData);
         setLoginError(false);
         setLoggedIn(true);
+        setLoginErrorPasswordOrUser(false);
+
       })
       .catch((error) => {
         console.error(error.response.data);

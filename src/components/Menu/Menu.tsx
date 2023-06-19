@@ -6,7 +6,7 @@ import useLoginController from "../../controllers/LoginController";
 import useProfileController from "../../controllers/profileController";
 import uniLogoBranco from "../../assets/icons/uni2023.png";
 import settingsIcon from "../../assets/icons/settings-mono-white.png";
-
+import uniProLogo from "../../assets/icons/uniproWhite.png"
 const Menu = () => {
   const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ const Menu = () => {
           <Navbar.Brand>
             <Link to="/home" className={styles.navBarLogoLinks}>
               <img
-                src={uniLogoBranco}
+                src={uniProLogo}
                 alt="logo dos jogos uni 2023"
                 className={styles.NavbarJogosUniLogo}
               />
@@ -148,7 +148,7 @@ const Menu = () => {
         <Navbar.Brand>
           <Link to="/home" className={styles.navBarLogoLinks}>
             <img
-              src={uniLogoBranco}
+              src={uniProLogo}
               alt="logo dos jogos uni 2023"
               className={styles.NavbarJogosUniLogo}
             />

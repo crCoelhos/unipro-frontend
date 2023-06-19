@@ -72,6 +72,7 @@ function CreateCategoryModal({ data }: any) {
         variant="primary"
         onClick={handleShow}
         style={{ fontSize: "18px", width: "205px" }}
+        
       >
         CRIAR INGRESSO
       </Button>
