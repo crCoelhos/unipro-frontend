@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
 import useLoginController from "../../controllers/LoginController";
 import Menu from "../../components/Menu/Menu";
@@ -22,6 +23,7 @@ const SportEventDetails = () => {
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState<EventDetails | null>(null);
   const [eventTickets, setEventTickets] = useState<any[]>([]);
+  const [localization, setLocalization] = useState("");
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
@@ -37,6 +39,19 @@ const SportEventDetails = () => {
         );
         const eventData = response.data;
         setEventDetails(eventData);
+        const locationSplit = eventData.event.location.split(" ")
+        let location = ""
+        locationSplit.map(string => {
+          if (location === "") {
+            location = location + `${string}`
+          }
+          else {
+            location = location + `+${string}`
+          }
+        })
+        setLocalization(location)
+        console.log("Abimael",localization)
+        console.log("LOCALIZAÇÂO", location)
         const categoryList = eventData.event.category;
         setEventTickets(categoryList);
       } catch (error) {
@@ -74,6 +89,9 @@ const SportEventDetails = () => {
   function handleCreateTicket() {
     navigate(`/admin-area/create-tickets/${eventId}`);
   }
+  const onClick = () => {
+    window.open(`https://www.google.com/maps/search/${localization}`, "_blank")
+  }
 
   return (
     <>
@@ -91,7 +109,17 @@ const SportEventDetails = () => {
                 <Card.Img src={eventDetails.event.bannerEvent || ""} />
                 <hr />
                 <p>Descrição: {eventDetails.event.description}</p>
-                <p>Local do evento: {eventDetails.event.location}</p>
+                <p>Local do evento: {eventDetails.event.location}
+                  {/* <a href={localization} target="_blank" rel="noopener noreferrer"> */}
+                    <Button
+                    onClick={onClick}
+                      variant="outline-primary" className={styles.iconMap}>
+                      <MDBIcon icon="location-dot" />
+                      <div> Ver no mapa</div>
+                    </Button>
+                  {/* </a> */}
+
+                </p>
                 <hr />
                 <p>Criado em {eventDetails.event.createdAt}</p>
               </Card.Body>
@@ -152,7 +180,7 @@ const SportEventDetails = () => {
                     </Button>
                   </Col>
                   <Col>
-                    <CreateCategoryModal event={{event:eventDetails, token:token}} />
+                    <CreateCategoryModal event={{ event: eventDetails, token: token }} />
                   </Col>
                 </Row>
               )}

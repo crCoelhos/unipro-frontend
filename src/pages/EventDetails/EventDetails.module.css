@@ -70,3 +70,11 @@
 .jorge{
   width: 200px;
 }
+
+.iconMap {
+  flex-direction: row!important;
+  display: flex!important;
+  width: fit-content!important;
+  align-items: center!important;
+  gap: 10px!important;
+}

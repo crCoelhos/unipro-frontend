@@ -24,7 +24,6 @@ function CreateCategoryModal({ data }: any) {
   const [categoryCreated, setCategoryCreated] = useState(false);
 
   const { eventId } = useParams(); //não ta funcionando, checkar.
-  console.log("sergio ", typeTickets)
 
   const path = window.location.pathname;
   const code = path.split("/sport-events/")[1];
