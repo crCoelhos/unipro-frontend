@@ -4,7 +4,9 @@ import styles from "./UserList.module.css";
 import { Button, Table } from "react-bootstrap";
 import { User } from "../../types";
 
-const url = "http://localhost:3003/";
+const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  
 
 const UserList = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -20,7 +22,7 @@ const UserList = () => {
           token = parsedData.token;
         }
 
-        const response = await axios.get<User[]>(`${url}admin/user/`, {
+        const response = await axios.get<User[]>(`${url}/admin/user/`, {
           headers: { Authorization: token },
         });
 
@@ -46,7 +48,7 @@ const UserList = () => {
           token = parsedData.token;
         }
 
-        await axios.delete(`${url}admin/user/${id}`, {
+        await axios.delete(`${url}/admin/user/${id}`, {
           headers: { Authorization: token },
         });
         setUsers(users.filter((user) => user.id !== id));

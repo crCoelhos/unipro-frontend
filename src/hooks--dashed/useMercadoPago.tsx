@@ -3,7 +3,9 @@ import useScript from "./useScript";
 import { formConfig } from "../components/MercadoPago/formConfig";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
 
+const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN!;
+const mpClientSidePaymentKey = process.env.REACT_APP_MP_CLIENT_SIDE_PAYMENT_KEY;
 
 export default function useMercadoPago() {
   const [resultPayment, setResultPayment] = useState(undefined);
@@ -19,9 +21,7 @@ export default function useMercadoPago() {
 
       const initializeMercadoPago = async () => {
         await loadMercadoPago();
-        const mp = new window.MercadoPago(
-          "TEST-3905bdb8-bd41-449b-9d83-a3a51c606620"
-        );
+        const mp = new window.MercadoPago(mpClientSidePaymentKey);
         const cardForm = mp.cardForm({
           amount: "100.5",
           autoMount: true,
@@ -46,7 +46,7 @@ export default function useMercadoPago() {
                 identificationType,
               } = cardForm.getCardFormData();
 
-              fetch("http://localhost:3003/admin/pay", {
+              fetch(`${url}/admin/pay`, {
                 // entry point backend
                 method: "POST",
                 headers: {
@@ -79,8 +79,7 @@ export default function useMercadoPago() {
                   setResultPayment(err);
                 });
             },
-            onFetching: (resource: any) => {
-            },
+            onFetching: (resource: any) => {},
           },
         });
       };

@@ -46,9 +46,9 @@ const PaymentForm = () => {
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
 
-
   // data from env
 
+  const url = process.env.REACT_APP_SERVER_URL;
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const mpClientSidePaymentKey =
     process.env.REACT_APP_MP_CLIENT_SIDE_PAYMENT_KEY;
@@ -75,7 +75,7 @@ const PaymentForm = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3003/admin/category/" + code,
+          `${url}/admin/category/${code}`,
           eventHeaders
         );
         const event_Data = response.data;
@@ -139,7 +139,7 @@ const PaymentForm = () => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:3003/admin/pay",
+        `${url}/admin/pay`,
         pixPayment_data,
         pixHeaders
       );
@@ -163,9 +163,7 @@ const PaymentForm = () => {
   useEffect(() => {
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
-      const mp = new window.MercadoPago(
-        mpClientSidePaymentKey
-      );
+      const mp = new window.MercadoPago(mpClientSidePaymentKey);
       const cardForm = mp.cardForm({
         amount: location.state.category.price,
         iframe: true,
@@ -203,7 +201,7 @@ const PaymentForm = () => {
 
             try {
               const response = await axios.post(
-                "http://localhost:3003/admin/pay",
+                `${url}/admin/pay`,
                 {
                   id: location.state.category.id,
                   issuer_id: cardForm.issuerId,

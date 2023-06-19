@@ -1,4 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
+
+const url = process.env.REACT_APP_SERVER_URL;
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 class EventController {
   static createEvent = async (eventData: {
@@ -10,8 +13,8 @@ class EventController {
     description: string;
     bannerEvent: string;
   }) => {
-    const dataFromStorage = sessionStorage.getItem('user');
-    let token = '';
+    const dataFromStorage = sessionStorage.getItem("user");
+    let token = "";
 
     if (dataFromStorage) {
       const parsedData = JSON.parse(dataFromStorage);
@@ -21,17 +24,16 @@ class EventController {
     const config = {
       headers: {
         Authorization: token,
-        Access : 123
+        Access: serverSideAccessToken,
       },
     };
 
     try {
       const response = await axios.post(
-        'http://localhost:3003/admin/event',
+        `${url}/admin/event`,
         eventData,
         config
       );
-      
     } catch (error) {
       console.error(error);
     }
