@@ -25,7 +25,7 @@ const AthleticList: FC = () => {
         }
 
         const response = await axios.get<AthleticsResponse>(
-          `${url}athletics/`,
+          `${url}/athletics/`,
           {
             headers: { Authorization: token },
           }
@@ -52,7 +52,7 @@ const AthleticList: FC = () => {
           token = parsedData.token;
         }
 
-        await axios.delete(`${url}athletics/${id}`, {
+        await axios.delete(`${url}/athletics/${id}`, {
           headers: { Authorization: token },
         });
 

@@ -50,7 +50,7 @@ function CreateCategoryModal({ data }: any) {
   useEffect(() => {
     async function getTypes() {
       try {
-        const response = await axios.get(`${url}admin/typetickets/`, {
+        const response = await axios.get(`${url}/admin/typetickets/`, {
           headers: { Authorization: data.token, Access: serverSideAccessToken },
         });
         setTypeTickets(response.data)
