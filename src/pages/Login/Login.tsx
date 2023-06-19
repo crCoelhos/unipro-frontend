@@ -1,11 +1,12 @@
 import React from "react";
 import { Carousel, Form } from "react-bootstrap";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import useLoginController from "../../controllers/LoginController";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import LoginCarousel from "../../components/LoginCarousel/LoginCarousel";
 import LoginErrorToast from "../../components/LoginErrorToast/LoginErrorToast";
+import LoginSuccessToast from "../../components/LoginSuccessToast/LoginSuccessToast";
 
 const LoginPage: React.FC = () => {
   const {
@@ -16,11 +17,15 @@ const LoginPage: React.FC = () => {
     handleSubmit,
     loginError,
     loggedIn,
-    loginErrorPasswordOrUser
+    loginErrorPasswordOrUser,
   } = useLoginController();
 
+  const navigate = useNavigate();
+
   if (loggedIn) {
-    return <Navigate to="/home" />;
+    setTimeout(() => {
+      navigate("/home");
+    }, 2500);
   }
 
   return (
@@ -59,7 +64,6 @@ const LoginPage: React.FC = () => {
                           required
                         />
                       </Form.Group>
-                      {loginErrorPasswordOrUser && <LoginErrorToast />}
                       <Form.Group className="mb-3">
                         <p className="small">
                           <a className="text-primary" href="#!">
@@ -85,6 +89,8 @@ const LoginPage: React.FC = () => {
                 </div>
               </Card.Body>
             </Card>
+            {loggedIn && <LoginSuccessToast />}
+            {loginErrorPasswordOrUser ? <LoginErrorToast /> : <></>}
           </Col>
           <Col>
             <div>

@@ -4,7 +4,9 @@ import axios from "axios";
 import styles from "./DocumentArea.module.css";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-const url: string = "http://localhost:3003/";
+
+const url = process.env.REACT_APP_SERVER_URL;
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 const DocumentArea: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -36,7 +38,7 @@ const DocumentArea: React.FC = () => {
           "Content-Type": "multipart/form-data",
           Accept: "application/json",
           Authorization: token,
-          Access: "123",
+          Access: serverSideAccessToken,
         },
       };
 
@@ -44,7 +46,7 @@ const DocumentArea: React.FC = () => {
         headers: {
           "Content-Type": "Application/json",
           Authorization: token,
-          Access: "123",
+          Access: serverSideAccessToken,
           Confirm: true,
         },
       };

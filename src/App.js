@@ -18,6 +18,7 @@ import AdminUserPage from './pages/AdminUserPage/AdminUserPage';
 import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
 import CreateTicketPage from './pages/CreateTicketPage/CreateTicketPage';
 import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
@@ -33,10 +34,11 @@ function App() {
 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          {/* <Route path="/user-profile" element={<UserProfilePage />} /> */}
 
           <Route path="/home" element={<HomePage />} />
-          <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />
+          <Route path="/user-profile" element={<UserProfilePage />} />
 
 
           <Route path="/sport-events" element={<SportEventPage />} />
@@ -46,19 +48,14 @@ function App() {
           <Route path="/sport-events/:eventId" element={<EventDetails />} />
           <Route path="/sport-events/:eventId/bookticket/:categoryId" element={<DocAndBookingPage />} />
           <Route path="/sport-events/buyticket/:categoryId" element={<PaymentPage />} />
-          {/* <Route path="/info-card/:id" element={<PaymentPage />} /> */}
 
 
           <Route path="/publication/:id" element={<PublicationDetailsPage />} />
           <Route path="/info-card/:id" element={<InfoCardDetailsPage />} />
 
-
-
           <Route exact path="/admin-area" element={<AdminSection />} />
           <Route path="/admin-area/events" element={<AdminEventPage />} />
           <Route path="/admin-area/athletics" element={<AdminAthleticPage />} />
-          {/* <Route path="/admin-area/create-events" element={<CreateEventPage />} />
-          <Route path="/admin-area/create-tickets/:eventId" element={<CreateTicketPage />} /> */}
           <Route path="/admin-area/events/:eventId" element={<EventDetails />} />
           <Route path="/admin-area/users" element={<AdminUserPage />} />
 

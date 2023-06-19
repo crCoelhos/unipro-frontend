@@ -46,6 +46,13 @@ const PaymentForm = () => {
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
 
+  // data from env
+
+  const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const mpClientSidePaymentKey =
+    process.env.REACT_APP_MP_CLIENT_SIDE_PAYMENT_KEY;
+
   // getCategoryById
 
   const dataFromStorage = sessionStorage.getItem("user");
@@ -59,7 +66,7 @@ const PaymentForm = () => {
   const eventHeaders = {
     headers: {
       "Content-Type": "application/json",
-      Access: "123",
+      Access: serverSideAccessToken,
       Authorization: authToken,
     },
   };
@@ -68,7 +75,7 @@ const PaymentForm = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3003/admin/category/" + code,
+          `${url}admin/category/${code}`,
           eventHeaders
         );
         const event_Data = response.data;
@@ -126,13 +133,13 @@ const PaymentForm = () => {
     const pixHeaders = {
       headers: {
         "Content-Type": "application/json",
-        Access: "123",
+        Access: serverSideAccessToken,
         Authorization: authToken,
       },
     };
     try {
       const response = await axios.post(
-        "http://localhost:3003/admin/pay",
+        `${url}admin/pay`,
         pixPayment_data,
         pixHeaders
       );
@@ -146,11 +153,9 @@ const PaymentForm = () => {
       setPayStatus(pay_status);
 
       if (pay_status === "approved") {
-        console.log(pixPayment_data);
       }
     } catch (error) {
       console.error("Erro ao fazer a requisição:", error);
-      console.log(pixPayment_data);
     }
   };
 
@@ -158,9 +163,7 @@ const PaymentForm = () => {
   useEffect(() => {
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
-      const mp = new window.MercadoPago(
-        "APP_USR-af1ae5de-2f62-4b52-9e08-131dd1ef14bd"
-      );
+      const mp = new window.MercadoPago(mpClientSidePaymentKey);
       const cardForm = mp.cardForm({
         amount: location.state.category.price,
         iframe: true,
@@ -198,7 +201,7 @@ const PaymentForm = () => {
 
             try {
               const response = await axios.post(
-                "http://localhost:3003/admin/pay",
+                `${url}admin/pay`,
                 {
                   id: location.state.category.id,
                   issuer_id: cardForm.issuerId,
@@ -220,7 +223,7 @@ const PaymentForm = () => {
                 {
                   headers: {
                     "Content-Type": "application/json",
-                    Access: "123",
+                    Access: serverSideAccessToken,
                     Authorization: authToken,
                   },
                 }
@@ -506,7 +509,6 @@ const PaymentForm = () => {
               <Button type="submit" id="form-pix-submit" className="container">
                 Gerar QR Code
               </Button>
-              
             </Form>
           </Accordion.Body>
         </Accordion.Item>

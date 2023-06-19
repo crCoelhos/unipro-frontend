@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
-const url = "http://localhost:3003";
+const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  
 class CategoryController {
   static createCategory = async (categoryData:{
     name: string ,
@@ -22,7 +24,7 @@ class CategoryController {
     const config = {
       headers: {
         Authorization: token,
-        Access: 123,
+        Access: serverSideAccessToken,
       },
     };
 

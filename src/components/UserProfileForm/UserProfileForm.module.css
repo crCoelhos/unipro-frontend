@@ -1,0 +1,22 @@
+.UserProfileForm {
+  margin: 128px 312px;
+  width: 45%;
+  
+}
+
+.SubmitionStatusToast{
+    position: absolute;
+    top: 252px;
+    right: 32px;
+}
+
+.SubmitDataButton{
+    margin: 12px;
+}
+
+.AvailableInputOption{
+    border: 2px forestgreen solid;
+}
+.AvailableInputOption:focus{
+    border: 2px darkgreen solid;
+}

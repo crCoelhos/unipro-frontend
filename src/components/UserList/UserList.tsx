@@ -4,7 +4,9 @@ import styles from "./UserList.module.css";
 import { Button, Table } from "react-bootstrap";
 import { User } from "../../types";
 
-const url = "http://localhost:3003/";
+const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  
 
 const UserList = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -57,7 +59,6 @@ const UserList = () => {
   };
 
   const handleEdit = async (id: number) => {
-    console.log(`Editar user de ID: ${id}`);
   };
 
   return (

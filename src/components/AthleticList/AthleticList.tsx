@@ -9,7 +9,9 @@ const AthleticList: FC = () => {
     athletics: [],
   });
 
-  const url = "http://localhost:3003/";
+
+  const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
   useEffect(() => {
     const dataFromStorage = sessionStorage.getItem("user");
@@ -30,7 +32,6 @@ const AthleticList: FC = () => {
         );
 
         setAthletics(response.data);
-        console.log("athletics: ", response.data.athletics);
       } catch (error) {
         console.error(error);
       }
@@ -55,7 +56,6 @@ const AthleticList: FC = () => {
           headers: { Authorization: token },
         });
 
-        // Atualizar a lista de atleticas após a exclusão
         const updatedAthletics = athletics.athletics.filter(
           (athletic) => athletic.id !== id
         );
