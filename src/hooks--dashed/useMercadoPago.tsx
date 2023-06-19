@@ -3,6 +3,8 @@ import useScript from "./useScript";
 import { formConfig } from "../components/MercadoPago/formConfig";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
 
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN!;
+
 export default function useMercadoPago() {
   const [resultPayment, setResultPayment] = useState(undefined);
 
@@ -32,7 +34,6 @@ export default function useMercadoPago() {
 
             onSubmit: (event: { preventDefault: () => void }) => {
               event.preventDefault();
-              
 
               const {
                 paymentMethodId: payment_method_id,
@@ -53,7 +54,7 @@ export default function useMercadoPago() {
                   "Access-Control-Request-Method":
                     "GET, POST, DELETE, PUT, OPTIONS",
                   "Content-Type": "application/json",
-                  Access: "123",
+                  Access: serverSideAccessToken,
                 },
                 body: JSON.stringify({
                   token,
@@ -80,7 +81,6 @@ export default function useMercadoPago() {
             },
             onFetching: (resource: any) => {
               console.log("jorge");
-              
             },
           },
         });

@@ -9,6 +9,7 @@ import useLoginController from "../../controllers/LoginController";
 
 interface SportEventPageProps {}
 
+
 const SportEventPage: FC<SportEventPageProps> = () => {
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();

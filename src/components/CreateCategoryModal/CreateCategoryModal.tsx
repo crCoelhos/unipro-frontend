@@ -18,7 +18,9 @@ function CreateCategoryModal({ data }: any) {
   const [typeTickets, setTypeTickets] = useState<any[]>([]);
   const [typeTicket, setTypeTicket] = useState("");
 
-  const url = "http://localhost:3003/";
+  const url = process.env.REACT_APP_SERVER_URL;
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  
   const dataFromStorage = sessionStorage.getItem("user");
 
   const [categoryCreated, setCategoryCreated] = useState(false);
@@ -51,7 +53,7 @@ function CreateCategoryModal({ data }: any) {
     async function getTypes() {
       try {
         const response = await axios.get(`${url}admin/typetickets/`, {
-          headers: { Authorization: data.token, Access: "123" },
+          headers: { Authorization: data.token, Access: serverSideAccessToken },
         });
         console.log(response)
         setTypeTickets(response.data)

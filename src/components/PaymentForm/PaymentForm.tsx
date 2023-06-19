@@ -46,6 +46,13 @@ const PaymentForm = () => {
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
 
+
+  // data from env
+
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  const mpClientSidePaymentKey =
+    process.env.REACT_APP_MP_CLIENT_SIDE_PAYMENT_KEY;
+
   // getCategoryById
 
   const dataFromStorage = sessionStorage.getItem("user");
@@ -59,7 +66,7 @@ const PaymentForm = () => {
   const eventHeaders = {
     headers: {
       "Content-Type": "application/json",
-      Access: "123",
+      Access: serverSideAccessToken,
       Authorization: authToken,
     },
   };
@@ -126,7 +133,7 @@ const PaymentForm = () => {
     const pixHeaders = {
       headers: {
         "Content-Type": "application/json",
-        Access: "123",
+        Access: serverSideAccessToken,
         Authorization: authToken,
       },
     };
@@ -159,7 +166,7 @@ const PaymentForm = () => {
     const initializeMercadoPago = async () => {
       await loadMercadoPago();
       const mp = new window.MercadoPago(
-        "APP_USR-af1ae5de-2f62-4b52-9e08-131dd1ef14bd"
+        mpClientSidePaymentKey
       );
       const cardForm = mp.cardForm({
         amount: location.state.category.price,
@@ -220,7 +227,7 @@ const PaymentForm = () => {
                 {
                   headers: {
                     "Content-Type": "application/json",
-                    Access: "123",
+                    Access: serverSideAccessToken,
                     Authorization: authToken,
                   },
                 }
@@ -506,7 +513,6 @@ const PaymentForm = () => {
               <Button type="submit" id="form-pix-submit" className="container">
                 Gerar QR Code
               </Button>
-              
             </Form>
           </Accordion.Body>
         </Accordion.Item>

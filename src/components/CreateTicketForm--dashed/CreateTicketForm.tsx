@@ -9,7 +9,9 @@ import CategoryController from "../../controllers/CategoryController";
 //padronizar todos as interfaces num types
 
 
-const url: string = "http://localhost:3003";
+
+const url = process.env.REACT_APP_SERVER_URL;
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN!;
 
 const CreateTicketForm = () => {
   const navigate = useNavigate();
@@ -33,10 +35,10 @@ const CreateTicketForm = () => {
         token = parsedData.token;
       }
       try {
-        const response = await fetch(url + "/admin/events", {
+        const response = await fetch(url + "admin/events", {
           headers: {
             authentication: token,
-            Access: "123",
+            Access: serverSideAccessToken,
           },
         });
         const data = await response.json();

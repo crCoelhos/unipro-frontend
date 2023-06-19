@@ -9,7 +9,12 @@ import HomeComposedFooter from "../../components/homeComposedFooter/homeComposed
 import { EventDetails } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 
-const url = "http://localhost:3003/";
+
+
+const url = process.env.REACT_APP_SERVER_URL;
+
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+
 const dataFromStorage = sessionStorage.getItem("user");
 let token = "";
 if (dataFromStorage) {
@@ -32,7 +37,7 @@ const SportEventDetails = () => {
         const response = await axios.get<EventDetails>(
           `${url}admin/event/${eventId}`,
           {
-            headers: { Authorization: token, Access: "123" },
+            headers: { Authorization: token, Access: serverSideAccessToken },
           }
         );
         const eventData = response.data;
@@ -53,7 +58,7 @@ const SportEventDetails = () => {
     if (confirmation === true) {
       try {
         await axios.delete(`${url}admin/event/${eventId}`, {
-          headers: { Authorization: token, Access: "123" },
+          headers: { Authorization: token, Access: serverSideAccessToken },
         });
         navigate("/admin-area/events");
       } catch (error) {
@@ -62,7 +67,7 @@ const SportEventDetails = () => {
     }
   };
 
-  console.log("abimael", eventTickets)
+  console.log("abimael", eventTickets);
   const handleBuy =
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -107,7 +112,10 @@ const SportEventDetails = () => {
                     <Card key={category.id}>
                       <Card.Body>
                         <Card.Title>{category.name}</Card.Title>
-                        <Card.Text> teste: {category.typeTicket.name}</Card.Text>
+                        <Card.Text>
+                          {" "}
+                          teste: {category.typeTicket.name}
+                        </Card.Text>
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
                         <Card.Text>
                           Data de início: {category.startDate}
@@ -152,7 +160,9 @@ const SportEventDetails = () => {
                     </Button>
                   </Col>
                   <Col>
-                    <CreateCategoryModal event={{event:eventDetails, token:token}} />
+                    <CreateCategoryModal
+                      event={{ event: eventDetails, token: token }}
+                    />
                   </Col>
                 </Row>
               )}
