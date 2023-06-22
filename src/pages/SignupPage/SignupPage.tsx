@@ -5,6 +5,7 @@ import styles from "./SignupPage.module.css";
 
 const SignupPage = () => {
   const [cpfError, setCpfError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
 
   const {
     name,
@@ -75,6 +76,16 @@ const SignupPage = () => {
     return true;
   };
 
+
+  const validatePhone = () => {
+    const phonelength = contact.length;
+    if (phonelength === 11) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
+    }
+  };
+
   return (
     <div
       className="d-flex justify-content-center align-items-center"
@@ -122,9 +133,14 @@ const SignupPage = () => {
               type="text"
               placeholder="ex: 6899999999"
               value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              onChange={(e) => {
+                setContact(e.target.value);
+                setPhoneError(false);
+              }}
+              onBlur={validatePhone}
               required
             />
+            {phoneError && <Alert variant="danger">Telefone inválido!</Alert>}
           </Form.Group>
 
           <Form.Group controlId="formCPF">
@@ -140,7 +156,7 @@ const SignupPage = () => {
               onBlur={validateCPF} // Validar o CPF ao perder o foco
               required
             />
-            {cpfError && <Alert variant="danger">CPF inválido!</Alert>}
+            {cpfError && <Alert variant="danger" className={styles.FieldValidationAlerts}>CPF inválido!</Alert>}
           </Form.Group>
 
           <Form.Group controlId="formBirthdate">
