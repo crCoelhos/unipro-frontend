@@ -46,7 +46,7 @@ export default function useMercadoPago() {
                 identificationType,
               } = cardForm.getCardFormData();
 
-              fetch(`${url}/admin/pay`, {
+              fetch(`${url}admin/pay`, {
                 // entry point backend
                 method: "POST",
                 headers: {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import styles from './AdminSection.module.css';
@@ -9,6 +9,18 @@ const AdminSection = () => {
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const checkUserToken = () => {
+    const userToken = sessionStorage.getItem('user');
+    if (!userToken || userToken === 'undefined') {
+      setIsLoggedIn(false);
+      return navigate('/login');
+    }
+    setIsLoggedIn(true);
+  }
+  useEffect(() => {
+    checkUserToken();
+  }, [isLoggedIn]);
 
   const isAdmin = user?.role === 'ADMIN';
 

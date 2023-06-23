@@ -27,7 +27,6 @@ const EventCatalogueFix = () => {
 
     const config = {
       headers: {
-        Authorization: token,
         Access: serverSideAccessToken,
       },
     };
@@ -61,7 +60,7 @@ const EventCatalogueFix = () => {
 
   return (
     <div className={styles.eventCatalogueFix}>
-      <Alert show={show} variant="warning">
+      {/* <Alert show={show} variant="warning">
         <Alert.Heading>Sem autorização</Alert.Heading>
         <p>
           Você não está autorizado a acessar a página de detalhes de evento. Por
@@ -73,7 +72,7 @@ const EventCatalogueFix = () => {
             Fechar
           </Button>
         </div>
-      </Alert>
+      </Alert> */}
       <div className="row">
         {filteredEvents.map((event, index) => {
           const colorClass = colorClasses[index];
@@ -86,7 +85,7 @@ const EventCatalogueFix = () => {
               key={event.id}
               onClick={() => handleCardClick(event)}
             >
-              {sessionStorage.getItem("user") ? (
+              {true ? (
                 <Link to={`/sport-events/${event.id}`}>
                   <div
                     className={`card cardColoring ${colorClass}`}

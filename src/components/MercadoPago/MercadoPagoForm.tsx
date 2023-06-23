@@ -101,7 +101,7 @@ const PaymentForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${url}/admin/pay`,
+        `${url}admin/pay`,
         data,
         config
       );

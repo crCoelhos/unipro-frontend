@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel, Form } from "react-bootstrap";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 import styles from "./Login.module.css";
 import useLoginController from "../../controllers/LoginController";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
@@ -17,15 +17,17 @@ const LoginPage: React.FC = () => {
     handleSubmit,
     loginError,
     loggedIn,
-    loginErrorPasswordOrUser,
+    loginErrorPasswordOrUser
   } = useLoginController();
 
+  const location = useLocation();
   const navigate = useNavigate();
-
   if (loggedIn) {
-    setTimeout(() => {
-      navigate("/home");
-    }, 2500);
+    if(location.state){
+      navigate(location.state.url)
+    }else{
+      navigate('/home')
+    }
   }
 
   return (
@@ -64,6 +66,7 @@ const LoginPage: React.FC = () => {
                           required
                         />
                       </Form.Group>
+                      {loginErrorPasswordOrUser && <LoginErrorToast />}
                       <Form.Group className="mb-3">
                         <p className="small">
                           <a className="text-primary" href="#!">

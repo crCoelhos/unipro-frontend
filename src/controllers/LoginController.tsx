@@ -34,7 +34,7 @@ const useLoginController = () => {
 
     const loginData = { login: username, password: password };
     axios
-      .post(`${url}/auth/login`, loginData, {
+      .post(`${url}auth/login`, loginData, {
         headers: { "Content-Type": "application/json", Access: 123 },
       })
       .then((response) => {

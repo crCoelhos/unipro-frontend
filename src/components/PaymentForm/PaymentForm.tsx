@@ -22,7 +22,18 @@ import copyIcon from "../../assets/icons/copy.png";
 const PaymentForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const checkUserToken = () => {
+    const userToken = sessionStorage.getItem('user');
+    if (!userToken || userToken === 'undefined') {
+      setIsLoggedIn(false);
+      return navigate('/login');
+    }
+    setIsLoggedIn(true);
+  }
+  useEffect(() => {
+    checkUserToken();
+  }, [isLoggedIn]);
   const [payStatus, setPayStatus] = useState(null);
 
   const [pixFirstName, setPixFirstName] = useState("");
@@ -74,7 +85,7 @@ const PaymentForm = () => {
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
-          `${url}/admin/category/${code}`,
+          `${url}admin/category/${code}`,
           eventHeaders
         );
         const event_Data = response.data;
@@ -137,7 +148,7 @@ const PaymentForm = () => {
     };
     try {
       const response = await axios.post(
-        `${url}/admin/pay`,
+        `${url}admin/pay`,
         pixPayment_data,
         pixHeaders
       );
@@ -199,7 +210,7 @@ const PaymentForm = () => {
 
             try {
               const response = await axios.post(
-                `${url}/admin/pay`,
+                `${url}admin/pay`,
                 {
                   id: location.state.category.id,
                   issuer_id: cardForm.issuerId,

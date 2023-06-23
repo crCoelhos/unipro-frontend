@@ -5,11 +5,25 @@ import PaymentForm from "../../components/PaymentForm/PaymentForm";
 import MercadoPagoForm from "../../components/MercadoPago/MercadoPagoForm";
 import Menu from "../../components/Menu/Menu";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
+import { useNavigate } from "react-router-dom";
 import Countdown from "../../components/Countdown/Countdown";
 
 const PaymentPage = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const navigate = useNavigate()
+  const checkUserToken = () => {
+    const userToken = sessionStorage.getItem('user');
+    if (!userToken || userToken === 'undefined') {
+      setIsLoggedIn(false);
+      return navigate('/login');
+    }
+    setIsLoggedIn(true);
+  }
+  useEffect(() => {
+    checkUserToken();
+  }, [isLoggedIn]);
   useEffect(() => {
     const dataFromStorage = sessionStorage.getItem("user");
     if (dataFromStorage) {
