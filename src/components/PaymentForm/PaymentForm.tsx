@@ -64,7 +64,6 @@ const PaymentForm = () => {
   const mpClientSidePaymentKey =
     process.env.REACT_APP_MP_CLIENT_SIDE_PAYMENT_KEY;
 
-  // getCategoryById
 
   const dataFromStorage = sessionStorage.getItem("user");
   let authToken = "";
@@ -90,7 +89,6 @@ const PaymentForm = () => {
           eventHeaders
         );
         const event_Data = response.data;
-        // const parsedEventData = JSON.parse(response.data);
         setEventData(event_Data);
         setCategortDataId(event_Data.id);
 
@@ -102,8 +100,8 @@ const PaymentForm = () => {
     fetchEvents();
   }, []);
 
-  // setCategortDataId(eventData);
-  const testando = eventData;
+
+
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -277,13 +275,30 @@ const PaymentForm = () => {
         },
       });
 
-      //teste
 
-      //fechamento
+
     };
 
     initializeMercadoPago();
   }, [payStatus, eventData, categorytDataId, navigate]);
+
+  const webhookCall = async () => {
+    
+  
+    try {
+      const response = await axios.post(`${url}webhook`, {headers:{
+        Authorization: authToken,
+        Access: serverSideAccessToken
+      }});
+  
+      console.log(response.data); // Exibe a resposta do webhook
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+    webhookCall();
+
 
   return (
     <Container className="OuterContainer">

@@ -23,11 +23,14 @@ const HomeInfoCards: FC = () => {
           key={infoCard.id}
           className={styles.InfoCard}
           onClick={() => handleCardClick(infoCard)}
+          bg="secondary"
+          text="white"
+
         >
           <Card.Body>
             <Card.Title>{infoCard.title}</Card.Title>
             <Card.Text>{infoCard.description}</Card.Text>
-            <Card.Subtitle className="mb-2 text-muted">{infoCard.category}</Card.Subtitle>
+            <Card.Subtitle className="mb-2">{infoCard.category}</Card.Subtitle>
           </Card.Body>
         </Card>
       ))}

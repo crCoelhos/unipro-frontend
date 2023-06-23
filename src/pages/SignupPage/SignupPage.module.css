@@ -8,3 +8,8 @@
     display: flex;
     flex-direction: column;
 }
+
+
+.FieldValidationAlerts{
+    margin: 4px 0;
+}

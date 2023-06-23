@@ -1,11 +1,25 @@
 .HomePublications {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .PublicationCard {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.PublicationCard {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.InfoCardPublicationdDate {
+  font-weight: bolder;
+}
+
+.InfoCardAuthor {
+  font-weight: bolder;
+}
+
+.PublicationCardMetaData {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 12px;
+}

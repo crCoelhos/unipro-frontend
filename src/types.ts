@@ -72,6 +72,7 @@ export interface InfoCard {
 export interface Publication {
   id: number;
   title: string;
+  genre: string;
   headline: string;
   publicationDate: string;
   author: string;
