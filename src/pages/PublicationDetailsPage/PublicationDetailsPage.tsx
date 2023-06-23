@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { publicationsMockData } from "../../components/HomePublications/mockfile";
 import { Publication } from "../../types";
 import Menu from "../../components/Menu/Menu";
@@ -10,6 +10,7 @@ import { Card } from "react-bootstrap";
 const PublicationDetailsPage = () => {
   const { id } = useParams<{ id?: string }>();
   const publicationId = id ? parseInt(id, 10) : undefined;
+  const navigate = useNavigate();
 
   const publication = publicationId
     ? publicationsMockData.find((pub) => pub.id === publicationId)
@@ -27,16 +28,44 @@ const PublicationDetailsPage = () => {
       cardBg = "info";
       break;
     case "luto":
-      cardBg = "</div>dark";
+      cardBg = "dark";
       break;
     default:
-      cardBg = ""; // Não há classe de cor definida para o valor padrão
+      cardBg = "";
       break;
   }
   if (!publication) {
     return <div>Publication not found</div>;
   }
 
+  let cardGenre;
+  switch (publication?.genre) {
+    case "sport":
+      cardGenre = "Esporte";
+      break;
+    case "cultural":
+      cardGenre = "Cultura";
+      break;
+    case "academic":
+      cardGenre = "Acadêmico";
+      break;
+    case "luto":
+      cardGenre = "";
+      break;
+    default:
+      cardGenre = "";
+      break;
+  }
+  if (!publication) {
+    setTimeout(() => {
+      navigate("/sport-events");
+    }, 4000);
+    return (
+      <div className={styles.PublicationNotFound}>
+        Publicação não encontrada, você será redirecionado em breve.
+      </div>
+    );
+  }
   return (
     <div>
       <Menu />
@@ -47,6 +76,8 @@ const PublicationDetailsPage = () => {
           className={styles.PublicationDetailsCard}
         >
           <Card.Body>
+            <Card.Header>{cardGenre}</Card.Header>
+
             <Card.Title className={styles.PublicationDetailCardTitle}>
               {publication.title}
             </Card.Title>

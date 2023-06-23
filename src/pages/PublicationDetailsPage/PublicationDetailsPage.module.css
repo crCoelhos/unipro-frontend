@@ -5,14 +5,14 @@
   margin: 256px 128px;
 }
 
-.PublicationDetailsCard{
-    box-shadow: 3px solid #000;
+.PublicationDetailsCard {
+  box-shadow: 3px solid #000;
 }
-.PublicationDetailCardTitle{
-    font-size: 22px;
-    font-weight: bolder;
-    text-align: center;
-    margin: 4px 0px 24px 0px;
+.PublicationDetailCardTitle {
+  font-size: 22px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 4px 0px 24px 0px;
 }
 .PublicationCardMetaData {
   display: flex;
@@ -27,4 +27,10 @@
 
 .PublicationCardPublicationdDate {
   font-weight: bolder;
+}
+
+.publicationNotFound {
+  color: red;
+  font-weight: bolder;
+  font-size: 32px;
 }
