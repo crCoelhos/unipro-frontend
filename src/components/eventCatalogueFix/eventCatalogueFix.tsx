@@ -27,7 +27,6 @@ const EventCatalogueFix = () => {
 
     const config = {
       headers: {
-        Authorization: token,
         Access: serverSideAccessToken,
       },
     };
