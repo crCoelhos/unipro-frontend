@@ -1,1 +1,30 @@
-.PublicationDetailsPage {}
+.PublicationDetailsPage {
+}
+
+.PublicationDetailsPageContent {
+  margin: 256px 128px;
+}
+
+.PublicationDetailsCard{
+    box-shadow: 3px solid #000;
+}
+.PublicationDetailCardTitle{
+    font-size: 22px;
+    font-weight: bolder;
+    text-align: center;
+    margin: 4px 0px 24px 0px;
+}
+.PublicationCardMetaData {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 12px;
+}
+
+.PublicationCardAuthor {
+  font-weight: bolder;
+}
+
+.PublicationCardPublicationdDate {
+  font-weight: bolder;
+}
