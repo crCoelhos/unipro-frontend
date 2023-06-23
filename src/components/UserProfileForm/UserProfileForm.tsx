@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { User } from "../../types";
 import styles from "./UserProfileForm.module.css";
 import { useNavigate } from "react-router-dom";
 import UserProfileSubmtionSuccessToast from "../UserProfileSubmtionSuccessToast/UserProfileSubmitionSuccessToast";
 import UserProfileSubmitionFailToast from "../UserProfileSubmitionFailToast/UserProfileSubmitionFailToast";
+import FormEditionFailedToast from "../FormEditionFailedToast/FormEditionFailedToast";
 
 const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -14,6 +15,10 @@ const UserProfileForm: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [updatedUser, setUpdatedUser] = useState<User | null>(null);
   const [updatedUserState, setUpdatedUserState] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+
+  const [formUpdateError, setFormUpdateError] = useState(false);
+
   const dataFromStorage = sessionStorage.getItem("user");
   let token = "";
   let userEmail = "";
@@ -42,7 +47,6 @@ const UserProfileForm: React.FC = () => {
         const userData = response.data[0];
         setUser(userData);
         setUpdatedUser(userData);
-
       } catch (error) {
         console.error(error);
       }
@@ -82,6 +86,21 @@ const UserProfileForm: React.FC = () => {
       }
     } catch (error) {
       console.error(error);
+
+      setFormUpdateError(true);
+
+      setTimeout(() => {
+        navigate("/home");
+      }, 5000);
+    }
+  };
+
+  const validatePhone = () => {
+    const phonelength = updatedUser?.contact.length;
+    if (phonelength === 11) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
     }
   };
 
@@ -132,6 +151,7 @@ const UserProfileForm: React.FC = () => {
                 value={updatedUser?.email || ""}
                 onChange={handleInputChange}
                 className={styles.AvailableInputOption}
+                required
               />
             </Form.Group>
 
@@ -142,7 +162,9 @@ const UserProfileForm: React.FC = () => {
                 value={updatedUser?.contact || ""}
                 onChange={handleInputChange}
                 className={styles.AvailableInputOption}
+                required
               />
+              {phoneError && <Alert variant="danger">Telefone inválido!</Alert>}
             </Form.Group>
 
             <Form.Group controlId="cpf">
@@ -164,6 +186,7 @@ const UserProfileForm: React.FC = () => {
           </>
         )}
       </Form>
+      {formUpdateError && <FormEditionFailedToast />}
     </div>
   );
 };
