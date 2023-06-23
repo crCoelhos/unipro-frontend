@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import styles from "./DocumentArea.module.css";
@@ -16,6 +16,20 @@ const DocumentArea: React.FC = () => {
       setSelectedImage(e.target.files[0]);
     }
   };
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const checkUserToken = () => {
+    const userToken = sessionStorage.getItem('user');
+    if (!userToken || userToken === 'undefined') {
+      setIsLoggedIn(false);
+      return navigate('/login');
+    }
+    setIsLoggedIn(true);
+  }
+  useEffect(() => {
+    checkUserToken();
+  }, [isLoggedIn]);
+
 
   const handleUpload = async () => {
     if (selectedImage) {
@@ -49,18 +63,18 @@ const DocumentArea: React.FC = () => {
         },
       };
       const bookData = {
-        id : categoryId
+        id: categoryId
       }
       try {
         await axios.post(url + "auth/photouser/", formData, config);
         try {
           // await axios.post(url + "admin/bookticket/", bookData, bookConfig);
         } catch (error) {
-          console.error('book: ',error);
+          console.error('book: ', error);
         }
-        navigate(`/sport-events/buyticket/${categoryId}`, {state: location.state});
+        navigate(`/sport-events/buyticket/${categoryId}`, { state: location.state });
       } catch (error) {
-        console.error('photo: ',error);
+        console.error('photo: ', error);
       }
     }
   };

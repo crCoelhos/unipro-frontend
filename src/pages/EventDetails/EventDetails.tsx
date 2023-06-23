@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button } from "react-bootstrap";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
 import useLoginController from "../../controllers/LoginController";
@@ -34,7 +34,7 @@ const SportEventDetails = () => {
         const response = await axios.get<EventDetails>(
           `${url}admin/event/${eventId}`,
           {
-            headers: { Authorization: token, Access: "123" },
+            headers: { Access: "123" },
           }
         );
         const eventData = response.data;
@@ -50,8 +50,6 @@ const SportEventDetails = () => {
           }
         })
         setLocalization(location)
-        console.log("Abimael",localization)
-        console.log("LOCALIZAÇÂO", location)
         const categoryList = eventData.event.category;
         setEventTickets(categoryList);
       } catch (error) {
@@ -81,9 +79,13 @@ const SportEventDetails = () => {
   const handleBuy =
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
-      navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
-        state: { category },
-      });
+      if (user) {
+        navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
+          state: { category },
+        });
+      }else{
+        navigate('/login', { state: { url:`/sport-events/${eventId}/bookticket/${category.id}`}})
+      }
     };
 
   function handleCreateTicket() {
@@ -111,12 +113,12 @@ const SportEventDetails = () => {
                 <p>Descrição: {eventDetails.event.description}</p>
                 <p>Local do evento: {eventDetails.event.location}
                   {/* <a href={localization} target="_blank" rel="noopener noreferrer"> */}
-                    <Button
+                  <Button
                     onClick={onClick}
-                      variant="outline-primary" className={styles.iconMap}>
-                      <MDBIcon icon="location-dot" />
-                      <div> Ver no mapa</div>
-                    </Button>
+                    variant="outline-primary" className={styles.iconMap}>
+                    <MDBIcon icon="location-dot" />
+                    <div> Ver no mapa</div>
+                  </Button>
                   {/* </a> */}
 
                 </p>
@@ -151,7 +153,7 @@ const SportEventDetails = () => {
                             Comprar
                           </Button>
                           {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
-                          {user.role === "ADMIN" && (
+                          {user?.role === "ADMIN" && (
                             <Button variant="warning" size="lg">
                               Desativar
                             </Button>
@@ -167,7 +169,7 @@ const SportEventDetails = () => {
             <Col xl={5} md={12} sm={12}></Col>
             <Col></Col>
             <Col xl={5} md={12} sm={12}>
-              {user.role === "ADMIN" && (
+              {user?.role === "ADMIN" && (
                 <Row>
                   <Col>
                     <Button
