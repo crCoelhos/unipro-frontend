@@ -9,6 +9,11 @@
   margin-bottom: 20px;
 }
 
+
+.PublicationCard:hover {
+  cursor: pointer;
+}
+
 .InfoCardPublicationdDate {
   font-weight: bolder;
 }
