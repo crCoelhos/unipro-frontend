@@ -6,6 +6,7 @@ import MercadoPagoForm from "../../components/MercadoPago/MercadoPagoForm";
 import Menu from "../../components/Menu/Menu";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { useNavigate } from "react-router-dom";
+import Countdown from "../../components/Countdown/Countdown";
 
 const PaymentPage = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -45,6 +46,9 @@ const PaymentPage = () => {
       <PaymentForm />
 
       <HomeComposedFooter/>
+
+      <Countdown duration={20}/>
+
     </div>
   );
 };
