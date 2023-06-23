@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import styles from "./HandSidebar.module.css";
 
 const HandSidebar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate()
+  const checkUserToken = () => {
+    const userToken = sessionStorage.getItem('user');
+    if (!userToken || userToken === 'undefined') {
+      setIsLoggedIn(false);
+      return navigate('/login');
+    }
+    setIsLoggedIn(true);
+  }
+  useEffect(() => {
+    checkUserToken();
+  }, [isLoggedIn]);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
