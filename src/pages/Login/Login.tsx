@@ -6,6 +6,7 @@ import useLoginController from "../../controllers/LoginController";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import LoginCarousel from "../../components/LoginCarousel/LoginCarousel";
 import LoginErrorToast from "../../components/LoginErrorToast/LoginErrorToast";
+import LoginSuccessToast from "../../components/LoginSuccessToast/LoginSuccessToast";
 
 const LoginPage: React.FC = () => {
   const {
@@ -91,6 +92,8 @@ const LoginPage: React.FC = () => {
                 </div>
               </Card.Body>
             </Card>
+            {loggedIn && <LoginSuccessToast />}
+            {loginErrorPasswordOrUser ? <LoginErrorToast /> : <></>}
           </Col>
           <Col>
             <div>

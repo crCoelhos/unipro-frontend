@@ -2,7 +2,8 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 import { UserData } from "../interfaces/types";
 
-const url: String = "http://localhost:3003";
+const url = process.env.REACT_APP_SERVER_URL;
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 const useLoginController = () => {
   const [username, setUsername] = useState<string>("");
@@ -10,7 +11,8 @@ const useLoginController = () => {
   const [authenticator, setAuthenticator] = useState<string>("");
   const [user, setUser] = useState<any>(null);
   const [loginError, setLoginError] = useState<boolean>(false);
-  const [loginErrorPasswordOrUser, setLoginErrorPasswordOrUser] = useState<boolean>(false);
+  const [loginErrorPasswordOrUser, setLoginErrorPasswordOrUser] =
+    useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +27,14 @@ const useLoginController = () => {
     event.preventDefault();
     const config: AxiosRequestConfig = {
       headers: {
-        Access: 123,
+        Access: serverSideAccessToken,
         "Content-Type": "application/json",
       },
     };
 
     const loginData = { login: username, password: password };
     axios
-      .post(`${url}/auth/login`, loginData, {
+      .post(`${url}auth/login`, loginData, {
         headers: { "Content-Type": "application/json", Access: 123 },
       })
       .then((response) => {
@@ -42,13 +44,14 @@ const useLoginController = () => {
         setUser(userData);
         setLoginError(false);
         setLoggedIn(true);
+        setLoginErrorPasswordOrUser(false);
       })
       .catch((error) => {
         console.error(error.response.data);
         setLoginError(true);
         if (error.response.status === 400) {
           setLoggedIn(false);
-          setLoginErrorPasswordOrUser(true)
+          setLoginErrorPasswordOrUser(true);
         }
       });
   };
@@ -87,7 +90,7 @@ const useLoginController = () => {
     updateSessionUser,
     loginError,
     loggedIn,
-    loginErrorPasswordOrUser
+    loginErrorPasswordOrUser,
   };
 };
 

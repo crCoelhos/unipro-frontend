@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./CreateTicketPage.module.css";
-import CreateTicketForm from "../../components/CreateTicketForm/CreateTicketForm";
+import CreateTicketForm from "../../components/CreateTicketForm--dashed/CreateTicketForm";
 import Menu from "../../components/Menu/Menu";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { Container } from "react-bootstrap";

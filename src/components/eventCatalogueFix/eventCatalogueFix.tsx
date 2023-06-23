@@ -5,9 +5,8 @@ import styles from "./eventCatalogueFix.module.scss";
 import axios from "axios";
 import { Event } from "../../types";
 
-
-
-const url = "http://localhost:3003/";
+const url = process.env.REACT_APP_SERVER_URL;
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 const EventCatalogueFix = () => {
   const navigate = useNavigate();
@@ -25,10 +24,11 @@ const EventCatalogueFix = () => {
     } else {
       setShow(true); // Mostra o alerta para usuário não autenticado
     }
-    
+
     const config = {
       headers: {
-        Access: 123,
+        Authorization: token,
+        Access: serverSideAccessToken,
       },
     };
     const fetchEvents = async () => {
@@ -36,7 +36,6 @@ const EventCatalogueFix = () => {
         const response = await axios.get(url + "admin/events", config);
         const eventData: Event[] = response.data;
         setEvents(eventData);
-        
 
         const newColorClasses = eventData.map(() => {
           const randomIndex = Math.floor(Math.random() * colors.length);
@@ -109,9 +108,7 @@ const EventCatalogueFix = () => {
                       style={{ color: "white", marginTop: "12px" }}
                     >
                       <h5 className="card-title">{event.name}</h5>
-                      <hr
-                        style={{ height: "8px", backgroundColor: "white" }}
-                      />
+                      <hr style={{ height: "8px", backgroundColor: "white" }} />
                       <p className="card-text">{event.description}</p>
                     </div>
                   </div>
@@ -137,9 +134,7 @@ const EventCatalogueFix = () => {
                     style={{ color: "white", marginTop: "12px" }}
                   >
                     <h5 className="card-title">{event.name}</h5>
-                    <hr
-                      style={{ height: "8px", backgroundColor: "white" }}
-                    />
+                    <hr style={{ height: "8px", backgroundColor: "white" }} />
                     <p className="card-text">{event.description}</p>
                   </div>
                 </div>

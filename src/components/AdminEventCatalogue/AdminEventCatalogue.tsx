@@ -4,7 +4,7 @@ import styles from "./AdminEventCatalogue.module.css";
 import axios from "axios";
 import { Event } from "../../types";
 
-const url = "http://localhost:3003/";
+const url = process.env.REACT_APP_SERVER_URL;
 
 
 

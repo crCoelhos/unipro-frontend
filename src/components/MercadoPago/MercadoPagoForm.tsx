@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
+const url = process.env.REACT_APP_SERVER_URL
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN
+
 const PaymentForm: React.FC = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [transaction_amount, settransaction_amount] = useState<number>(0);
@@ -79,7 +83,6 @@ const PaymentForm: React.FC = () => {
 
     const dataFromStorage = sessionStorage.getItem("user");
             let authToken = "";
-            console.log("user", dataFromStorage);
 
             if (dataFromStorage) {
               const parsedData = JSON.parse(dataFromStorage);
@@ -91,18 +94,17 @@ const PaymentForm: React.FC = () => {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Request-Method": "GET, POST, DELETE, PUT, OPTIONS",
         "Content-Type": "application/json",
-        Access: "123",
+        Access: serverSideAccessToken,
         Authorization: authToken,
       },
     };
 
     try {
       const response = await axios.post(
-        "http://localhost:3003/admin/pay",
+        `${url}admin/pay`,
         data,
         config
       );
-      console.log(response.data);
       // Faça algo com a resposta do backend, por exemplo, exiba uma mensagem de sucesso para o usuário.
     } catch (error) {
       console.error(error);
