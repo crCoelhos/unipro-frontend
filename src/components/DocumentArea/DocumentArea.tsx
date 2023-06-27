@@ -65,7 +65,8 @@ const DocumentArea: React.FC = () => {
         },
       };
       const bookData = {
-        id: categoryId
+        categoryId: categoryId,
+        athleticId: location.state.athletic.id
       }
       try {
         await axios.post(url + "auth/photouser/", formData, config);

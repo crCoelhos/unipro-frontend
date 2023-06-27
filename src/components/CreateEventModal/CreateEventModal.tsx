@@ -22,7 +22,7 @@ function CreateEventModal() {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-
+    console.log("entrou")
     const eventData = {
       name,
       status,
@@ -62,6 +62,7 @@ function CreateEventModal() {
         <Modal.Body>
           <Form
             onSubmit={handleSubmit}
+            id="form"
             className={styles.CreateEventBoxContainer}
           >
             <Form.Group controlId="eventName">
@@ -138,23 +139,24 @@ function CreateEventModal() {
               />
             </Form.Group>
 
+            <Modal.Footer>
+              <Button
+                variant="primary"
+                type="submit"
 
-          <Button
-            variant="primary"
-            type="submit"
-            className={styles.CreateEventButton}
-          >
-            Enviar Evento
-          </Button>
-          </Form>
+                className={styles.CreateEventButton}
+              >
+                Enviar Evento
+              </Button>
+              <Button variant="secondary" onClick={handleClose}>
+                Fechar
+              </Button>
+            </Modal.Footer>
+          </Form> 
+
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Fechar
-          </Button>
-        </Modal.Footer>
       </Modal>
-    </div>
+    </div >
   );
 }
 
