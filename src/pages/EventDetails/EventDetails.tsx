@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Card, Button } from "react-bootstrap";
+import { Row, Col, Card, Button, FormGroup, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
 import axios from "axios";
@@ -29,11 +29,27 @@ const SportEventDetails = () => {
   const [eventDetails, setEventDetails] = useState<EventDetails | null>(null);
   const [eventTickets, setEventTickets] = useState<any[]>([]);
   const [localization, setLocalization] = useState("");
+  const [athletics, setAthletics] = useState<any[]>([]);
+  const [athletic, setAthletic] = useState<string>();
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
 
   useEffect(() => {
+    console.log(athletic)
+    async function getAthletics() {
+      try {
+        const response = await axios.get(`${url}athletics/`, {
+          headers: { Access: serverSideAccessToken },
+        });
+        setAthletics(response.data.athletics)
+        console.log(response)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getAthletics();
+
     const fetchEventDetails = async () => {
       try {
         const response = await axios.get<EventDetails>(
@@ -84,11 +100,16 @@ const SportEventDetails = () => {
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
       if (user) {
-        navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
-          state: { category },
-        });
-      }else{
-        navigate('/login', { state: { url:`/sport-events/${eventId}/bookticket/${category.id}`}})
+        if (athletic == "" || !athletic) {
+          window.alert("Selecione uma atletica")
+        } else {
+
+          navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
+            state: { category, athletic: athletic },
+          });
+        }
+      } else {
+        navigate('/login', { state: { url: `/sport-events/${eventId}/bookticket/${category.id}`, category, athletic: athletic } })
       }
     };
 
@@ -108,7 +129,6 @@ const SportEventDetails = () => {
           {eventDetails && (
             <Card>
               <Card.Body>
-                <h2>Lote: {eventDetails.event.name}</h2>
                 <h1>Título: {eventDetails.event.name}</h1>
                 <hr />
                 <br />
@@ -134,6 +154,23 @@ const SportEventDetails = () => {
         </Col>
         <Col xl={6} md={12} sm={12}>
           <Card>
+            <Card.Body>
+
+              <FormGroup className={styles.LocationCardBox} controlId="formAthletic">
+                <div className="d-grid gap-2">
+
+                  <h2>Selecione uma atlética</h2>
+
+                  <Form.Select className={styles.LocationCardBox}
+                    onChange={(e) => setAthletic(e.target.value)}>
+                      <option disabled selected>Selecione uma atlética</option>
+                    {athletics.map((athletic, index) => {
+                      return (<option key={index + 1} value={athletic.name}>{athletic.name}</option>)
+                    })}
+                  </Form.Select>
+                </div>
+              </FormGroup>
+            </Card.Body>
             <Card.Body className={styles.LocationCardBox}>
               <div className="d-grid gap-2">
                 {eventTickets &&
@@ -146,6 +183,7 @@ const SportEventDetails = () => {
                           teste: {category.typeTicket.name}
                         </Card.Text>
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
+
                         <Card.Text>
                           Data de início: {category.startDate}
                         </Card.Text>
@@ -153,12 +191,21 @@ const SportEventDetails = () => {
                           Data de término: {category.finishDate}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                          <Button
+                          {athletic ? (<Button
                             size="lg"
                             onClick={(event) => handleBuy(category)(event)}
                           >
                             Comprar
-                          </Button>
+                          </Button>)
+                            :
+                            (<Button
+                              disabled
+                              size="lg"
+                              onClick={(event) => handleBuy(category)(event)}
+                            >
+                              Comprar
+                            </Button>)
+                          }
                           {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
                           {user?.role === "ADMIN" && (
                             <Button variant="warning" size="lg">

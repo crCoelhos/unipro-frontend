@@ -20,7 +20,7 @@ function CreateCategoryModal({ data }: any) {
 
   const url = process.env.REACT_APP_SERVER_URL;
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
-  
+
   const dataFromStorage = sessionStorage.getItem("user");
 
   const [categoryCreated, setCategoryCreated] = useState(false);
@@ -72,7 +72,7 @@ function CreateCategoryModal({ data }: any) {
         variant="primary"
         onClick={handleShow}
         style={{ fontSize: "18px", width: "205px" }}
-        
+
       >
         CRIAR INGRESSO
       </Button>
@@ -82,81 +82,81 @@ function CreateCategoryModal({ data }: any) {
           <Modal.Title> CRIAR INGRESSO</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Modal.Body>
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formName">
-                <Form.Label>Nome</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Group>
-              <FormGroup controlId="formType">
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formName">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Group>
+            <FormGroup controlId="formType">
               <Form.Label>Tipo do ingresso</Form.Label>
 
-                <Form.Select
-                  onChange={(e) => setTypeTicket(e.target.value)}>
-                    <option value=""></option>
-                  {typeTickets.map((type, index) => {
-                    return (<option key={index+1} value={type.name}>{type.name}</option>)
-                  })}
-                </Form.Select>
-              </FormGroup>
-              <Form.Group controlId="formPrice">
-                <Form.Label>Preço</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-              </Form.Group>
+              <Form.Select
+                onChange={(e) => setTypeTicket(e.target.value)}>
+                <option value=""></option>
+                {typeTickets.map((type, index) => {
+                  return (<option key={index + 1} value={type.name}>{type.name}</option>)
+                })}
+              </Form.Select>
+            </FormGroup>
+            <Form.Group controlId="formPrice">
+              <Form.Label>Preço</Form.Label>
+              <Form.Control
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formStartDate">
-                <Form.Label>Data de Início</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-              </Form.Group>
+            <Form.Group controlId="formStartDate">
+              <Form.Label>Data de Início</Form.Label>
+              <Form.Control
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formFinishDate">
-                <Form.Label>Data de Término</Form.Label>
-                <Form.Control
-                  type="date"
-                  value={finishDate}
-                  onChange={(e) => setFinishDate(e.target.value)}
-                />
-              </Form.Group>
+            <Form.Group controlId="formFinishDate">
+              <Form.Label>Data de Término</Form.Label>
+              <Form.Control
+                type="date"
+                value={finishDate}
+                onChange={(e) => setFinishDate(e.target.value)}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formEventId">
-                <Form.Label>Evento: {data?.event?.name}</Form.Label>
-              </Form.Group>
+            <Form.Group controlId="formEventId">
+              <Form.Label>Evento: {data?.event?.name}</Form.Label>
+            </Form.Group>
 
-              <Form.Group controlId="formQuantity">
-                <Form.Label>Quantidade</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                />
-              </Form.Group>
+            <Form.Group controlId="formQuantity">
+              <Form.Label>Quantidade</Form.Label>
+              <Form.Control
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+            </Form.Group>
 
-              <Modal.Footer>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className={styles.CreateEventButton}
-                >
-                  Enviar Evento
-                </Button>
-                <Button variant="secondary" onClick={handleClose}>
-                  Fechar
-                </Button>
-              </Modal.Footer>
-            </Form>
-          </Modal.Body>
+            <Modal.Footer>
+
+              <Button
+                variant="primary"
+                type="submit"
+                className={styles.CreateEventButton}
+              >
+                Enviar Ingresso
+              </Button>
+              <Button variant="secondary" onClick={handleClose}>
+                Fechar
+              </Button>
+            </Modal.Footer>
+
+          </Form>
         </Modal.Body>
       </Modal>
     </div>
