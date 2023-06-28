@@ -35,7 +35,7 @@ const CreateTicketForm = () => {
         token = parsedData.token;
       }
       try {
-        const response = await fetch(url + "admin/events", {
+        const response = await fetch(`${url}admin/events`, {
           headers: {
             authentication: token,
             Access: serverSideAccessToken,

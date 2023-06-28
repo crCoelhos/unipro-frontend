@@ -30,7 +30,7 @@ const useSignupController = () => {
     };
 
     try {
-      const response = await axios.post(url + "/auth/signup", userData);
+      const response = await axios.post(url + "auth/signup", userData);
 
       navigate("/login"); // Redireciona para a página de login
     } catch (error) {

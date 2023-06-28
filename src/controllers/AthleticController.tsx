@@ -24,7 +24,7 @@ class AthleticController {
 
     try {
       const response = await axios.post(
-        url + "/athletic",
+        `${url}athletic`,
         athleticData,
         config
       );
