@@ -19,6 +19,8 @@ import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
 import CreateTicketPage from './pages/CreateTicketPage/CreateTicketPage';
 import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
+import UserPurchasesPage from './pages/UserPurchasesPage/UserPurchasesPage';
+import UserAthleticPage from './pages/UserAthleticPage/UserAthleticPage';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
@@ -38,7 +40,10 @@ function App() {
 
           <Route path="/home" element={<HomePage />} />
           <Route path="/menu" element={<Menu />} />
+          
           <Route path="/user-profile" element={<UserProfilePage />} />
+          <Route path="/user-profile/my-purchases" element={<UserPurchasesPage />} />
+          <Route path="/user-profile/my-athletic" element={<UserAthleticPage />} />
 
 
           <Route path="/sport-events" element={<SportEventPage />} />
