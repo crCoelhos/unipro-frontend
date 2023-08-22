@@ -1,12 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
-import { Athletic } from "../types";
 
 const url = process.env.REACT_APP_SERVER_URL;
-const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
-class AthleticController {
-  static createAthletic = async (athleticData: Athletic) => {
+  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
+  
+class ModalityController {
+  static createModality = async (modalityData:{
+    name: string ,
+    description: string,
+    eventId: number,
+  }) => {
     const dataFromStorage = sessionStorage.getItem("user");
     let token = "";
 
@@ -23,15 +26,12 @@ class AthleticController {
     };
 
     try {
-      const response = await axios.post(
-        url + "athletic",
-        athleticData,
-        config
-      );
+      await axios.post(url + "admin/modality", modalityData, config);
     } catch (error) {
       console.error(error);
     }
   };
-}
 
-export default AthleticController;
+};
+
+export default ModalityController;

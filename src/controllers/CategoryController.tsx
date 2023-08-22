@@ -29,7 +29,7 @@ class CategoryController {
     };
 
     try {
-      const response = await axios.post(url + "/admin/category", categoryData, config);
+      const response = await axios.post(url + "admin/category", categoryData, config);
     } catch (error) {
       console.error(error);
     }

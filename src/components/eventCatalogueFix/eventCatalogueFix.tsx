@@ -73,7 +73,7 @@ const EventCatalogueFix = () => {
           </Button>
         </div>
       </Alert> */}
-      <div className="row">
+      <div className="row justify-content-center">
         {filteredEvents.map((event, index) => {
           const colorClass = colorClasses[index];
           const randomIndex = Math.floor(Math.random() * colors.length);
