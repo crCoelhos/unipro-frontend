@@ -24,13 +24,13 @@ const PaymentForm = () => {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const checkUserToken = () => {
-    const userToken = sessionStorage.getItem('user');
-    if (!userToken || userToken === 'undefined') {
+    const userToken = sessionStorage.getItem("user");
+    if (!userToken || userToken === "undefined") {
       setIsLoggedIn(false);
-      return navigate('/login');
+      return navigate("/login");
     }
     setIsLoggedIn(true);
-  }
+  };
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
@@ -63,7 +63,6 @@ const PaymentForm = () => {
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const mpClientSidePaymentKey =
     process.env.REACT_APP_MP_CLIENT_SIDE_PAYMENT_KEY;
-
 
   const dataFromStorage = sessionStorage.getItem("user");
   let authToken = "";
@@ -100,8 +99,6 @@ const PaymentForm = () => {
     fetchEvents();
   }, []);
 
-
-
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -117,7 +114,7 @@ const PaymentForm = () => {
     // amount to id so the backend can define the price by themselves
     const pixPayment_data = {
       // id: event_,
-      transaction_amount: 0.1,
+      transaction_amount: Number(location.state.category.price),
       description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
       payer: {
@@ -274,31 +271,27 @@ const PaymentForm = () => {
           },
         },
       });
-
-
-
     };
 
     initializeMercadoPago();
   }, [payStatus, eventData, categorytDataId, navigate]);
 
   const webhookCall = async () => {
-    
-  
     try {
-      const response = await axios.post(`${url}webhook`, {headers:{
-        Authorization: authToken,
-        Access: serverSideAccessToken
-      }});
-  
+      const response = await axios.post(`${url}webhook`, {
+        headers: {
+          Authorization: authToken,
+          Access: serverSideAccessToken,
+        },
+      });
+
       console.log(response.data); // Exibe a resposta do webhook
     } catch (error) {
       console.error(error);
     }
   };
-  
-    webhookCall();
 
+  webhookCall();
 
   return (
     <Container className="OuterContainer">
