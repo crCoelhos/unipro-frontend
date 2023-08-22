@@ -114,7 +114,7 @@ const PaymentForm = () => {
     // amount to id so the backend can define the price by themselves
     const pixPayment_data = {
       // id: event_,
-      transaction_amount: location.state.category.price,
+      transaction_amount: Number(location.state.category.price),
       description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
       payer: {
