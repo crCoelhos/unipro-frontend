@@ -10,8 +10,6 @@ import HomeComposedFooter from "../../components/homeComposedFooter/homeComposed
 import { EventDetails } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 
-
-
 const url = process.env.REACT_APP_SERVER_URL;
 
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -36,14 +34,12 @@ const SportEventDetails = () => {
   const user = getSessionUser();
 
   useEffect(() => {
-    console.log(athletic)
     async function getAthletics() {
       try {
         const response = await axios.get(`${url}athletics/`, {
           headers: { Access: serverSideAccessToken },
         });
-        setAthletics(response.data.athletics)
-        console.log(response)
+        setAthletics(response.data.athletics);
       } catch (error) {
         console.error(error);
       }
@@ -60,17 +56,16 @@ const SportEventDetails = () => {
         );
         const eventData = response.data;
         setEventDetails(eventData);
-        const locationSplit = eventData.event.location.split(" ")
-        let location = ""
-        locationSplit.map(string => {
+        const locationSplit = eventData.event.location.split(" ");
+        let location = "";
+        locationSplit.map((string) => {
           if (location === "") {
-            location = location + `${string}`
+            location = location + `${string}`;
+          } else {
+            location = location + `+${string}`;
           }
-          else {
-            location = location + `+${string}`
-          }
-        })
-        setLocalization(location)
+        });
+        setLocalization(location);
         const categoryList = eventData.event.category;
         setEventTickets(categoryList);
       } catch (error) {
@@ -101,15 +96,20 @@ const SportEventDetails = () => {
       event.preventDefault();
       if (user) {
         if (athletic == "" || !athletic) {
-          window.alert("Selecione uma atletica")
+          window.alert("Selecione uma atletica");
         } else {
-
           navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
             state: { category, athletic: athletic },
           });
         }
       } else {
-        navigate('/login', { state: { url: `/sport-events/${eventId}/bookticket/${category.id}`, category, athletic: athletic } })
+        navigate("/login", {
+          state: {
+            url: `/sport-events/${eventId}/bookticket/${category.id}`,
+            category,
+            athletic: athletic,
+          },
+        });
       }
     };
 
@@ -117,8 +117,8 @@ const SportEventDetails = () => {
     navigate(`/admin-area/create-tickets/${eventId}`);
   }
   const onClick = () => {
-    window.open(`https://www.google.com/maps/search/${localization}`, "_blank")
-  }
+    window.open(`https://www.google.com/maps/search/${localization}`, "_blank");
+  };
 
   return (
     <>
@@ -135,16 +135,18 @@ const SportEventDetails = () => {
                 <Card.Img src={eventDetails.event.bannerEvent || ""} />
                 <hr />
                 <p>Descrição: {eventDetails.event.description}</p>
-                <p>Local do evento: {eventDetails.event.location}
+                <p>
+                  Local do evento: {eventDetails.event.location}
                   {/* <a href={localization} target="_blank" rel="noopener noreferrer"> */}
                   <Button
                     onClick={onClick}
-                    variant="outline-primary" className={styles.iconMap}>
+                    variant="outline-primary"
+                    className={styles.iconMap}
+                  >
                     <MDBIcon icon="location-dot" />
                     <div> Ver no mapa</div>
                   </Button>
                   {/* </a> */}
-
                 </p>
                 <hr />
                 <p>Criado em {eventDetails.event.createdAt}</p>
@@ -155,17 +157,26 @@ const SportEventDetails = () => {
         <Col xl={6} md={12} sm={12}>
           <Card>
             <Card.Body>
-
-              <FormGroup className={styles.LocationCardBox} controlId="formAthletic">
+              <FormGroup
+                className={styles.LocationCardBox}
+                controlId="formAthletic"
+              >
                 <div className="d-grid gap-2">
-
                   <h2>Selecione uma atlética</h2>
 
-                  <Form.Select className={styles.LocationCardBox}
-                    onChange={(e) => setAthletic(e.target.value)}>
-                      <option disabled selected>Selecione uma atlética</option>
+                  <Form.Select
+                    className={styles.LocationCardBox}
+                    onChange={(e) => setAthletic(e.target.value)}
+                  >
+                    <option disabled selected>
+                      Selecione uma atlética
+                    </option>
                     {athletics.map((athletic, index) => {
-                      return (<option key={index + 1} value={athletic.name}>{athletic.name}</option>)
+                      return (
+                        <option key={index + 1} value={athletic.name}>
+                          {athletic.name}
+                        </option>
+                      );
                     })}
                   </Form.Select>
                 </div>
@@ -191,21 +202,22 @@ const SportEventDetails = () => {
                           Data de término: {category.finishDate}
                         </Card.Text>
                         <div className="d-grid gap-2">
-                          {athletic ? (<Button
-                            size="lg"
-                            onClick={(event) => handleBuy(category)(event)}
-                          >
-                            Comprar
-                          </Button>)
-                            :
-                            (<Button
+                          {athletic ? (
+                            <Button
+                              size="lg"
+                              onClick={(event) => handleBuy(category)(event)}
+                            >
+                              Comprar
+                            </Button>
+                          ) : (
+                            <Button
                               disabled
                               size="lg"
                               onClick={(event) => handleBuy(category)(event)}
                             >
                               Comprar
-                            </Button>)
-                          }
+                            </Button>
+                          )}
                           {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
                           {user?.role === "ADMIN" && (
                             <Button variant="warning" size="lg">

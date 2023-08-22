@@ -57,8 +57,6 @@ const PaymentForm = () => {
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
 
-  // data from env
-
   const url = process.env.REACT_APP_SERVER_URL;
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
   const mpClientSidePaymentKey =
@@ -90,8 +88,6 @@ const PaymentForm = () => {
         const event_Data = response.data;
         setEventData(event_Data);
         setCategortDataId(event_Data.id);
-
-        // TA DANDO ERRO, RODA, TESTA E CORRIGE.
       } catch (error) {
         console.error("Erro ao fazer a requisição:", error);
       }
@@ -111,7 +107,6 @@ const PaymentForm = () => {
       authToken = parsedData.token;
     }
 
-    // amount to id so the backend can define the price by themselves
     const pixPayment_data = {
       // id: event_,
       transaction_amount: Number(location.state.category.price),
@@ -257,7 +252,7 @@ const PaymentForm = () => {
           },
 
           onFetching: (resource: any) => {
-            console.log("Fetching resource: ", resource);
+            // console.log("Fetching resource: ", resource);
 
             // Animate progress bar
             const progressBar = document.querySelector(".progress-bar");
