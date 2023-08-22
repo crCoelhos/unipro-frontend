@@ -17,11 +17,9 @@ function CreateCategoryModal({ data }: any) {
   const [quantity, setQuantity] = useState("");
   const [typeTickets, setTypeTickets] = useState<any[]>([]);
   const [typeTicket, setTypeTicket] = useState("");
-
+  console.log(data)
   const url = process.env.REACT_APP_SERVER_URL;
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
-
-  const dataFromStorage = sessionStorage.getItem("user");
 
   const [categoryCreated, setCategoryCreated] = useState(false);
 
@@ -71,7 +69,7 @@ function CreateCategoryModal({ data }: any) {
       <Button
         variant="primary"
         onClick={handleShow}
-        style={{ fontSize: "18px", width: "205px" }}
+        style={{ fontSize: "16px", width: "250px" }}
 
       >
         CRIAR INGRESSO
@@ -79,10 +77,13 @@ function CreateCategoryModal({ data }: any) {
 
       <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
-          <Modal.Title> CRIAR INGRESSO</Modal.Title>
+          <Modal.Title> <h1>Criar Ingresso</h1></Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formEventId">
+              <h3>{data?.event?.event?.name}</h3>
+            </Form.Group>
             <Form.Group controlId="formName">
               <Form.Label>Nome</Form.Label>
               <Form.Control
@@ -129,9 +130,6 @@ function CreateCategoryModal({ data }: any) {
               />
             </Form.Group>
 
-            <Form.Group controlId="formEventId">
-              <Form.Label>Evento: {data?.event?.name}</Form.Label>
-            </Form.Group>
 
             <Form.Group controlId="formQuantity">
               <Form.Label>Quantidade</Form.Label>
