@@ -10,8 +10,7 @@ import HomeComposedFooter from "../../components/homeComposedFooter/homeComposed
 import { EventDetails } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 import CreateModalityModal from "../../components/CreateModalityModal/CreateModalityModal";
-import foto from "../../assets/images/BANNER_VINICIUS.png"
-
+import foto from "../../assets/images/BANNER_VINICIUS.png";
 
 const url = process.env.REACT_APP_SERVER_URL;
 
@@ -37,13 +36,13 @@ const SportEventDetails = () => {
   const user = getSessionUser();
 
   useEffect(() => {
-    console.log(athletic)
+    console.log(athletic);
     async function getAthletics() {
       try {
         const response = await axios.get(`${url}athletics/`, {
           headers: { Access: serverSideAccessToken },
         });
-        setAthletics(response.data.athletics)
+        setAthletics(response.data.athletics);
       } catch (error) {
         console.error(error);
       }
@@ -59,13 +58,13 @@ const SportEventDetails = () => {
           }
         );
 
-        console.log(response)
+        console.log(response);
         const eventData = response.data;
         setEventDetails(eventData);
 
-        const locationSplit = eventData.event.location.split(" ")
-        let location = ""
-        locationSplit.map(string => {
+        const locationSplit = eventData.event.location.split(" ");
+        let location = "";
+        locationSplit.map((string) => {
           if (location === "") {
             location = location + `${string}`;
           } else {
@@ -103,7 +102,7 @@ const SportEventDetails = () => {
       event.preventDefault();
       if (user) {
         if (athletic === "" || !athletic) {
-          window.alert("Selecione uma atletica")
+          window.alert("Selecione uma atletica");
         } else {
           navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
             state: { category, athletic: athletic },
@@ -139,12 +138,17 @@ const SportEventDetails = () => {
                 <h1 className={styles.Title}>{eventDetails.event.name}</h1>
                 <hr />
                 <br />
-                <Card.Img src={ foto ||eventDetails.event.bannerEvent || ""} />
+                <Card.Img src={foto || eventDetails.event.bannerEvent || ""} />
                 <hr />
                 <label className={styles.Label}>Descrição:</label>
-                <p className={styles.Description}> {eventDetails.event.description}</p>
+                <p className={styles.Description}>
+                  {" "}
+                  {eventDetails.event.description}
+                </p>
                 <label className={styles.Label}>Local do evento:</label>
-                <p className={styles.Location}> {eventDetails.event.location}
+                <p className={styles.Location}>
+                  {" "}
+                  {eventDetails.event.location}
                   {/* <a href={localization} target="_blank" rel="noopener noreferrer"> */}
                   <Button
                     onClick={onClick}
@@ -167,7 +171,7 @@ const SportEventDetails = () => {
         <Col xl={6} md={12} sm={12}>
           {user?.role === "ADMIN" && (
             <Row className={styles.ButtonOptionsRow}>
-              <Col  className={styles.ColumnsButtonOption}>
+              <Col className={styles.ColumnsButtonOption}>
                 <Button
                   onClick={handleDelete}
                   variant="danger"
@@ -177,7 +181,7 @@ const SportEventDetails = () => {
                   DESATIVAR EVENTO
                 </Button>
               </Col>
-              <Col  className={styles.ColumnsButtonOption}>
+              <Col className={styles.ColumnsButtonOption}>
                 <CreateCategoryModal
                   data={{ event: eventDetails, token: token }}
                 />
@@ -199,9 +203,13 @@ const SportEventDetails = () => {
                 <div className="d-grid gap-2">
                   <h2>Selecione uma atlética</h2>
 
-                  <Form.Select className={styles.LocationCardBox}
-                    onChange={(e) => setAthletic(e.target.value)}>
-                    <option disabled selected>Selecione uma atlética</option>
+                  <Form.Select
+                    className={styles.LocationCardBox}
+                    onChange={(e) => setAthletic(e.target.value)}
+                  >
+                    <option disabled selected>
+                      Selecione uma atlética
+                    </option>
                     {athletics.map((athletic, index) => {
                       return (
                         <option key={index + 1} value={athletic.name}>
@@ -227,10 +235,10 @@ const SportEventDetails = () => {
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
 
                         <Card.Text>
-                          Data de início: {category.startDate}
+                          Data de início: {category.startDate.split("T")[0]}
                         </Card.Text>
                         <Card.Text>
-                          Data de término: {category.finishDate}
+                          Data de término: {category.finishDate.split("T")[0]}
                         </Card.Text>
                         <div className="d-grid gap-2">
                           {athletic ? (
@@ -262,7 +270,6 @@ const SportEventDetails = () => {
               </div>
             </Card.Body>
           </Card>
-
         </Col>
       </Row>
       <HomeComposedFooter />
