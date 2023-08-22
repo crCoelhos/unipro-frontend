@@ -9,7 +9,8 @@ import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { EventDetails } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
-
+import CreateModalityModal from "../../components/CreateModalityModal/CreateModalityModal";
+import foto from "../../assets/images/BANNER_VINICIUS.png"
 
 
 const url = process.env.REACT_APP_SERVER_URL;
@@ -36,14 +37,13 @@ const SportEventDetails = () => {
   const user = getSessionUser();
 
   useEffect(() => {
-    console.log(athletic)
+    console.log(eventDetails)
     async function getAthletics() {
       try {
         const response = await axios.get(`${url}athletics/`, {
           headers: { Access: serverSideAccessToken },
         });
         setAthletics(response.data.athletics)
-        console.log(response)
       } catch (error) {
         console.error(error);
       }
@@ -58,8 +58,11 @@ const SportEventDetails = () => {
             headers: { Access: serverSideAccessToken },
           }
         );
+
+        console.log(response)
         const eventData = response.data;
         setEventDetails(eventData);
+
         const locationSplit = eventData.event.location.split(" ")
         let location = ""
         locationSplit.map(string => {
@@ -100,7 +103,7 @@ const SportEventDetails = () => {
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
       if (user) {
-        if (athletic == "" || !athletic) {
+        if (athletic === "" || !athletic) {
           window.alert("Selecione uma atletica")
         } else {
 
@@ -113,9 +116,9 @@ const SportEventDetails = () => {
       }
     };
 
-  function handleCreateTicket() {
-    navigate(`/admin-area/create-tickets/${eventId}`);
-  }
+  // function handleCreateTicket() {
+  //   navigate(`/admin-area/create-tickets/${eventId}`);
+  // }
   const onClick = () => {
     window.open(`https://www.google.com/maps/search/${localization}`, "_blank")
   }
@@ -129,13 +132,15 @@ const SportEventDetails = () => {
           {eventDetails && (
             <Card>
               <Card.Body>
-                <h1>Título: {eventDetails.event.name}</h1>
+                <h1 className={styles.Title}>{eventDetails.event.name}</h1>
                 <hr />
                 <br />
-                <Card.Img src={eventDetails.event.bannerEvent || ""} />
+                <Card.Img src={ foto ||eventDetails.event.bannerEvent || ""} />
                 <hr />
-                <p>Descrição: {eventDetails.event.description}</p>
-                <p>Local do evento: {eventDetails.event.location}
+                <label className={styles.Label}>Descrição:</label>
+                <p className={styles.Description}> {eventDetails.event.description}</p>
+                <label className={styles.Label}>Local do evento:</label>
+                <p className={styles.Location}> {eventDetails.event.location}
                   {/* <a href={localization} target="_blank" rel="noopener noreferrer"> */}
                   <Button
                     onClick={onClick}
@@ -147,12 +152,39 @@ const SportEventDetails = () => {
 
                 </p>
                 <hr />
-                <p>Criado em {eventDetails.event.createdAt}</p>
+                {user?.role === "ADMIN" && (
+                  <p>Criado em {eventDetails.event.createdAt.split("T")[0]}</p>
+                )}
               </Card.Body>
             </Card>
           )}
         </Col>
         <Col xl={6} md={12} sm={12}>
+          {user?.role === "ADMIN" && (
+            <Row className={styles.ButtonOptionsRow}>
+              <Col  className={styles.ColumnsButtonOption}>
+                <Button
+                  onClick={handleDelete}
+                  variant="danger"
+                  size="lg"
+                  className={styles.ExcludeEventButton}
+                >
+                  DESATIVAR EVENTO
+                </Button>
+              </Col>
+              <Col  className={styles.ColumnsButtonOption}>
+                <CreateCategoryModal
+                  data={{ event: eventDetails, token: token }}
+                />
+              </Col>
+              <Col className={styles.ColumnsButtonOption}>
+                <CreateModalityModal
+                  data={{ event: eventDetails, token: token }}
+                />
+              </Col>
+              {/* </Row> */}
+            </Row>
+          )}
           <Card>
             <Card.Body>
 
@@ -163,7 +195,7 @@ const SportEventDetails = () => {
 
                   <Form.Select className={styles.LocationCardBox}
                     onChange={(e) => setAthletic(e.target.value)}>
-                      <option disabled selected>Selecione uma atlética</option>
+                    <option disabled selected>Selecione uma atlética</option>
                     {athletics.map((athletic, index) => {
                       return (<option key={index + 1} value={athletic.name}>{athletic.name}</option>)
                     })}
@@ -219,31 +251,7 @@ const SportEventDetails = () => {
               </div>
             </Card.Body>
           </Card>
-          <Row className={styles.ButtonOptionsRow}>
-            <Col xl={5} md={12} sm={12}></Col>
-            <Col></Col>
-            <Col xl={5} md={12} sm={12}>
-              {user?.role === "ADMIN" && (
-                <Row>
-                  <Col>
-                    <Button
-                      onClick={handleDelete}
-                      variant="danger"
-                      size="lg"
-                      className={styles.ExcludeEventButton}
-                    >
-                      DESATIVAR EVENTO
-                    </Button>
-                  </Col>
-                  <Col>
-                    <CreateCategoryModal
-                      event={{ event: eventDetails, token: token }}
-                    />
-                  </Col>
-                </Row>
-              )}
-            </Col>
-          </Row>
+
         </Col>
       </Row>
       <HomeComposedFooter />
