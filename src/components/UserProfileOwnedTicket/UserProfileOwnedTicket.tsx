@@ -24,7 +24,7 @@ const UserProfileOwnedTicket: FC = () => {
     async function getUserTickets() {
       try {
         const response = await axios.get(`${url}admin/tickets/user`, {
-          headers: { Access: serverSideAccessToken },
+          headers: { Access: serverSideAccessToken, Authorization: token },
         });
         console.log("leticia: ", response);
         // setuserTickets();
