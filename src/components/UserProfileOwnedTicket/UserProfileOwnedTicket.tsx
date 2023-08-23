@@ -23,7 +23,7 @@ const UserProfileOwnedTicket: FC = () => {
   React.useEffect(() => {
     async function getUserTickets() {
       try {
-        const response = await axios.get(`${url}athletics/`, {
+        const response = await axios.get(`${url}admin/tickets/user`, {
           headers: { Access: serverSideAccessToken },
         });
         console.log("leticia: ", response);
