@@ -36,7 +36,6 @@ const SportEventDetails = () => {
   const user = getSessionUser();
 
   useEffect(() => {
-    console.log(athletic);
     async function getAthletics() {
       try {
         const response = await axios.get(`${url}athletics/`, {
@@ -58,7 +57,6 @@ const SportEventDetails = () => {
           }
         );
 
-        console.log(response);
         const eventData = response.data;
         setEventDetails(eventData);
 
@@ -212,7 +210,7 @@ const SportEventDetails = () => {
                     </option>
                     {athletics.map((athletic, index) => {
                       return (
-                        <option key={index + 1} value={athletic.name}>
+                        <option key={index + 1} value={athletic.id}>
                           {athletic.name}
                         </option>
                       );
