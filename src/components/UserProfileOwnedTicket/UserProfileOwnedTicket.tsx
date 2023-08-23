@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import axios from "axios";
 import styles from "./UserProfileOwnedTicket.module.css";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
