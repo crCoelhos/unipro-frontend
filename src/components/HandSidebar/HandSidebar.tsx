@@ -32,7 +32,7 @@ const HandSidebar = () => {
       {sidebarOpen && (
         <nav className={styles["sidebar-nav"]}>
           <ul>
-            <li className={styles.SidebarListOptions}>
+            <li className={styles.SidebarListOptions} >
               <NavLink to="/home" className={styles.active}>
                 Voltar
               </NavLink>
