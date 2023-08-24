@@ -11,6 +11,7 @@ import { EventDetails } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 import CreateModalityModal from "../../components/CreateModalityModal/CreateModalityModal";
 import foto from "../../assets/images/BANNER_VINICIUS.png";
+import format from "date-fns/format";
 
 const url = process.env.REACT_APP_SERVER_URL;
 
@@ -160,7 +161,13 @@ const SportEventDetails = () => {
                 </p>
                 <hr />
                 {user?.role === "ADMIN" && (
-                  <p>Criado em {eventDetails.event.createdAt.split("T")[0]}</p>
+                  <p>
+                    Criado em{" "}
+                    {format(
+                      new Date(eventDetails.event.createdAt),
+                      "dd/MM/yyyy"
+                    )}
+                  </p>
                 )}
               </Card.Body>
             </Card>
@@ -233,10 +240,12 @@ const SportEventDetails = () => {
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
 
                         <Card.Text>
-                          Data de início: {category.startDate.split("T")[0]}
+                          Data de início:{" "}
+                          {format(new Date(category.startDate), "dd/MM/yyyy")}
                         </Card.Text>
                         <Card.Text>
-                          Data de término: {category.finishDate.split("T")[0]}
+                          Data de término:{" "}
+                          {format(new Date(category.finishDate), "dd/MM/yyyy")}
                         </Card.Text>
                         <div className="d-grid gap-2">
                           {athletic ? (

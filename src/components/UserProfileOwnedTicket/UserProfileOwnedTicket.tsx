@@ -4,7 +4,7 @@ import styles from "./UserProfileOwnedTicket.module.css";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UserTickets } from "../../types";
-
+import { format } from "date-fns";
 const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
@@ -61,7 +61,10 @@ const UserProfileOwnedTicket: FC = () => {
                 <span>
                   Status: {ticket.ticket.event.status ? "Ativo" : "Inativo"}
                 </span>
-                <span>Comprado em: {ticket.updatedAt.split("T")[0]}</span>
+                <span>
+                  Comprado em:{" "}
+                  {format(new Date(ticket.updatedAt), "dd/MM/yyyy")}
+                </span>
               </Card.Text>
             </Card.Footer>
           </Card>

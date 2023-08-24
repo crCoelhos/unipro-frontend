@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import UserProfileSubmtionSuccessToast from "../UserProfileSubmtionSuccessToast/UserProfileSubmitionSuccessToast";
 import UserProfileSubmitionFailToast from "../UserProfileSubmitionFailToast/UserProfileSubmitionFailToast";
 import FormEditionFailedToast from "../FormEditionFailedToast/FormEditionFailedToast";
+import { format } from "date-fns";
 
 const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -140,7 +141,10 @@ const UserProfileForm: React.FC = () => {
                 <Form.Label>Data de nascimento</Form.Label>
                 <Form.Control
                   type="text"
-                  value={updatedUser?.birthdate || ""}
+                  value={format(
+                    new Date(updatedUser?.birthdate || ""),
+                    "dd/MM/yyyy"
+                  )}
                   onChange={handleInputChange}
                   readOnly
                 />
