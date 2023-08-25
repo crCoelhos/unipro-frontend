@@ -23,7 +23,9 @@ import { Modality } from "../../types";
 const PaymentForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [paymentID, setPaymentID] = useState<string>("");
+  const [paymentResponse, setPaymentResponse] = useState<number | null>(null);
   const checkUserToken = () => {
     const userToken = sessionStorage.getItem("user");
     if (!userToken || userToken === "undefined") {
@@ -93,6 +95,21 @@ const PaymentForm = () => {
         console.error("Erro ao fazer a requisição:", error);
       }
     };
+
+    // const fetchPaymentResponse = async () => {
+    //   try {
+    //     const response = await axios.get(`${url}notification`, eventHeaders);
+    //     const response_id = response.data.id;
+    //     const response_status = response.data.status;
+    //     setPaymentID(response_id);
+    //     setPaymentResponse(response_status);
+    //   } catch (error) {
+    //     console.error("Erro ao obter resposta de pagamento: ", error);
+    //   }
+    // };
+
+    // fetchPaymentResponse();
+
     fetchEvents();
   }, []);
 
@@ -146,10 +163,13 @@ const PaymentForm = () => {
         pixHeaders
       );
 
-      const modalities = location.state.modalities
-      const userTicket = location.state.userTicket
+      const modalities = location.state.modalities;
+      const userTicket = location.state.userTicket;
       modalities.forEach(async (modality: Modality) => {
-        const modalitiesUserTicket = { userTicketId: userTicket.id, modalityId: modality.id }
+        const modalitiesUserTicket = {
+          userTicketId: userTicket.id,
+          modalityId: modality.id,
+        };
         const modalities = await axios.post(
           `${url}admin/modalitusertickets`,
           modalitiesUserTicket,
@@ -241,15 +261,20 @@ const PaymentForm = () => {
                   },
                 }
               );
-              const httpHeader = {headers: {
-                "Content-Type": "application/json",
-                Access: serverSideAccessToken,
-                Authorization: authToken,
-              },}
-              const modalities = location.state.modalities
-              const userTicket = location.state.userTicket
+              const httpHeader = {
+                headers: {
+                  "Content-Type": "application/json",
+                  Access: serverSideAccessToken,
+                  Authorization: authToken,
+                },
+              };
+              const modalities = location.state.modalities;
+              const userTicket = location.state.userTicket;
               modalities.forEach(async (modality: Modality) => {
-                const modalitiesUserTicket = { userTicketId: userTicket.id, modalityId: modality.id }
+                const modalitiesUserTicket = {
+                  userTicketId: userTicket.id,
+                  modalityId: modality.id,
+                };
                 const modalities = await axios.post(
                   `${url}admin/modalitusertickets`,
                   modalitiesUserTicket,
@@ -416,7 +441,9 @@ const PaymentForm = () => {
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
-            <Accordion.Header className="PaymentMethodOptions">PIX</Accordion.Header>
+            <Accordion.Header className="PaymentMethodOptions">
+              PIX
+            </Accordion.Header>
             <Accordion.Body>
               <Form id="form-checkout" onSubmit={handleSubmit}>
                 <Row>

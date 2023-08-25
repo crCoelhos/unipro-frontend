@@ -16,17 +16,17 @@ const UseTermArea: React.FC<UseTermAreaProps> = ({ pdfFile }) => {
     }
   }, [pdfFile]);
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
+  // const handlePreviousPage = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1);
+  //   }
+  // };
 
-  const handleNextPage = () => {
-    if (currentPage < (numPages || 0)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  // const handleNextPage = () => {
+  //   if (currentPage < (numPages || 0)) {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // };
 
   return (
     <div className={styles.UseTermAreaContainer}>

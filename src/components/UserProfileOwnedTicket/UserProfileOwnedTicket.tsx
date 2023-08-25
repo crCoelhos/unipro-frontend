@@ -59,10 +59,10 @@ const UserProfileOwnedTicket: FC = () => {
             <Card.Footer>
               <Card.Text className={styles.CardFooter}>
                 <span>
-                  Status: {ticket.ticket.event.status ? "Ativo" : "Inativo"}
+                  Evento: {ticket.ticket.event.status ? "Ativo" : "Inativo"}
                 </span>
                 <span>
-                  Comprado em:{" "}
+                  Comprado em:
                   {format(new Date(ticket.updatedAt), "dd/MM/yyyy")}
                 </span>
               </Card.Text>

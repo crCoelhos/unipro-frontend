@@ -5,12 +5,13 @@ import Menu from "../../components/Menu/Menu";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import DocumentArea from "../../components/DocumentArea/DocumentArea";
 import UseTermArea from "../../components/UseTermArea/UseTermArea";
+import TERMO from "../../assets/pdfs/termo.pdf"
 
 const DocAndBookingPage = () => (
   <div className={styles.DocAndBookingPage}>
     <Menu />
     <UseTermArea
-      pdfFile={"https://www.africau.edu/images/default/sample.pdf"}
+      pdfFile={TERMO}
     />
     <DocumentArea />
 
