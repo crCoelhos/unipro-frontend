@@ -66,12 +66,14 @@ const DocumentArea: React.FC = () => {
       };
       const bookData = {
         categoryId: categoryId,
-        athleticId: location.state.athletic.id
+        athleticId: location.state.athletic
       }
       try {
         await axios.post(url + "auth/photouser/", formData, config);
         try {
-          // await axios.post(url + "admin/bookticket/", bookData, bookConfig);
+          const userTicket = await axios.post(url + "admin/bookticket/", bookData, bookConfig);
+
+          location.state.userTicket = userTicket.data
         } catch (error) {
           console.error('book: ', error);
         }

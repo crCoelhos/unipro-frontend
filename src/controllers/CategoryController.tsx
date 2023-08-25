@@ -10,6 +10,7 @@ class CategoryController {
     price: number,
     startDate: string,
     finishDate: string,
+    typeTicketId:number,
     eventId: number,
     quantity: number,
   }) => {
@@ -30,6 +31,8 @@ class CategoryController {
 
     try {
       const response = await axios.post(url + "admin/category", categoryData, config);
+      localStorage.setItem("ingresso", response.data)
+      return response
     } catch (error) {
       console.error(error);
     }
