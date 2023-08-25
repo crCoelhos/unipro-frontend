@@ -182,7 +182,7 @@ const PaymentForm = () => {
       setPixQrCode(pix_copypaste_code);
       const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
       setPixQrCodeBase64(pix_qr_code64);
-      
+
       const pay_status = response.data.pay_status;
       setPayStatus(pay_status);
 
@@ -576,6 +576,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixCity}
                         onChange={(e) => setPixCity(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -586,6 +587,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixFederalUnit}
                         onChange={(e) => setPixFederalUnit(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
