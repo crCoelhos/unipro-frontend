@@ -170,6 +170,7 @@ const PaymentForm = () => {
           userTicketId: userTicket.id,
           modalityId: modality.id,
         };
+
         const modalities = await axios.post(
           `${url}admin/modalitusertickets`,
           modalitiesUserTicket,
@@ -181,7 +182,7 @@ const PaymentForm = () => {
       setPixQrCode(pix_copypaste_code);
       const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
       setPixQrCodeBase64(pix_qr_code64);
-
+      
       const pay_status = response.data.pay_status;
       setPayStatus(pay_status);
 
@@ -303,9 +304,6 @@ const PaymentForm = () => {
           },
 
           onFetching: (resource: any) => {
-            // console.log("Fetching resource: ", resource);
-
-            // Animate progress bar
             const progressBar = document.querySelector(".progress-bar");
             if (progressBar) {
               progressBar.removeAttribute("value");
@@ -454,6 +452,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixFirstName}
                         onChange={(e) => setPixFirstName(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -464,6 +463,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixLastName}
                         onChange={(e) => setPixLastName(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -476,6 +476,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixEmail}
                         onChange={(e) => setPixEmail(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -488,6 +489,7 @@ const PaymentForm = () => {
                         onChange={(e) =>
                           setPixIdentificationType(e.target.value)
                         }
+                        disabled={pixQrCode.trim() !== ""}
                       >
                         <option value=""></option>
                         <option value="CPF">CPF</option>
@@ -504,6 +506,7 @@ const PaymentForm = () => {
                         onChange={(e) =>
                           setPixIdentificationNumber(e.target.value)
                         }
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -516,6 +519,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixZipCode}
                         onChange={(e) => setPixZipCode(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -526,6 +530,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixStreetName}
                         onChange={(e) => setPixStreetName(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -536,6 +541,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixStreetNumber}
                         onChange={(e) => setPixStreetNumber(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
                   </Col>
@@ -546,6 +552,7 @@ const PaymentForm = () => {
                         type="text"
                         value={pixNeighborhood}
                         onChange={(e) => setPixNeighborhood(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
                       />
                     </Form.Group>
 
