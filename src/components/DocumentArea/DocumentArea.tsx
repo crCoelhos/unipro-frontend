@@ -12,6 +12,7 @@ const DocumentArea: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+
   const { categoryId } = useParams();
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -69,15 +70,18 @@ const DocumentArea: React.FC = () => {
         athleticId: location.state.athletic
       }
       try {
+       
         await axios.post(url + "auth/photouser/", formData, config);
         try {
           const userTicket = await axios.post(url + "admin/bookticket/", bookData, bookConfig);
 
           location.state.userTicket = userTicket.data
+
+      
         } catch (error) {
           console.error('book: ', error);
         }
-        navigate(`/sport-events/buyticket/${categoryId}`, { state: location.state });
+         navigate(`/sport-events/buyticket/${categoryId}`, { state: location.state });
       } catch (error) {
         console.error('photo: ', error);
       }
