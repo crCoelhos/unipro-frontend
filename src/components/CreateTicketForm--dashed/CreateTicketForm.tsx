@@ -21,6 +21,7 @@ const CreateTicketForm = () => {
   const [price, setPrice] = useState("")
   const [startDate, setStartDate] = useState("")
   const [finishDate, setFinishDate] = useState("")
+  const [typeTicketId, setTypeTicketId] = useState("")
   const [quantity, setQuantity] = useState("")
 
   useEffect(() => {
@@ -59,6 +60,7 @@ const CreateTicketForm = () => {
       price: Number(price),
       startDate,
       finishDate,
+      typeTicketId:Number(typeTicketId),
       eventId: Number(eventId),
       quantity: Number(quantity),
     };
@@ -71,7 +73,8 @@ const CreateTicketForm = () => {
   return (
     <div className={styles.CreateTIcketFormContainer}>
       <h2>Criar Ticket</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}
+      >
         <Form.Group controlId="formName">
           <Form.Label>Nome:</Form.Label>
           <Form.Control

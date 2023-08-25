@@ -18,6 +18,7 @@ import PaymentProcessingToast from "../PaymentProcessingToast/PaymentProcessingT
 import { formData } from "./formData";
 import { useNavigate, useLocation } from "react-router-dom";
 import copyIcon from "../../assets/icons/copy.png";
+import { Modality } from "../../types";
 
 const PaymentForm = () => {
   const navigate = useNavigate();
@@ -145,6 +146,17 @@ const PaymentForm = () => {
         pixHeaders
       );
 
+      const modalities = location.state.modalities
+      const userTicket = location.state.userTicket
+      modalities.forEach(async (modality: Modality) => {
+        const modalitiesUserTicket = { userTicketId: userTicket.id, modalityId: modality.id }
+        const modalities = await axios.post(
+          `${url}admin/modalitusertickets`,
+          modalitiesUserTicket,
+          pixHeaders
+        );
+      });
+
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
       setPixQrCode(pix_copypaste_code);
       const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
@@ -229,12 +241,26 @@ const PaymentForm = () => {
                   },
                 }
               );
+              const httpHeader = {headers: {
+                "Content-Type": "application/json",
+                Access: serverSideAccessToken,
+                Authorization: authToken,
+              },}
+              const modalities = location.state.modalities
+              const userTicket = location.state.userTicket
+              modalities.forEach(async (modality: Modality) => {
+                const modalitiesUserTicket = { userTicketId: userTicket.id, modalityId: modality.id }
+                const modalities = await axios.post(
+                  `${url}admin/modalitusertickets`,
+                  modalitiesUserTicket,
+                  httpHeader
+                );
+              });
 
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
 
               if (pay_status === "approved") {
-                console.log(payStatus);
                 setTimeout(() => {
                   navigate("/sport-events");
                 }, 7000);

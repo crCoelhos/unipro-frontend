@@ -1,3 +1,6 @@
+import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
+import { Dialog } from 'primereact/dialog';
+
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button, FormGroup, Form } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
@@ -7,7 +10,7 @@ import useLoginController from "../../controllers/LoginController";
 import Menu from "../../components/Menu/Menu";
 import styles from "./EventDetails.module.css";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
-import { EventDetails } from "../../types";
+import { EventDetails, Modality } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 import CreateModalityModal from "../../components/CreateModalityModal/CreateModalityModal";
 import foto from "../../assets/images/BANNER_VINICIUS.png";
@@ -28,11 +31,17 @@ const SportEventDetails = () => {
   const navigate = useNavigate();
   const { eventId } = useParams();
   const [eventDetails, setEventDetails] = useState<EventDetails | null>(null);
+  const [modalities, setModalities] = useState<Modality[]>([]);
   const [eventTickets, setEventTickets] = useState<any[]>([]);
+  const [categoryFinal, setCategoryFinal] = useState<any>();
+  const [qtModalities, setQtModalities] = useState<number>(0);
   const [localization, setLocalization] = useState("");
   const [athletics, setAthletics] = useState<any[]>([]);
   const [athletic, setAthletic] = useState<string>();
+  const [visible, setVisible] = useState<boolean>(false);
 
+  const [selectedModalities, setSelectedModalities] = useState([]);
+ 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
 
@@ -51,15 +60,24 @@ const SportEventDetails = () => {
 
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get<EventDetails>(
+        const event = await axios.get<EventDetails>(
           `${url}admin/event/${eventId}`,
           {
             headers: { Access: serverSideAccessToken },
           }
         );
 
-        const eventData = response.data;
+        const eventData = event.data;
+
         setEventDetails(eventData);
+        const modality = await axios.get(
+          `${url}admin/modalitiesbyevent/${eventId}`,
+          {
+            headers: { Access: serverSideAccessToken },
+          }
+        );
+        const modalities = modality.data
+        setModalities(modalities)
 
         const locationSplit = eventData.event.location.split(" ");
         let location = "";
@@ -103,8 +121,8 @@ const SportEventDetails = () => {
         if (athletic === "" || !athletic) {
           window.alert("Selecione uma atletica");
         } else {
-          navigate(`/sport-events/${eventId}/bookticket/${category.id}`, {
-            state: { category, athletic: athletic },
+          navigate(`/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`, {
+            state: { category:category.categoryFinal, athletic: athletic , modalities: selectedModalities},
           });
         }
       } else {
@@ -216,20 +234,40 @@ const SportEventDetails = () => {
                       Selecione uma atlética
                     </option>
                     {athletics.map((athletic, index) => {
-                      return (
-                        <option key={index + 1} value={athletic.id}>
-                          {athletic.name}
-                        </option>
-                      );
+
+                      return (<option key={index + 1} value={Number(athletic.id)}>{athletic.name}</option>)
+
                     })}
                   </Form.Select>
                 </div>
               </FormGroup>
             </Card.Body>
+            {/* adcionar as modalidades na lista para selecionar */}
+                  <Dialog header="Modalidades" visible={visible} style={{ width: '50vw' }} 
+                  draggable={false} onHide={() =>{ 
+                    setVisible(false)
+                    setSelectedModalities([])
+                  }}>
+                  <div className="card flex justify-content-center mb-2">
+                    <MultiSelect value={selectedModalities} onChange={(e: MultiSelectChangeEvent) => setSelectedModalities(e.value)}
+                     options={modalities} optionLabel="name"
+                      filter placeholder="Selecione as modalidades" display='chip' selectionLimit={qtModalities} showSelectAll={false} maxSelectedLabels={3} className="w-full md:w-20rem" />
+                  </div>
+                  <Button
+                      size="lg"
+                      onClick={(event) => {
+                        handleBuy({categoryFinal})(event)}}
+                    >
+                      Comprar
+                    </Button>
+                  </Dialog>
             <Card.Body className={styles.LocationCardBox}>
               <div className="d-grid gap-2">
                 {eventTickets &&
-                  eventTickets.map((category) => (
+                  eventTickets.map((category) => {
+
+                    return (
+
                     <Card key={category.id}>
                       <Card.Body>
                         <Card.Title>{category.name}</Card.Title>
@@ -238,28 +276,30 @@ const SportEventDetails = () => {
                           teste: {category.typeTicket.name}
                         </Card.Text>
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
-
+                        
                         <Card.Text>
-                          Data de início:{" "}
-                          {format(new Date(category.startDate), "dd/MM/yyyy")}
+                          Modalodades: {category.typeTicket.qt_modalities}
                         </Card.Text>
-                        <Card.Text>
-                          Data de término:{" "}
-                          {format(new Date(category.finishDate), "dd/MM/yyyy")}
-                        </Card.Text>
+                        {/* <Card.Text>
+                          Data de término: {category.finishDate}
+                        </Card.Text> */}
                         <div className="d-grid gap-2">
-                          {athletic ? (
-                            <Button
-                              size="lg"
-                              onClick={(event) => handleBuy(category)(event)}
-                            >
-                              Comprar
-                            </Button>
-                          ) : (
-                            <Button
+                          {athletic ? (<Button
+                            size="lg"
+                            onClick={(event) => {
+                              setVisible(true)
+                              setCategoryFinal(category)
+                              setQtModalities(category.typeTicket.qt_modalities)
+                            }
+                            }
+                          >
+                            Comprar
+                          </Button>)
+                            :
+                            (<Button
+
                               disabled
                               size="lg"
-                              onClick={(event) => handleBuy(category)(event)}
                             >
                               Comprar
                             </Button>
@@ -273,7 +313,7 @@ const SportEventDetails = () => {
                         </div>
                       </Card.Body>
                     </Card>
-                  ))}
+                  )})}
               </div>
             </Card.Body>
           </Card>

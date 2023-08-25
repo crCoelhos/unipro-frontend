@@ -27,6 +27,14 @@ export interface Event {
   createdAt: string;
   updatedAt: string;
 }
+export interface Modality {
+  id: number;
+  name: string;
+  eventId: number;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface EventDetails {
   event: {

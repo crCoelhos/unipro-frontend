@@ -73,9 +73,11 @@ const DocumentArea: React.FC = () => {
        
         await axios.post(url + "auth/photouser/", formData, config);
         try {
-          
-          const bookticket = await axios.post(url + "admin/bookticket/", bookData, bookConfig);
-          
+          const userTicket = await axios.post(url + "admin/bookticket/", bookData, bookConfig);
+
+          location.state.userTicket = userTicket.data
+
+      
         } catch (error) {
           console.error('book: ', error);
         }
