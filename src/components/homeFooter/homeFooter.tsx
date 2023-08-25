@@ -11,8 +11,6 @@ import { Sponsors } from "../../types";
 
 import sticker from "../../assets/img/JOGOSUNI_2023.png";
 
-
-
 export const shownSponsors = [
   {
     id: 1,
@@ -89,16 +87,16 @@ const HomeFooter: React.FC = () => {
         <div>
           <div className="wideLarge">
             {shouldRenderLink ? (
-              <Row className={cx(styles.sponsorRow)}>
+              <Row className={styles.sponsorRow}>
                 <Col>
-                  <Link to="#link" className={cx(styles.sponsorLabelText)}>
+                  <Link to="#link" className={styles.sponsorLabelText}>
                     Conheça nossos parceiros clicando aqui
                   </Link>
                 </Col>
               </Row>
             ) : (
               <>
-                <Row>
+                {/* <Row>
                   {shownSponsors.map((event) => (
                     <div
                       className="col-md-3"
@@ -120,11 +118,11 @@ const HomeFooter: React.FC = () => {
                       </Link>
                     </div>
                   ))}
-                </Row>
+                </Row> */}
                 <Row>
-                  <Col lg={12}>
-                    <div className={styles["col-md-3"]}>
-                      <h4>
+                  <Col className={styles.SponsorFooter}>
+                    <div>
+                      <h4 className={styles.sponsorRow}>
                         Todos os direitos reservados <span>UniProduções</span>
                       </h4>
                     </div>

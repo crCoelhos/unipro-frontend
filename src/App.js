@@ -39,13 +39,15 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            {/* <Route path="/" element={<HomePage />} /> */}
+            <Route path="/" element={<SportEventPage />} />
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             {/* <Route path="/user-profile" element={<UserProfilePage />} /> */}
 
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/home" element={<SportEventPage />} />
+            {/* <Route path="/home" element={<HomePage />} /> */}
             <Route path="/menu" element={<Menu />} />
             <Route path="/user-profile" element={<UserProfilePage />} />
 
