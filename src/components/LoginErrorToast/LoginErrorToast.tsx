@@ -7,12 +7,12 @@ interface LoginErrorToastProps {}
 
 const LoginErrorToast: FC<LoginErrorToastProps> = () => (
   <div className={styles.LoginErrorToast}>
-      <Toast bg="danger">
-       
-        <Toast.Body className={styles.ToastBody}>
-          Verifique sua senha.
-        </Toast.Body>
-      </Toast>
+    <Toast bg="danger">
+      <Toast.Body className={styles.ToastBody}>
+        <p>Usuário ou senha incorreto.</p>
+        <p>Tente novamente.</p>
+      </Toast.Body>
+    </Toast>
   </div>
 );
 

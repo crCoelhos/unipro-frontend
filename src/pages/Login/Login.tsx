@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
                           required
                         />
                       </Form.Group>
-                      {loginErrorPasswordOrUser && <LoginErrorToast />}
+                      {loginErrorPasswordOrUser || loginError  && <LoginErrorToast />}
                       <Form.Group className="mb-3">
                         <p className="small">
                           <a className="text-primary" href="#!">
@@ -92,7 +92,7 @@ const LoginPage: React.FC = () => {
               </Card.Body>
             </Card>
             {loggedIn && <LoginSuccessToast />}
-            {loginErrorPasswordOrUser ? <LoginErrorToast /> : <></>}
+            {loginErrorPasswordOrUser? <LoginErrorToast /> : <></>}
           </Col>
           <Col md={12} xl={6} sm={6} xs={6}>
             <LoginCarousel />
