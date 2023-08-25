@@ -278,7 +278,7 @@ const SportEventDetails = () => {
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
                         
                         <Card.Text>
-                          Modalodades: {category.typeTicket.qt_modalities}
+                          Modalidades: {category.typeTicket.qt_modalities}
                         </Card.Text>
                         {/* <Card.Text>
                           Data de término: {category.finishDate}

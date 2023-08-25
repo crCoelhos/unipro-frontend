@@ -4,10 +4,15 @@
   margin: 112px 312px;
 }
 
-.DropArea{
-    height: 112px;
+.DropArea {
+  height: 112px;
 }
 .ImgArea {
   width: 224px;
   margin: 10px;
+}
+
+.DropFileContainer {
+  display: flex;
+  flex-direction: row;
 }
