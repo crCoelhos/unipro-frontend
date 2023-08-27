@@ -80,8 +80,30 @@ const PaymentForm = () => {
       Authorization: authToken,
     },
   };
-
+  var i = 0
   useEffect(() => {
+    const userTickets = async () => {
+      const headers = {
+        headers: {
+          "Content-Type": "application/json",
+          Access: serverSideAccessToken,
+          Authorization: authToken,
+        },
+      };
+      const id = location.state.userTicket.id
+      const response = await axios.get(
+        `${url}admin/userticket/${id}`,
+        headers
+      ); 
+      if(response.data.status =!"confirmado"){
+        // userTickets()
+        i++
+      }
+    }
+    // setInterval(userTickets, 10000);
+    // setInterval(function () {userTickets()}, 5000);
+
+    userTickets()
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
@@ -118,6 +140,7 @@ const PaymentForm = () => {
       transaction_amount: Number(location.state.category.price),
       description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
+      notification_url: `${url}webhook/${location.state.userTicket.id}`, 
       payer: {
         email: pixEmail,
         first_name: pixFirstName,
@@ -161,7 +184,20 @@ const PaymentForm = () => {
           pixHeaders
         );
       });
+      // const aa = await axios.get(
+      //   `${url}admin/transations`,
+      //   pixHeaders
+      // );
 
+      const transation = await axios.post(
+        `${url}admin/transation`,
+        {
+          user_ticketId: userTicket.id,
+          transationId: response.data.pix_id
+        },
+        pixHeaders
+      );
+      
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
       setPixQrCode(pix_copypaste_code);
       const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
@@ -246,11 +282,13 @@ const PaymentForm = () => {
                   },
                 }
               );
-              const httpHeader = {headers: {
-                "Content-Type": "application/json",
-                Access: serverSideAccessToken,
-                Authorization: authToken,
-              },}
+              const httpHeader = {
+                headers: {
+                  "Content-Type": "application/json",
+                  Access: serverSideAccessToken,
+                  Authorization: authToken,
+                },
+              }
               const modalities = location.state.modalities
               const userTicket = location.state.userTicket
               modalities.forEach(async (modality: Modality) => {
@@ -261,6 +299,15 @@ const PaymentForm = () => {
                   httpHeader
                 );
               });
+              
+              const transation = await axios.post(
+                `${url}admin/transation`,
+                {
+                  user_ticketId: userTicket.id,
+                  transationId: response.data.pay_id
+                },
+                httpHeader
+              );
 
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
@@ -317,7 +364,7 @@ const PaymentForm = () => {
     }
   };
 
-  webhookCall();
+  // webhookCall();
 
   return (
     <Container className="OuterContainer">
