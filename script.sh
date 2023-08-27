@@ -5,7 +5,7 @@ REPO_FOLDER=/home/front/htdocs/uniproducoes.com.br
 
 cd $REPO_FOLDER
 
-git fetch origin main
+git fetch origin master
 
 if git rev-parse HEAD..origin/main >/dev/null 2>&1; then
   echo "Nova atualização na main. Executando comando..."
