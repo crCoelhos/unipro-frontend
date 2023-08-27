@@ -62,7 +62,6 @@ export interface EventDetails {
   };
 }
 
-
 export interface Sponsors {
   id: number;
   name: string;
@@ -111,3 +110,16 @@ export interface AthleticsResponse {
   athletics: Athletic[];
 }
 
+export interface UserTickets {
+  id: number;
+  status: string;
+  updatedAt: string;
+  ticket: {
+    name: string;
+    price: string;
+    event: {
+      name: string;
+      status: boolean;
+    };
+  };
+}

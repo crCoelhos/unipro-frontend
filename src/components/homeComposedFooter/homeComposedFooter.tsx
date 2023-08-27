@@ -27,7 +27,7 @@ const HomeComposedFooter = () => (
             <img className={styles.Twitter} src={twitter} alt="Twitter" />
           </a>
           <a
-            href="https://api.whatsapp.com/send?phone=123456789"
+            href="https://api.whatsapp.com/send?phone=556899027277"
             target="_blank"
             rel="noopener noreferrer"
           >

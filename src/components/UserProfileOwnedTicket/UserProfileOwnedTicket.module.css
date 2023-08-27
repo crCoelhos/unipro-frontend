@@ -1,0 +1,31 @@
+.UserProfileOwnedTicket {
+  margin: 128px 0;
+}
+
+.UserProfileOwnedTicketTickets {
+  width: auto;
+  padding: 2px;
+  margin: 4px;
+}
+.TicketUnity {
+  color: white;
+  font-weight: bolder;
+  margin: 12px;
+}
+.CardFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 4px;
+}
+.CardText {
+  display: flex;
+  justify-content: space-between;
+}
+
+.UserProfileOwnedTicketBoxTitle{
+  font-weight: bolder;
+  color: whitesmoke;
+  margin: 12px;
+  font-size: 24px;
+}

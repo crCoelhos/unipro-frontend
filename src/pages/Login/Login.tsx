@@ -1,6 +1,6 @@
 import React from "react";
-import { Carousel, Form } from "react-bootstrap";
-import { Link, useLocation, useNavigate} from "react-router-dom";
+import { Form } from "react-bootstrap";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import useLoginController from "../../controllers/LoginController";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
@@ -17,28 +17,27 @@ const LoginPage: React.FC = () => {
     handleSubmit,
     loginError,
     loggedIn,
-    loginErrorPasswordOrUser
+    loginErrorPasswordOrUser,
   } = useLoginController();
 
   const location = useLocation();
   const navigate = useNavigate();
   if (loggedIn) {
-    if(location.state){
-      navigate(location.state.url, { state: location.state })
-    }else{
-      navigate('/home')
+    if (location.state) {
+      navigate(location.state.url, { state: location.state });
+    } else {
+      navigate("/home");
     }
   }
 
   return (
     <div className={styles.loginContent}>
-      <Container>
+      <Container fluid>
         <Row className="vh-100 d-flex justify-content-center align-items-center">
-          <Col lg={6} xs={6} style={{ margin: "0px" }}>
+          <Col xl={6} xll={6} md={12} sm={12} xs={12}>
             <Card className="shadow">
               <Card.Body>
                 <div className="mb-3 mt-md-4">
-                  {/* <h2 className="fw-bold mb-2 text-uppercase">UNIPRODUÇÕES</h2> */}
                   <div className="mb-3">
                     <Form onSubmit={handleSubmit}>
                       <Form.Group className="mb-3">
@@ -66,7 +65,7 @@ const LoginPage: React.FC = () => {
                           required
                         />
                       </Form.Group>
-                      {loginErrorPasswordOrUser && <LoginErrorToast />}
+                      {loginErrorPasswordOrUser || loginError  && <LoginErrorToast />}
                       <Form.Group className="mb-3">
                         <p className="small">
                           <a className="text-primary" href="#!">
@@ -93,12 +92,10 @@ const LoginPage: React.FC = () => {
               </Card.Body>
             </Card>
             {loggedIn && <LoginSuccessToast />}
-            {loginErrorPasswordOrUser ? <LoginErrorToast /> : <></>}
+            {loginErrorPasswordOrUser? <LoginErrorToast /> : <></>}
           </Col>
-          <Col>
-            <div>
-              <LoginCarousel />
-            </div>
+          <Col md={12} xl={6} sm={6} xs={6}>
+            <LoginCarousel />
           </Col>
         </Row>
       </Container>

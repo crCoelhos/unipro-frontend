@@ -23,7 +23,9 @@ import { Modality } from "../../types";
 const PaymentForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [paymentID, setPaymentID] = useState<string>("");
+  const [paymentResponse, setPaymentResponse] = useState<number | null>(null);
   const checkUserToken = () => {
     const userToken = sessionStorage.getItem("user");
     if (!userToken || userToken === "undefined") {
@@ -57,8 +59,6 @@ const PaymentForm = () => {
 
   const path = window.location.pathname;
   const code = path.split("/buyticket/")[1];
-
-  // data from env
 
   const url = process.env.REACT_APP_SERVER_URL;
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -113,12 +113,25 @@ const PaymentForm = () => {
         const event_Data = response.data;
         setEventData(event_Data);
         setCategortDataId(event_Data.id);
-
-        // TA DANDO ERRO, RODA, TESTA E CORRIGE.
       } catch (error) {
         console.error("Erro ao fazer a requisição:", error);
       }
     };
+
+    // const fetchPaymentResponse = async () => {
+    //   try {
+    //     const response = await axios.get(`${url}notification`, eventHeaders);
+    //     const response_id = response.data.id;
+    //     const response_status = response.data.status;
+    //     setPaymentID(response_id);
+    //     setPaymentResponse(response_status);
+    //   } catch (error) {
+    //     console.error("Erro ao obter resposta de pagamento: ", error);
+    //   }
+    // };
+
+    // fetchPaymentResponse();
+
     fetchEvents();
   }, []);
 
@@ -134,7 +147,6 @@ const PaymentForm = () => {
       authToken = parsedData.token;
     }
 
-    // amount to id so the backend can define the price by themselves
     const pixPayment_data = {
       // id: event_,
       transaction_amount: Number(location.state.category.price),
@@ -174,10 +186,14 @@ const PaymentForm = () => {
         pixHeaders
       );
 
-      const modalities = location.state.modalities
-      const userTicket = location.state.userTicket
+      const modalities = location.state.modalities;
+      const userTicket = location.state.userTicket;
       modalities.forEach(async (modality: Modality) => {
-        const modalitiesUserTicket = { userTicketId: userTicket.id, modalityId: modality.id }
+        const modalitiesUserTicket = {
+          userTicketId: userTicket.id,
+          modalityId: modality.id,
+        };
+
         const modalities = await axios.post(
           `${url}admin/modalitusertickets`,
           modalitiesUserTicket,
@@ -290,9 +306,12 @@ const PaymentForm = () => {
                 },
               }
               const modalities = location.state.modalities
-              const userTicket = location.state.userTicket
+              const userTicket = location.state.userTicke
               modalities.forEach(async (modality: Modality) => {
-                const modalitiesUserTicket = { userTicketId: userTicket.id, modalityId: modality.id }
+                const modalitiesUserTicket = {
+                  userTicketId: userTicket.id,
+                  modalityId: modality.id,
+                };
                 const modalities = await axios.post(
                   `${url}admin/modalitusertickets`,
                   modalitiesUserTicket,
@@ -330,9 +349,6 @@ const PaymentForm = () => {
           },
 
           onFetching: (resource: any) => {
-            console.log("Fetching resource: ", resource);
-
-            // Animate progress bar
             const progressBar = document.querySelector(".progress-bar");
             if (progressBar) {
               progressBar.removeAttribute("value");
@@ -368,202 +384,224 @@ const PaymentForm = () => {
 
   return (
     <Container className="OuterContainer">
-      <h1>{location.state.category.name}</h1>
-      <h1 id="amount">{location.state.category.price}</h1>
-      <Accordion>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>CARTÃO DE CREDITO</Accordion.Header>
-          <Accordion.Body>
-            <div className="PaymentForm">
-              <form id="form-checkout">
-                <Row>
-                  <Col>
-                    <div
-                      id="form-checkout__cardNumber"
-                      className="container mpFormInput"
-                    ></div>
-                  </Col>
-                  <Col>
-                    <div
-                      id="form-checkout__expirationDate"
-                      className="container mpFormInput"
-                    ></div>
-                  </Col>
-                  <Col>
-                    <div
-                      id="form-checkout__securityCode"
-                      className="container mpFormInput"
-                    ></div>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col>
-                    <select
-                      id="form-checkout__issuer"
-                      className="container mpFormInput"
-                      disabled
-                    ></select>
-                  </Col>
-                </Row>
-                <input
-                  type="text"
-                  id="form-checkout__cardholderName"
-                  className="cardHolderName mpFormInput"
-                  required
-                />
-                <input
-                  type="email"
-                  id="form-checkout__cardholderEmail"
-                  className="container mpFormInput"
-                  required
-                />
-                <Row>
-                  <Col>
-                    <select
-                      id="form-checkout__installments"
-                      className="container mpFormInput"
-                    ></select>
-                  </Col>
-                </Row>
-                <Row>
-                  <span>Tipo de documento:</span>
-                  <Col>
-                    <select
-                      id="form-checkout__identificationType"
-                      className="container mpFormInput"
-                    ></select>
-                  </Col>
-                  <Col>
-                    <input
-                      type="text"
-                      id="form-checkout__identificationNumber"
-                      className="container mpFormInput"
-                      required
-                    />
-                  </Col>
-                </Row>
+      <Card>
+        <Card bg="info">
+          <Card.Text className="PaymentFormTicketInfoCard">
+            <span>
+              <h1>{location.state.category.name}</h1>
+            </span>
+            <span>
+              <h1 id="amount">R$ {location.state.category.price}</h1>
+            </span>
+          </Card.Text>
+        </Card>
+        <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>CARTÃO DE CREDITO</Accordion.Header>
+            <Accordion.Body>
+              <div className="PaymentForm">
+                <form id="form-checkout">
+                  <Row>
+                    <Col>
+                      <div
+                        id="form-checkout__cardNumber"
+                        className="container mpFormInput"
+                      ></div>
+                    </Col>
+                    <Col>
+                      <div
+                        id="form-checkout__expirationDate"
+                        className="container mpFormInput"
+                      ></div>
+                    </Col>
+                    <Col>
+                      <div
+                        id="form-checkout__securityCode"
+                        className="container mpFormInput"
+                      ></div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <select
+                        id="form-checkout__issuer"
+                        className="container mpFormInput"
+                        disabled
+                      ></select>
+                    </Col>
+                  </Row>
+                  <input
+                    type="text"
+                    id="form-checkout__cardholderName"
+                    className="cardHolderName mpFormInput"
+                    required
+                  />
+                  <input
+                    type="email"
+                    id="form-checkout__cardholderEmail"
+                    className="container mpFormInput"
+                    required
+                  />
+                  <Row>
+                    <Col>
+                      <select
+                        id="form-checkout__installments"
+                        className="container mpFormInput"
+                      ></select>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <span>Tipo de documento:</span>
+                    <Col>
+                      <select
+                        id="form-checkout__identificationType"
+                        className="container mpFormInput"
+                      ></select>
+                    </Col>
+                    <Col>
+                      <input
+                        type="text"
+                        id="form-checkout__identificationNumber"
+                        className="container mpFormInput"
+                        required
+                      />
+                    </Col>
+                  </Row>
 
-                <Button
-                  type="submit"
-                  id="form-checkout__submit"
-                  className="container"
-                >
-                  Pagar
-                </Button>
+                  <Button
+                    type="submit"
+                    id="form-checkout__submit"
+                    className="container"
+                  >
+                    Pagar
+                  </Button>
 
-                {payStatus === "approved" && <PaymentSuccessToast />}
-                {payStatus === "rejected" && <PaymentFailedToast />}
-                {payStatus === "in_process" && <PaymentProcessingToast />}
-              </form>
-            </div>
-          </Accordion.Body>
-        </Accordion.Item>
-        <Accordion.Item eventKey="1">
-          <Accordion.Header>PIX</Accordion.Header>
-          <Accordion.Body>
-            <Form id="form-checkout" onSubmit={handleSubmit}>
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="form-checkout__pixFirstName">
-                    <Form.Label>Nome</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixFirstName}
-                      onChange={(e) => setPixFirstName(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="form-checkout__pixLastName">
-                    <Form.Label>Sobrenome</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixLastName}
-                      onChange={(e) => setPixLastName(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={5}>
-                  <Form.Group controlId="form-checkout__pixEmail">
-                    <Form.Label>E-mail</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixEmail}
-                      onChange={(e) => setPixEmail(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={3}>
-                  <Form.Group controlId="form-checkout__pixIdentificationType">
-                    <Form.Label>Tipo de documento</Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={pixIdentificationType}
-                      onChange={(e) => setPixIdentificationType(e.target.value)}
-                    >
-                      <option value=""></option>
-                      <option value="CPF">CPF</option>
-                      <option value="CNPJ">CNPJ</option>
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Form.Group controlId="form-checkout__pixIdentificationNumber">
-                    <Form.Label>Número do documento</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixIdentificationNumber}
-                      onChange={(e) =>
-                        setPixIdentificationNumber(e.target.value)
-                      }
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={3}>
-                  <Form.Group controlId="form-checkout__pixZipCode">
-                    <Form.Label>CEP</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixZipCode}
-                      onChange={(e) => setPixZipCode(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={5}>
-                  <Form.Group controlId="form-checkout__pixStreetName">
-                    <Form.Label>Rua</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixStreetName}
-                      onChange={(e) => setPixStreetName(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Form.Group controlId="form-checkout__pixStreetNumber">
-                    <Form.Label>Número</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixStreetNumber}
-                      onChange={(e) => setPixStreetNumber(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Form.Group controlId="form-checkout__pixNeighborhood">
-                    <Form.Label>Bairro</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixNeighborhood}
-                      onChange={(e) => setPixNeighborhood(e.target.value)}
-                    />
-                  </Form.Group>
+                  {payStatus === "approved" && <PaymentSuccessToast />}
+                  {payStatus === "rejected" && <PaymentFailedToast />}
+                  {payStatus === "in_process" && <PaymentProcessingToast />}
+                </form>
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header className="PaymentMethodOptions">
+              PIX
+            </Accordion.Header>
+            <Accordion.Body>
+              <Form id="form-checkout" onSubmit={handleSubmit}>
+                <Row>
+                  <Col md={6}>
+                    <Form.Group controlId="form-checkout__pixFirstName">
+                      <Form.Label>Nome</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixFirstName}
+                        onChange={(e) => setPixFirstName(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="form-checkout__pixLastName">
+                      <Form.Label>Sobrenome</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixLastName}
+                        onChange={(e) => setPixLastName(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={5}>
+                    <Form.Group controlId="form-checkout__pixEmail">
+                      <Form.Label>E-mail</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixEmail}
+                        onChange={(e) => setPixEmail(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={3}>
+                    <Form.Group controlId="form-checkout__pixIdentificationType">
+                      <Form.Label>Tipo de documento</Form.Label>
+                      <Form.Control
+                        as="select"
+                        value={pixIdentificationType}
+                        onChange={(e) =>
+                          setPixIdentificationType(e.target.value)
+                        }
+                        disabled={pixQrCode.trim() !== ""}
+                      >
+                        <option value=""></option>
+                        <option value="CPF">CPF</option>
+                        <option value="CNPJ">CNPJ</option>
+                      </Form.Control>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group controlId="form-checkout__pixIdentificationNumber">
+                      <Form.Label>Número do documento</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixIdentificationNumber}
+                        onChange={(e) =>
+                          setPixIdentificationNumber(e.target.value)
+                        }
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={3}>
+                    <Form.Group controlId="form-checkout__pixZipCode">
+                      <Form.Label>CEP</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixZipCode}
+                        onChange={(e) => setPixZipCode(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={5}>
+                    <Form.Group controlId="form-checkout__pixStreetName">
+                      <Form.Label>Rua</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixStreetName}
+                        onChange={(e) => setPixStreetName(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group controlId="form-checkout__pixStreetNumber">
+                      <Form.Label>Número</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixStreetNumber}
+                        onChange={(e) => setPixStreetNumber(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group controlId="form-checkout__pixNeighborhood">
+                      <Form.Label>Bairro</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixNeighborhood}
+                        onChange={(e) => setPixNeighborhood(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
 
-                  {/* <div>
+                    {/* <div>
                   <label htmlFor="pixNeighborhood">Bairro</label>
                   <input
                     id="form-checkout__pixNeighborhood"
@@ -573,97 +611,104 @@ const PaymentForm = () => {
                     onChange={(e) => setPixNeighborhood(e.target.value)}
                   />
                 </div> */}
-                </Col>
-              </Row>
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="form-checkout__pixCity">
-                    <Form.Label>Cidade</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixCity}
-                      onChange={(e) => setPixCity(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="form-checkout__pixFederalUnit">
-                    <Form.Label>Estado</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={pixFederalUnit}
-                      onChange={(e) => setPixFederalUnit(e.target.value)}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Row></Row>
-              <Button type="submit" id="form-pix-submit" className="container">
-                Gerar QR Code
-              </Button>
-            </Form>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
-      <Col>
-        <div className="PixQrCodeContainer">
-          <Row>
-            <Col xl={5}>
-              <Card className="PixCodeBox">
-                {/* {pixQrCode !== null && pixQrCode !== undefined && pixQrCode} */}
-                {(() => {
-                  if (pixQrCode !== null && pixQrCode !== "") {
-                    return (
-                      <Card.Body>
-                        <Card.Title>
-                          {pixQrCode && (
-                            <Button
-                              variant="outline-info"
-                              onClick={() =>
-                                navigator.clipboard.writeText(pixQrCode)
-                              }
-                            >
-                              <img
-                                src={copyIcon}
-                                alt="icone de copiar para area de transferência"
-                                className="CopyIcon"
-                              />
-                            </Button>
-                          )}
-                        </Card.Title>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <Form.Group controlId="form-checkout__pixCity">
+                      <Form.Label>Cidade</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixCity}
+                        onChange={(e) => setPixCity(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group controlId="form-checkout__pixFederalUnit">
+                      <Form.Label>Estado</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={pixFederalUnit}
+                        onChange={(e) => setPixFederalUnit(e.target.value)}
+                        disabled={pixQrCode.trim() !== ""}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row></Row>
+                <Button
+                  type="submit"
+                  id="form-pix-submit"
+                  className="container"
+                >
+                  Gerar QR Code
+                </Button>
+              </Form>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        <Col>
+          <div className="PixQrCodeContainer">
+            <Row>
+              <Col xl={5}>
+                <Card className="PixCodeBox">
+                  {/* {pixQrCode !== null && pixQrCode !== undefined && pixQrCode} */}
+                  {(() => {
+                    if (pixQrCode !== null && pixQrCode !== "") {
+                      return (
+                        <Card.Body>
+                          <Card.Title>
+                            {pixQrCode && (
+                              <Button
+                                variant="outline-info"
+                                onClick={() =>
+                                  navigator.clipboard.writeText(pixQrCode)
+                                }
+                              >
+                                <img
+                                  src={copyIcon}
+                                  alt="icone de copiar para area de transferência"
+                                  className="CopyIcon"
+                                />
+                              </Button>
+                            )}
+                          </Card.Title>
 
-                        <Card.Text>{pixQrCode}</Card.Text>
-                      </Card.Body>
+                          <Card.Text>{pixQrCode}</Card.Text>
+                        </Card.Body>
+                      );
+                    }
+                    return <></>;
+                  })()}
+                </Card>
+              </Col>
+
+              <Col xl={7}>
+                {(() => {
+                  if (pixQrCodeBase64 !== null && pixQrCodeBase64 !== "") {
+                    return (
+                      <Card className="PixQrCodeBox">
+                        <Card.Body>
+                          <Card.Title>
+                            Abra o aplicativo de pagamento e aponte a câmera
+                            para o QR Code
+                          </Card.Title>
+                        </Card.Body>
+                        <Card.Img
+                          src={`data:image/jpeg;base64,${pixQrCodeBase64}`}
+                        />
+                      </Card>
                     );
                   }
                   return <></>;
                 })()}
-              </Card>
-            </Col>
-
-            <Col xl={7}>
-              {(() => {
-                if (pixQrCodeBase64 !== null && pixQrCodeBase64 !== "") {
-                  return (
-                    <Card className="PixQrCodeBox">
-                      <Card.Body>
-                        <Card.Title>
-                          Abra o aplicativo de pagamento e aponte a câmera para
-                          o QR Code
-                        </Card.Title>
-                      </Card.Body>
-                      <Card.Img
-                        src={`data:image/jpeg;base64,${pixQrCodeBase64}`}
-                      />
-                    </Card>
-                  );
-                }
-                return <></>;
-              })()}
-            </Col>
-          </Row>
-        </div>
-      </Col>
+              </Col>
+            </Row>
+          </div>
+        </Col>
+      </Card>
     </Container>
   );
 };

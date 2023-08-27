@@ -78,7 +78,25 @@
   margin: 18px;
 }
 
-
-.CopyIcon{
+.CopyIcon {
   width: 16px;
+}
+
+.PaymentFormTicketInfoCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 64px;
+
+  align-items: center;
+
+  color: #fcfcfc;
+}
+
+.PaymentMethodOptions {
+  font-size: 32px;
+  font-weight: bolder;
+}
+.seletor{
+  color: black
 }

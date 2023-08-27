@@ -7,20 +7,21 @@ import Menu from "../../components/Menu/Menu";
 import HomeComposedFooter from "../../components/homeComposedFooter/homeComposedFooter";
 import { useNavigate } from "react-router-dom";
 import Countdown from "../../components/Countdown/Countdown";
+import { Card } from "react-bootstrap";
 
 const PaymentPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const checkUserToken = () => {
-    const userToken = sessionStorage.getItem('user');
-    if (!userToken || userToken === 'undefined') {
+    const userToken = sessionStorage.getItem("user");
+    if (!userToken || userToken === "undefined") {
       setIsLoggedIn(false);
-      return navigate('/login');
+      return navigate("/login");
     }
     setIsLoggedIn(true);
-  }
+  };
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
@@ -34,21 +35,24 @@ const PaymentPage = () => {
 
   return (
     <div className={styles.PaymentPage}>
-      <Menu/>
-      <div className={styles.PaymetPageContainer}>
-
-      </div>
-      {user && (
-        <>
-          <h1 className={styles.UserDirective}>{user.name}, selecione uma forma de pagamento:</h1>
-        </>
-      )}
+      <Menu />
+      <div className={styles.PaymetPageContainer}></div>
+      <Card>
+        {user && (
+          <>
+            <Card.Header>
+              <h1 className={styles.UserDirective}>
+                {user.name}, selecione uma forma de pagamento:
+              </h1>
+            </Card.Header>
+          </>
+        )}
+      </Card>
       <PaymentForm />
 
-      <HomeComposedFooter/>
+      <HomeComposedFooter />
 
-      <Countdown duration={20}/>
-
+      <Countdown duration={20} />
     </div>
   );
 };

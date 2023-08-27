@@ -22,7 +22,6 @@ function CreateEventModal() {
 
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    console.log("entrou")
     const eventData = {
       name,
       status,

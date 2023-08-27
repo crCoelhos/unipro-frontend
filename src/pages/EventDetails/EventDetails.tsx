@@ -13,8 +13,8 @@ import HomeComposedFooter from "../../components/homeComposedFooter/homeComposed
 import { EventDetails, Modality } from "../../types";
 import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCategoryModal";
 import CreateModalityModal from "../../components/CreateModalityModal/CreateModalityModal";
-import foto from "../../assets/images/BANNER_VINICIUS.png"
-
+import foto from "../../assets/images/BANNER_VINICIUS.png";
+import format from "date-fns/format";
 
 const url = process.env.REACT_APP_SERVER_URL;
 
@@ -51,7 +51,7 @@ const SportEventDetails = () => {
         const response = await axios.get(`${url}athletics/`, {
           headers: { Access: serverSideAccessToken },
         });
-        setAthletics(response.data.athletics)
+        setAthletics(response.data.athletics);
       } catch (error) {
         console.error(error);
       }
@@ -67,8 +67,8 @@ const SportEventDetails = () => {
           }
         );
 
-
         const eventData = event.data;
+
         setEventDetails(eventData);
         const modality = await axios.get(
           `${url}admin/modalitiesbyevent/${eventId}`,
@@ -79,17 +79,16 @@ const SportEventDetails = () => {
         const modalities = modality.data
         setModalities(modalities)
 
-        const locationSplit = eventData.event.location.split(" ")
-        let location = ""
-        locationSplit.map(string => {
+        const locationSplit = eventData.event.location.split(" ");
+        let location = "";
+        locationSplit.map((string) => {
           if (location === "") {
-            location = location + `${string}`
+            location = location + `${string}`;
+          } else {
+            location = location + `+${string}`;
           }
-          else {
-            location = location + `+${string}`
-          }
-        })
-        setLocalization(location)
+        });
+        setLocalization(location);
         const categoryList = eventData.event.category;
         setEventTickets(categoryList);
       } catch (error) {
@@ -120,15 +119,20 @@ const SportEventDetails = () => {
       event.preventDefault();
       if (user) {
         if (athletic === "" || !athletic) {
-          window.alert("Selecione uma atletica")
+          window.alert("Selecione uma atletica");
         } else {
-
           navigate(`/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`, {
             state: { category:category.categoryFinal, athletic: athletic , modalities: selectedModalities},
           });
         }
       } else {
-        navigate('/login', { state: { url: `/sport-events/${eventId}/bookticket/${category.id}`, category, athletic: athletic } })
+        navigate("/login", {
+          state: {
+            url: `/sport-events/${eventId}/bookticket/${category.id}`,
+            category,
+            athletic: athletic,
+          },
+        });
       }
     };
 
@@ -136,8 +140,8 @@ const SportEventDetails = () => {
   //   navigate(`/admin-area/create-tickets/${eventId}`);
   // }
   const onClick = () => {
-    window.open(`https://www.google.com/maps/search/${localization}`, "_blank")
-  }
+    window.open(`https://www.google.com/maps/search/${localization}`, "_blank");
+  };
 
   return (
     <>
@@ -154,22 +158,34 @@ const SportEventDetails = () => {
                 <Card.Img src={foto || eventDetails.event.bannerEvent || ""} />
                 <hr />
                 <label className={styles.Label}>Descrição:</label>
-                <p className={styles.Description}> {eventDetails.event.description}</p>
+                <p className={styles.Description}>
+                  {" "}
+                  {eventDetails.event.description}
+                </p>
                 <label className={styles.Label}>Local do evento:</label>
-                <p className={styles.Location}> {eventDetails.event.location}
+                <p className={styles.Location}>
+                  {" "}
+                  {eventDetails.event.location}
                   {/* <a href={localization} target="_blank" rel="noopener noreferrer"> */}
                   <Button
                     onClick={onClick}
-                    variant="outline-primary" className={styles.iconMap}>
+                    variant="outline-primary"
+                    className={styles.iconMap}
+                  >
                     <MDBIcon icon="location-dot" />
                     <div> Ver no mapa</div>
                   </Button>
                   {/* </a> */}
-
                 </p>
                 <hr />
                 {user?.role === "ADMIN" && (
-                  <p>Criado em {eventDetails.event.createdAt.split("T")[0]}</p>
+                  <p>
+                    Criado em{" "}
+                    {format(
+                      new Date(eventDetails.event.createdAt),
+                      "dd/MM/yyyy"
+                    )}
+                  </p>
                 )}
               </Card.Body>
             </Card>
@@ -203,17 +219,24 @@ const SportEventDetails = () => {
           )}
           <Card>
             <Card.Body>
-
-              <FormGroup className={styles.LocationCardBox} controlId="formAthletic">
+              <FormGroup
+                className={styles.LocationCardBox}
+                controlId="formAthletic"
+              >
                 <div className="d-grid gap-2">
-
                   <h2>Selecione uma atlética</h2>
 
-                  <Form.Select className={styles.LocationCardBox}
-                    onChange={(e) => setAthletic(e.target.value)}>
-                    <option disabled selected>Selecione uma atlética</option>
+                  <Form.Select
+                    className={styles.LocationCardBox}
+                    onChange={(e) => setAthletic(e.target.value)}
+                  >
+                    <option disabled selected>
+                      Selecione uma atlética
+                    </option>
                     {athletics.map((athletic, index) => {
+
                       return (<option key={index + 1} value={Number(athletic.id)}>{athletic.name}</option>)
+
                     })}
                   </Form.Select>
                 </div>
@@ -255,7 +278,7 @@ const SportEventDetails = () => {
                         <Card.Text>Preço: R$ {category.price}</Card.Text>
                         
                         <Card.Text>
-                          Modalodades: {category.typeTicket.qt_modalities}
+                          Modalidades: {category.typeTicket.qt_modalities}
                         </Card.Text>
                         {/* <Card.Text>
                           Data de término: {category.finishDate}
@@ -274,12 +297,13 @@ const SportEventDetails = () => {
                           </Button>)
                             :
                             (<Button
+
                               disabled
                               size="lg"
                             >
                               Comprar
-                            </Button>)
-                          }
+                            </Button>
+                          )}
                           {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
                           {user?.role === "ADMIN" && (
                             <Button variant="warning" size="lg">
@@ -293,7 +317,6 @@ const SportEventDetails = () => {
               </div>
             </Card.Body>
           </Card>
-
         </Col>
       </Row>
       <HomeComposedFooter />

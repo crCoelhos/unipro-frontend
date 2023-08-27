@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import axios from "axios";
 import { User } from "../../types";
 import styles from "./UserProfileForm.module.css";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import UserProfileSubmtionSuccessToast from "../UserProfileSubmtionSuccessToast/UserProfileSubmitionSuccessToast";
 import UserProfileSubmitionFailToast from "../UserProfileSubmitionFailToast/UserProfileSubmitionFailToast";
 import FormEditionFailedToast from "../FormEditionFailedToast/FormEditionFailedToast";
+import { format } from "date-fns";
 
 const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -104,88 +105,106 @@ const UserProfileForm: React.FC = () => {
     }
   };
 
+  const CPFFormater = (cpf: string) => {
+    return (
+      cpf.slice(0, 3) +
+      "." +
+      cpf.slice(3, 6) +
+      "." +
+      cpf.slice(6, 9) +
+      "-" +
+      cpf.slice(9)
+    );
+  };
+
   return (
     <div className={styles.UserProfileForm}>
       <div className={styles.SubmitionStatusToast}>
         {updatedUserState && <UserProfileSubmtionSuccessToast />}
         {/* {updatedUserState ? <UserProfileSubmtionSuccessToast /> : <UserProfileSubmitionFailToast/>} */}
       </div>
+      <Card className={styles.ProfileCard}>
+        <Form onSubmit={handleSubmit}>
+          {user && (
+            <>
+              <Form.Group controlId="name">
+                <Form.Label>Nome</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={updatedUser?.name || ""}
+                  onChange={handleInputChange}
+                  readOnly
+                />
+              </Form.Group>
 
-      <Form onSubmit={handleSubmit}>
-        {user && (
-          <>
-            <Form.Group controlId="name">
-              <Form.Label>Nome</Form.Label>
-              <Form.Control
-                type="text"
-                value={updatedUser?.name || ""}
-                onChange={handleInputChange}
-                readOnly
-              />
-            </Form.Group>
+              <Form.Group controlId="birthdate">
+                <Form.Label>Data de nascimento</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={format(
+                    new Date(updatedUser?.birthdate || ""),
+                    "dd/MM/yyyy"
+                  )}
+                  onChange={handleInputChange}
+                  readOnly
+                />
+              </Form.Group>
 
-            <Form.Group controlId="birthdate">
-              <Form.Label>Data de nascimento</Form.Label>
-              <Form.Control
-                type="text"
-                value={updatedUser?.birthdate || ""}
-                onChange={handleInputChange}
-                readOnly
-              />
-            </Form.Group>
+              <Form.Group controlId="sex">
+                <Form.Label>Sexo</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={updatedUser?.sex || ""}
+                  onChange={handleInputChange}
+                  readOnly
+                />
+              </Form.Group>
 
-            <Form.Group controlId="sex">
-              <Form.Label>Sexo</Form.Label>
-              <Form.Control
-                type="text"
-                value={updatedUser?.sex || ""}
-                onChange={handleInputChange}
-                readOnly
-              />
-            </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={updatedUser?.email || ""}
+                  onChange={handleInputChange}
+                  className={styles.AvailableInputOption}
+                  required
+                />
+              </Form.Group>
 
-            <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                value={updatedUser?.email || ""}
-                onChange={handleInputChange}
-                className={styles.AvailableInputOption}
-                required
-              />
-            </Form.Group>
+              <Form.Group controlId="contact">
+                <Form.Label>Contato</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={updatedUser?.contact || ""}
+                  onChange={handleInputChange}
+                  className={styles.AvailableInputOption}
+                  required
+                />
+                {phoneError && (
+                  <Alert variant="danger">Telefone inválido!</Alert>
+                )}
+              </Form.Group>
 
-            <Form.Group controlId="contact">
-              <Form.Label>Contato</Form.Label>
-              <Form.Control
-                type="text"
-                value={updatedUser?.contact || ""}
-                onChange={handleInputChange}
-                className={styles.AvailableInputOption}
-                required
-              />
-              {phoneError && <Alert variant="danger">Telefone inválido!</Alert>}
-            </Form.Group>
+              <Form.Group controlId="cpf">
+                <Form.Label>CPF</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={CPFFormater(updatedUser?.cpf || "")}
+                  readOnly
+                />
+              </Form.Group>
 
-            <Form.Group controlId="cpf">
-              <Form.Label>CPF</Form.Label>
-              <Form.Control
-                type="text"
-                value={updatedUser?.cpf || ""}
-                readOnly
-              />
-            </Form.Group>
-
-            <Button
-              variant="primary"
-              type="submit"
-              className={styles.SubmitDataButton}
-            >
-              Alterar
-            </Button>
-          </>
-        )}
-      </Form>
+              <Button
+                variant="primary"
+                type="submit"
+                className={styles.SubmitDataButton}
+              >
+                Alterar
+              </Button>
+            </>
+          )}
+        </Form>
+      </Card>
       {formUpdateError && <FormEditionFailedToast />}
     </div>
   );
