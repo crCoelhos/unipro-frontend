@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define a pasta do repositório
-REPO_FOLDER=/home/api/htdocs/uniproducoes.com.br
+REPO_FOLDER=/home/front/htdocs/uniproducoes.com.br
 
 cd $REPO_FOLDER
 
