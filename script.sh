@@ -17,7 +17,7 @@ if git rev-parse HEAD..origin/main >/dev/null 2>&1; then
   pm2 start npm --name front -- start
   pm2 save
   
-  echo "Comando executado com sucesso."
+  echo "Executado em: $current_date" >> /home/front/script_log.txt
 else
-  echo "Não há novas atualizações na main."
+  echo "$current_date Não há novas atualizações na main". /home/front/script_log.txt
 fi
