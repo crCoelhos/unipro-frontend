@@ -10,6 +10,7 @@ const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 const DocumentArea: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -84,7 +85,6 @@ const DocumentArea: React.FC = () => {
     }
   };
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const checkUserToken = () => {
     const userToken = sessionStorage.getItem("user");
     if (!userToken || userToken === "undefined") {
