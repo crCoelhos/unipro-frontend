@@ -6,6 +6,7 @@ import styles from "./SignupPage.module.css";
 const SignupPage = () => {
   const [cpfError, setCpfError] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
 
   const {
     name,
@@ -85,11 +86,28 @@ const SignupPage = () => {
       setPhoneError(true);
     }
   };
+  const validateEmail = () => {
+
+    let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (email.match(validRegex)) {
+      setEmailError(false);
+
+    } else {
+
+      setEmailError(true)
+    }
+    console.log(String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      ));
+  };
 
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      style={{ height: "100vh" }}
+      style={{ height: "100%" }}
     >
       <div>
         <h2>UNIPRODUÇÕES</h2>
@@ -112,8 +130,10 @@ const SignupPage = () => {
               placeholder="ex: rogerio@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={validateEmail}
               required
             />
+            {emailError && <Alert variant="danger">Email inválido!</Alert>}
           </Form.Group>
 
           <Form.Group controlId="formPassword">
