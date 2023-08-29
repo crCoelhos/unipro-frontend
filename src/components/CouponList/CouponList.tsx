@@ -74,7 +74,7 @@ const CouponList: FC = () => {
   return (
     <div className={styles.CouponList}>
       <Container>
-        <h1>Atléticas registradas</h1>
+        <h1>Cupons registrados</h1>
         <hr />
         <Table striped bordered hover>
           <thead>
@@ -103,14 +103,15 @@ const CouponList: FC = () => {
 
                   <td>{coupon.isUniqueUse ? "Sim" : "Não"}</td>
                   <td>
-                    <Button
+                    {/* hojenão */}
+
+                    {/* <Button
                       variant="warning"
                       className={styles.ActionButton}
                       onClick={() => handleEdit(coupon)}
                     >
                       Editar
-                    </Button>
-
+                    </Button> */}
                     <Button
                       variant="danger"
                       className={styles.ActionButton}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, FormGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import EventController from "../../controllers/EventController";
 import styles from "./CreateCouponModal.module.css";
@@ -11,13 +11,13 @@ function CreateCouponModal() {
   const handleClose = () => setShow(false);
 
   const [code, setCode] = useState<string>("");
-  const [type, setType] = useState<string>("");
+  const [type, setType] = useState<any>("");
   const [amount, setAmount] = useState<string>("");
   const [expireDate, setExpireDate] = useState<string>("");
   const [finishDate, setFinishDate] = useState<string>("");
   const [isActive, setiIsActive] = useState<boolean>(true);
   const [usageCount, setUsageCount] = useState<number>(0);
-  const [usageMax, setUageMax] = useState<number>(0);
+  const [usageMax, setUsageMax] = useState<number>(0);
   const [isUniqueUse, setiIsUniqueUse] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -45,8 +45,8 @@ function CreateCouponModal() {
 
   useEffect(() => {
     if (couponCreated) {
-      window.location.reload();
-      setCouponCreated(false);
+      // window.location.reload();
+      // setCouponCreated(false);
     }
   }, [couponCreated]);
 
@@ -70,7 +70,7 @@ function CreateCouponModal() {
             id="form"
             className={styles.CreateEventBoxContainer}
           >
-            <Form.Group controlId="eventName">
+            <Form.Group controlId="couponCode">
               <Form.Label>Gerar código</Form.Label>
               <Form.Control
                 type="text"
@@ -79,7 +79,7 @@ function CreateCouponModal() {
               />
             </Form.Group>
 
-            <Form.Group controlId="eventState">
+            <Form.Group controlId="couponState">
               <Form.Label>Cupom ativo?</Form.Label>
               <Form.Check
                 type="switch"
@@ -91,7 +91,7 @@ function CreateCouponModal() {
               />
             </Form.Group>
 
-            <Form.Group controlId="eventDate">
+            <Form.Group controlId="expiringDate">
               <Form.Label>Data de validade do cupom</Form.Label>
               <Form.Control
                 type="date"
@@ -99,7 +99,7 @@ function CreateCouponModal() {
                 required
               />
             </Form.Group>
-            <Form.Group controlId="eventDate">
+            <Form.Group controlId="finishDate">
               <Form.Label>Data final do cupom</Form.Label>
               <Form.Control
                 type="date"
@@ -107,26 +107,47 @@ function CreateCouponModal() {
                 required
               />
             </Form.Group>
+            <FormGroup controlId="formType">
+              <Form.Label>Tipo de desconto</Form.Label>
 
-            <Form.Group controlId="formQuantity">
-              <Form.Label>Quantidade</Form.Label>
+              <Form.Select
+                onChange={(e) => {
+                  setType(e.target.value);
+                }}
+              >
+                <option value="percentage">Porcentagem</option>
+                <option value="value">Valor Fixo</option>
+              </Form.Select>
+            </FormGroup>
+
+            <Form.Group controlId="discountAmount">
+              <Form.Label>Valor do desconto</Form.Label>
               <Form.Control
                 type="number"
                 onChange={(e) => setAmount(e.target.value)}
                 required
               />
             </Form.Group>
-            <Form.Group controlId="eventState">
+
+            <Form.Group controlId="maxUsage">
+              <Form.Label>Quantidade de cupons</Form.Label>
+              <Form.Control
+                type="maxUsage"
+                onChange={(e) => setUsageMax(Number(e.target.value))}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group controlId="maxUsage">
               <Form.Label>Cupom de uso único?</Form.Label>
               <Form.Check
                 type="switch"
-                id="stateSwitch"
-                label={isActive === true ? "Ativo" : "Inativo"}
-                checked={isActive === true}
+                id="couponUsage"
+                label={isUniqueUse === true ? "Ativo" : "Inativo"}
+                checked={isUniqueUse === true}
                 onChange={() =>
-                  setiIsUniqueUse(isActive === true ? false : true)
+                  setiIsUniqueUse(isUniqueUse === true ? false : true)
                 }
-                required
               />
             </Form.Group>
 
@@ -136,7 +157,7 @@ function CreateCouponModal() {
                 type="submit"
                 className={styles.CreateEventButton}
               >
-                Enviar Evento
+                Enviar cupom
               </Button>
               <Button variant="secondary" onClick={handleClose}>
                 Fechar
