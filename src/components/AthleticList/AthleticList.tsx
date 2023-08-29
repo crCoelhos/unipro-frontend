@@ -3,12 +3,14 @@ import styles from "./AthleticList.module.css";
 import { Button, Container, Table } from "react-bootstrap";
 import { Athletic, AthleticsResponse } from "../../types";
 import axios from "axios";
+import EditAthleticInfo from "../EditAthleticInfo/EditAthleticInfo";
 
 const AthleticList: FC = () => {
   const [athletics, setAthletics] = useState<AthleticsResponse>({
     athletics: [],
   });
-
+  const [editingAthletic, setEditingAthletic] = useState<Athletic | null>(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const url = process.env.REACT_APP_SERVER_URL;
   const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -65,6 +67,11 @@ const AthleticList: FC = () => {
       }
   };
 
+  const handleEdit = (athletic: Athletic) => {
+    setEditingAthletic(athletic);
+    setShowEditModal(true);
+  };
+
   return (
     <div className={styles.AthleticList}>
       <Container>
@@ -98,9 +105,14 @@ const AthleticList: FC = () => {
                   )}
                 </td>
                 <td>
-                  <Button variant="warning" className={styles.ActionButton}>
+                  <Button
+                    variant="warning"
+                    className={styles.ActionButton}
+                    onClick={() => handleEdit(athletic)}
+                  >
                     Editar
                   </Button>
+
                   <Button
                     variant="danger"
                     className={styles.ActionButton}
@@ -114,6 +126,12 @@ const AthleticList: FC = () => {
           </tbody>
         </Table>
       </Container>
+
+      <EditAthleticInfo
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        athletic={editingAthletic}
+      />
     </div>
   );
 };
