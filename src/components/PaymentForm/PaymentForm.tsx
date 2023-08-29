@@ -3,6 +3,7 @@ import "./PaymentForm.css";
 import { loadMercadoPago } from "@mercadopago/sdk-js";
 import {
   Accordion,
+  Alert,
   Button,
   Card,
   Col,
@@ -38,7 +39,12 @@ const PaymentForm = () => {
     checkUserToken();
   }, [isLoggedIn]);
   const [payStatus, setPayStatus] = useState(null);
+  const [Pay, setPay] = useState(false);
+  const [returnCoupon, setReturnCoupon] = useState(false);
+  const [errorCoupon, setErrorCoupon] = useState(false);
+  const [messageReturnCoupon, setMessageReturnCoupon] = useState();
 
+  const [codeCoupon, setCodeCoupon] = useState("");
   const [pixFirstName, setPixFirstName] = useState("");
   const [pixLastName, setPixLastName] = useState("");
   const [pixEmail, setPixEmail] = useState("");
@@ -82,6 +88,10 @@ const PaymentForm = () => {
   };
   var i = 0
   useEffect(() => {
+
+    if (codeCoupon != "") {
+      setReturnCoupon(false)
+    }
     const userTickets = async () => {
       const headers = {
         headers: {
@@ -94,8 +104,8 @@ const PaymentForm = () => {
       const response = await axios.get(
         `${url}admin/userticket/${id}`,
         headers
-      ); 
-      if(response.data.status =!"confirmado"){
+      );
+      if (response.data.status = !"confirmado") {
         // userTickets()
         i++
       }
@@ -146,13 +156,16 @@ const PaymentForm = () => {
       const parsedData = JSON.parse(dataFromStorage);
       authToken = parsedData.token;
     }
-
+    let expiration_date =  new Date()
+    expiration_date.setMinutes(expiration_date.getMinutes() + 30)
     const pixPayment_data = {
       // id: event_,
       transaction_amount: Number(location.state.category.price),
-      description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
+      // description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
-      notification_url: `${url}webhook/${location.state.userTicket.id}`, 
+      notification_url: `${url}webhook/${location.state.userTicket.id}`,
+      expiration_date: expiration_date
+      ,
       payer: {
         email: pixEmail,
         first_name: pixFirstName,
@@ -180,6 +193,34 @@ const PaymentForm = () => {
       },
     };
     try {
+      const header = {
+        headers: {
+          "Content-Type": "application/json",
+          Access: serverSideAccessToken,
+          Authorization: authToken,
+        },
+      }
+      try {
+
+        if (codeCoupon != "") {
+          const response = await axios.post(
+            `${url}admin/consume/${codeCoupon}`,
+            header
+          )
+          if (response.status == 200) {
+            setMessageReturnCoupon(response.data.message)
+            setReturnCoupon(true)
+          }
+
+
+        }
+      } catch (error: any) {
+        if (error.response.status == 400)
+          setMessageReturnCoupon(error.message)
+        setReturnCoupon(true)
+      }
+      if (errorCoupon)
+        return
       const response = await axios.post(
         `${url}admin/pay`,
         pixPayment_data,
@@ -213,7 +254,8 @@ const PaymentForm = () => {
         },
         pixHeaders
       );
-      
+      console.log(transation)
+
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
       setPixQrCode(pix_copypaste_code);
       const pix_qr_code64 = response.data.pix_qr_code.qr_code_base64;
@@ -270,6 +312,34 @@ const PaymentForm = () => {
             }
 
             try {
+              const header = {
+                headers: {
+                  "Content-Type": "application/json",
+                  Access: serverSideAccessToken,
+                  Authorization: authToken,
+                },
+              }
+              try {
+
+                if (codeCoupon != "") {
+                  const response = await axios.post(
+                    `${url}admin/consume/${codeCoupon}`,
+                    header
+                  )
+                  if (response.status == 200) {
+                    setMessageReturnCoupon(response.data.message)
+                    setReturnCoupon(true)
+                  }
+
+
+                }
+              } catch (error: any) {
+                if (error.response.status == 400)
+                  setMessageReturnCoupon(error.message)
+                setReturnCoupon(true)
+              }
+              if (errorCoupon)
+                return
               const response = await axios.post(
                 `${url}admin/pay`,
                 {
@@ -290,13 +360,7 @@ const PaymentForm = () => {
                     },
                   },
                 },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Access: serverSideAccessToken,
-                    Authorization: authToken,
-                  },
-                }
+                header
               );
               const httpHeader = {
                 headers: {
@@ -318,7 +382,7 @@ const PaymentForm = () => {
                   httpHeader
                 );
               });
-              
+
               const transation = await axios.post(
                 `${url}admin/transation`,
                 {
@@ -327,6 +391,7 @@ const PaymentForm = () => {
                 },
                 httpHeader
               );
+              setPay(true)
 
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
@@ -384,7 +449,32 @@ const PaymentForm = () => {
 
   return (
     <Container className="OuterContainer">
-      <Card>
+      <Card className="card">
+        <Row className="justify-content-end">
+          <Col md={4}>
+            <Card className="mb-3 p-3">
+
+              <Form.Group controlId="cupom">
+                <Form.Label>
+                  <h3>
+                    <b>
+                      Aplicar cupom
+                    </b>
+                  </h3>
+                </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={codeCoupon}
+                  placeholder="Insira o cupom se tiver"
+                  onChange={(e) => setCodeCoupon(e.target.value)}
+                  disabled={pixQrCode.trim() !== "" || Pay}
+                />
+                {returnCoupon && <Alert variant="danger">{messageReturnCoupon}</Alert>}
+              </Form.Group>
+
+            </Card>
+          </Col>
+        </Row>
         <Card bg="info">
           <Card.Text className="PaymentFormTicketInfoCard">
             <span>

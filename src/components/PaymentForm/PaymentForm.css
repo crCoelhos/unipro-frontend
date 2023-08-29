@@ -100,3 +100,8 @@
 .seletor{
   color: black
 }
+
+.card{
+
+  --mdb-card-box-shadow: none
+}

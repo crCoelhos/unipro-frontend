@@ -107,3 +107,13 @@ padding: 28px;
   align-items: center!important;
   gap: 10px!important;
 }
+
+.mylabel > [class~="p-multiselect-label-container"] > [class~="p-multiselect-label"] {
+  display: flex !important; 
+  flex-wrap: wrap !important;
+  gap: 0.8rem !important;
+}
+
+::ng-deep .p-multiselect .p-multiselect-token{
+  margin-bottom: .5rem
+}
