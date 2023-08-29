@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import styles from "./DocumentArea.module.css";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
@@ -10,6 +10,9 @@ const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 const DocumentArea: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
+  const [selectedDocumentRegistration, setSelectedDocumentRegistration] = useState<File | null>(null);
+  const [checked, setchecked] = useState(false);
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -51,6 +54,7 @@ const DocumentArea: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+      console.log(file)
       setSelectedImage(file);
       handleUpload(file); // Envie o arquivo imediatamente
     }
@@ -61,6 +65,16 @@ const DocumentArea: React.FC = () => {
       const file = e.target.files![0];
       setSelectedDocument(file);
       handleUpload(file); // Envie o arquivo imediatamente
+    } else {
+      alert("Por favor, selecione um arquivo PDF.");
+    }
+  };
+
+  const handlePDFRegistratiom = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files![0]?.type === "application/pdf") {
+      const file = e.target.files![0];
+      setSelectedDocumentRegistration(file);
+      handleUploadRegister(file); // Envie o arquivo imediatamente
     } else {
       alert("Por favor, selecione um arquivo PDF.");
     }
@@ -97,6 +111,29 @@ const DocumentArea: React.FC = () => {
     checkUserToken();
   }, [isLoggedIn]);
 
+  const handleUploadRegister = async (file: File) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("registration", file);
+
+      try {
+        await axios.post(url + "auth/photouserregister/", formData, config);
+        try {
+          const userTicket = await axios.post(
+            url + "admin/bookticket/",
+            bookData,
+            bookConfig
+          );
+
+          location.state.userTicket = userTicket.data;
+        } catch (error) {
+          console.error("book: ", error);
+        }
+      } catch (error) {
+        console.error("photo: ", error);
+      }
+    }
+  };
   const handleUpload = async (file: File) => {
     if (file) {
       const formData = new FormData();
@@ -122,7 +159,7 @@ const DocumentArea: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (selectedDocument && selectedImage)
+    if (selectedDocument && selectedDocumentRegistration && selectedImage)
       navigate(`/sport-events/buyticket/${categoryId}`, {
         state: location.state,
       });
@@ -131,10 +168,11 @@ const DocumentArea: React.FC = () => {
   return (
     <div className={styles.DocumentAreaContainer}>
       <Form.Group>
-        <Form.Label>Selecione ou arraste o documento de imagem:</Form.Label>
+        <Form.Label>Selecione ou arraste foto de rosto para credencial:</Form.Label>
         <div className={styles.DropFileContainer}>
           <Form.Control
             type="file"
+            accept=".png, .jpeg, .jpg"
             className={styles.DropArea}
             onChange={handleImageChange}
             id="imageInput"
@@ -153,11 +191,12 @@ const DocumentArea: React.FC = () => {
       </Form.Group>
       <Form.Group>
         <Form.Label>
-          Selecione ou arraste o documento no formato PDF:
+          Selecione ou arraste o documento com foto no formato PDF:
         </Form.Label>
         <div className={styles.DropFileContainer}>
           <Form.Control
             type="file"
+            accept=".pdf"
             className={styles.DropArea}
             onChange={handlePDFChange}
             id="pdfInput"
@@ -167,7 +206,35 @@ const DocumentArea: React.FC = () => {
           </Button>
         </div>
       </Form.Group>
-      <Button variant="primary" onClick={handleSubmit}>
+      <Form.Group>
+        <Form.Label>
+          Selecione ou arraste o comprovante de matricula no formato PDF:
+        </Form.Label>
+        <div className={styles.DropFileContainer}>
+          <Form.Control
+            type="file"
+            accept=".pdf"
+            className={styles.DropArea}
+            onChange={handlePDFRegistratiom}
+            id="pdfInput"
+          />
+          <Button variant={selectedDocument ? "success" : "danger"} disabled>
+            {"    "}
+          </Button>
+        </div>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>
+          Você aceita os termos?
+        </Form.Label>
+        <Form.Check type={"checkbox"} onChange={(e)=> setchecked(e.target.checked)} >
+         
+        </Form.Check>
+      <Form.Label>
+          Antes de enviar, selecione todos os documentos
+        </Form.Label>
+      </Form.Group>
+      <Button variant="primary" onClick={handleSubmit} disabled={!checked}>
         Enviar
       </Button>
     </div>
