@@ -109,6 +109,25 @@ export interface Athletic {
 export interface AthleticsResponse {
   athletics: Athletic[];
 }
+export interface Coupon {
+  id: number;
+  amount: number;
+  code: string;
+  createdAt: string;
+  expireDate: string;
+  isActive: boolean;
+  isUniqueUse: boolean;
+  type: string;
+  updatedAt: string;
+  usageCount: number;
+  usageMax: number | null;
+  usedByTicketId: number | null;
+  usedByUserId: number | null;
+}
+
+export interface CouponsResponse {
+  coupons: Coupon[];
+}
 
 export interface UserTickets {
   id: number;

@@ -25,13 +25,14 @@ import AdminSection from './pages/AdminSection/AdminSection';
 import AdminUserPage from './pages/AdminUserPage/AdminUserPage';
 import CreateEventPage from './pages/CreateEventPage/CreateEventPage';
 import CreateTicketPage from './pages/CreateTicketPage/CreateTicketPage';
-import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
 import UserProfilePage from './pages/UserProfilePage/UserProfilePage';
 import PublicationDetailsPage from './pages/PublicationDetailsPage/PublicationDetailsPage';
 import InfoCardDetailsPage from './pages/InfoCardDetailsPage/InfoCardDetailsPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 import DocAndBookingPage from './pages/DocAndBookingPage/DocAndBookingPage';
 import AdminAthleticPage from './pages/AdminAthleticPage/AdminAthleticPage';
+import AdminEventPage from './pages/AdminEventPage/AdminEventPage';
+import AdminCouponPage from './pages/AdminCouponPage/AdminCouponPage';
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
             <Route exact path="/admin-area" element={<AdminSection />} />
             <Route path="/admin-area/events" element={<AdminEventPage />} />
             <Route path="/admin-area/athletics" element={<AdminAthleticPage />} />
+            <Route path="/admin-area/coupons" element={<AdminCouponPage />} />
             <Route path="/admin-area/events/:eventId" element={<EventDetails />} />
             <Route path="/admin-area/users" element={<AdminUserPage />} />
 

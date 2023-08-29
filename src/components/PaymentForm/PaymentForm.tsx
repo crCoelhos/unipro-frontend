@@ -178,9 +178,8 @@ const PaymentForm = () => {
     try {
       try {
         if (codeCoupon != "") {
-          const response = await axios.post(
+          const response = await axios.get(
             `${url}admin/consume/${codeCoupon}`,
-            {},
             headers
           );
           if (response.status == 200) {
@@ -283,9 +282,8 @@ const PaymentForm = () => {
             try {
               try {
                 if (codeCoupon != "") {
-                  const response = await axios.post(
+                  const response = await axios.get(
                     `${url}admin/consume/${codeCoupon}`,
-                    {},
                     headers
                   );
                   if (response.status == 200) {

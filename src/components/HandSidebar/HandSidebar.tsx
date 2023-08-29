@@ -47,11 +47,11 @@ const HandSidebar = () => {
                 Eventos
               </NavLink>
             </li>
-            {/* <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/create-events" className={styles.active}>
-                Criar eventos
+            <li className={styles.SidebarListOptions}>
+              <NavLink to="/admin-area/coupons" className={styles.active}>
+                Cupons
               </NavLink>
-            </li> */}
+            </li>
             
             <li className={styles.SidebarListOptions}>
               <NavLink to="/admin-area/users" className={styles.active}>
