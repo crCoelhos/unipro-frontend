@@ -152,6 +152,7 @@ const PaymentForm = () => {
     const pixPayment_data = {
       // id: event_,
       transaction_amount: Number(location.state.category.price),
+      coupon: codeCoupon,
       // description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
       notification_url: `${url}webhook/${location.state.userTicket.id}`,
@@ -317,6 +318,7 @@ const PaymentForm = () => {
                       number: identificationNumber,
                     },
                   },
+                  coupon: codeCoupon,
                 },
                 headers
               );
