@@ -60,19 +60,6 @@ const EventCatalogueFix = () => {
 
   return (
     <div className={styles.eventCatalogueFix}>
-      {/* <Alert show={show} variant="warning">
-        <Alert.Heading>Sem autorização</Alert.Heading>
-        <p>
-          Você não está autorizado a acessar a página de detalhes de evento. Por
-          favor, faça login.
-        </p>
-        <hr />
-        <div className="d-flex justify-content-end">
-          <Button onClick={() => setShow(false)} variant="outline-warning">
-            Fechar
-          </Button>
-        </div>
-      </Alert> */}
       <div className="row justify-content-center">
         {filteredEvents.map((event, index) => {
           const colorClass = colorClasses[index];
@@ -85,31 +72,7 @@ const EventCatalogueFix = () => {
               key={event.id}
               onClick={() => handleCardClick(event)}
             >
-              {true ? (
-                <Link to={`/sport-events/${event.id}`}>
-                  <div
-                    className={`card cardColoring ${colorClass}`}
-                    style={{
-                      backgroundColor: colors[randomIndex],
-                      height: "300px",
-                    }}
-                  >
-                    <div
-                      className="bg-image hover-overlay ripple"
-                      data-mdb-ripple-color="light"
-                    >
-                    </div>
-                    <div
-                      className="card-body"
-                      style={{ color: "white", marginTop: "12px" }}
-                    >
-                      <h5 className="card-title">{event.name}</h5>
-                      <hr style={{ height: "8px", backgroundColor: "white" }} />
-                      <p className="card-text">{event.description}</p>
-                    </div>
-                  </div>
-                </Link>
-              ) : (
+              <Link to={`/sport-events/${event.id}`}>
                 <div
                   className={`card cardColoring ${colorClass}`}
                   style={{
@@ -120,18 +83,31 @@ const EventCatalogueFix = () => {
                   <div
                     className="bg-image hover-overlay ripple"
                     data-mdb-ripple-color="light"
-                  >
-                  </div>
+                  ></div>
                   <div
                     className="card-body"
                     style={{ color: "white", marginTop: "12px" }}
                   >
                     <h5 className="card-title">{event.name}</h5>
                     <hr style={{ height: "8px", backgroundColor: "white" }} />
-                    <p className="card-text">{event.description}</p>
+                    <p className="card-text">
+                      {event.description.length > 250
+                        ? event.description.slice(0, 250) + "..."
+                        : event.description}
+                      {event.description.length > 250 && (
+                        <Button
+                          variant="link"
+                          onClick={() =>
+                            navigate(`/sport-events/${event.id}`)
+                          }
+                        >
+                          Ver Mais
+                        </Button>
+                      )}
+                    </p>
                   </div>
                 </div>
-              )}
+              </Link>
             </div>
           );
         })}
