@@ -1,6 +1,6 @@
-import { MultiSelect, MultiSelectChangeEvent } from 'primereact/multiselect';
-import { Dialog } from 'primereact/dialog';
-import { Chips } from 'primereact/chips';
+import { MultiSelect, MultiSelectChangeEvent } from "primereact/multiselect";
+import { Dialog } from "primereact/dialog";
+import { Chips } from "primereact/chips";
 
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button, FormGroup, Form } from "react-bootstrap";
@@ -16,7 +16,6 @@ import CreateCategoryModal from "../../components/CreateCategoryModal/CreateCate
 import CreateModalityModal from "../../components/CreateModalityModal/CreateModalityModal";
 import foto from "../../assets/images/BANNER_VINICIUS.png";
 import format from "date-fns/format";
-
 
 const url = process.env.REACT_APP_SERVER_URL;
 
@@ -46,7 +45,7 @@ const SportEventDetails = () => {
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
-  
+
   useEffect(() => {
     async function getAthletics() {
       try {
@@ -78,8 +77,8 @@ const SportEventDetails = () => {
             headers: { Access: serverSideAccessToken },
           }
         );
-        const modalities = modality.data
-        setModalities(modalities)
+        const modalities = modality.data;
+        setModalities(modalities);
 
         const locationSplit = eventData.event.location.split(" ");
         let location = "";
@@ -123,9 +122,16 @@ const SportEventDetails = () => {
         if (athletic === "" || !athletic) {
           window.alert("Selecione uma atletica");
         } else {
-          navigate(`/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`, {
-            state: { category: category.categoryFinal, athletic: athletic, modalities: selectedModalities },
-          });
+          navigate(
+            `/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`,
+            {
+              state: {
+                category: category.categoryFinal,
+                athletic: athletic,
+                modalities: selectedModalities,
+              },
+            }
+          );
         }
       } else {
         navigate("/login", {
@@ -230,40 +236,59 @@ const SportEventDetails = () => {
 
                   <Form.Select
                     className={styles.LocationCardBox}
+                    defaultValue=""
                     onChange={(e) => setAthletic(e.target.value)}
                   >
-                    <option disabled selected>
+                    <option disabled value="">
                       Selecione uma atlética
                     </option>
                     {athletics.map((athletic, index) => {
-
-                      return (<option key={index + 1} value={Number(athletic.id)}>{athletic.name}</option>)
-
+                      return (
+                        <option key={index + 1} value={Number(athletic.id)}>
+                          {athletic.name}
+                        </option>
+                      );
                     })}
                   </Form.Select>
                 </div>
               </FormGroup>
             </Card.Body>
             {/* adcionar as modalidades na lista para selecionar */}
-            <Dialog header="Modalidades" visible={visible} style={{ width: '50vw' }}
-              draggable={false} onHide={() => {
-                setVisible(false)
-                setSelectedModalities([])
-              }}>
+            <Dialog
+              header="Modalidades"
+              visible={visible}
+              style={{ width: "50vw" }}
+              draggable={false}
+              onHide={() => {
+                setVisible(false);
+                setSelectedModalities([]);
+              }}
+            >
               {/* <div className="card p-fluid">
                 <Chips value={selectedModalities}  onChange={(e: MultiSelectChangeEvent) => setSelectedModalities(e.value)}/>
               </div> */}
               <div className="card flex justify-content-center mb-2">
-                <MultiSelect className={styles.mylabel}  value={selectedModalities} onChange={(e: MultiSelectChangeEvent) => setSelectedModalities(e.value)}
-                  options={modalities} optionLabel="name"
-                  filter placeholder="Selecione as modalidades" display='chip' selectionLimit={qtModalities} showSelectAll={false} maxSelectedLabels={qtModalities} 
-                  // className="w-full md:w-20rem" 
-                  />
+                <MultiSelect
+                  className={styles.mylabel}
+                  value={selectedModalities}
+                  onChange={(e: MultiSelectChangeEvent) =>
+                    setSelectedModalities(e.value)
+                  }
+                  options={modalities}
+                  optionLabel="name"
+                  filter
+                  placeholder="Selecione as modalidades"
+                  display="chip"
+                  selectionLimit={qtModalities}
+                  showSelectAll={false}
+                  maxSelectedLabels={qtModalities}
+                  // className="w-full md:w-20rem"
+                />
               </div>
               <Button
                 size="lg"
                 onClick={(event) => {
-                  handleBuy({ categoryFinal })(event)
+                  handleBuy({ categoryFinal })(event);
                 }}
               >
                 Comprar
@@ -271,17 +296,15 @@ const SportEventDetails = () => {
             </Dialog>
             <Card.Body className={styles.LocationCardBox}>
               <div className="d-grid gap-2">
-              {eventTickets
+                {eventTickets
                   .slice()
                   .sort((a, b) => a.price - b.price)
                   .map((category) => {
-
                     return (
-
                       <Card key={category.id}>
                         <Card.Body>
                           <Card.Title>{category.name}</Card.Title>
-                        
+
                           <Card.Text>Preço: R$ {category.price}</Card.Text>
 
                           <Card.Text>
@@ -291,26 +314,24 @@ const SportEventDetails = () => {
                           Data de término: {category.finishDate}
                         </Card.Text> */}
                           <div className="d-grid gap-2">
-                            {athletic ? (<Button
-                              size="lg"
-                              onClick={(event) => {
-                                setVisible(true)
-                                setCategoryFinal(category)
-                                setQtModalities(category.typeTicket.qt_modalities)
-                              }
-                              }
-                            >
-                              Comprar
-                            </Button>)
-                              :
-                              (<Button
-
-                                disabled
+                            {athletic ? (
+                              <Button
                                 size="lg"
+                                onClick={(event) => {
+                                  setVisible(true);
+                                  setCategoryFinal(category);
+                                  setQtModalities(
+                                    category.typeTicket.qt_modalities
+                                  );
+                                }}
                               >
                                 Comprar
                               </Button>
-                              )}
+                            ) : (
+                              <Button disabled size="lg">
+                                Comprar
+                              </Button>
+                            )}
                             {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
                             {user?.role === "ADMIN" && (
                               <Button variant="warning" size="lg">
@@ -320,7 +341,7 @@ const SportEventDetails = () => {
                           </div>
                         </Card.Body>
                       </Card>
-                    )
+                    );
                   })}
               </div>
             </Card.Body>
