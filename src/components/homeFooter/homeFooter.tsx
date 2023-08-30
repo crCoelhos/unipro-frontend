@@ -5,7 +5,6 @@ import HomeFooterSponsors from "../homeFooterSponsors/homeFooterSponsors";
 
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import cx from "classnames";
 
 import { Sponsors } from "../../types";
 
@@ -58,22 +57,21 @@ const HomeFooter: React.FC = () => {
   const shouldRenderLink = windowWidth < 1020;
 
   return (
-    <div className={styles.HomeFooter}>
-      <div className={styles.HomeFooterContainer}>
-        <div>
-          <div className="wideLarge">
-            {shouldRenderLink ? (
-              <Row className={styles.sponsorRow}>
-                <Col>
+    <Container fluid>
+      <Col>
+        <div className={styles.HomeFooter}>
+          <div className={styles.HomeFooterContainer}>
+            <div>
+              <div className="wideLarge">
+                {shouldRenderLink ? (
                   <Link to="#link" className={styles.sponsorLabelText}>
                     Conheça nossos parceiros clicando aqui
                   </Link>
-                </Col>
-              </Row>
-            ) : (
-              <>
-                { <Row>
-                  {/* {shownSponsors.map((event) => (
+                ) : (
+                  <>
+                    {
+                      <Row>
+                        {/* {shownSponsors.map((event) => (
                     <div
                       className="col-md-3"
                       id="eventCard"
@@ -94,23 +92,27 @@ const HomeFooter: React.FC = () => {
                       </Link>
                     </div>
                   ))} */}
-                </Row> }
-                <Row>
-                  <Col className={styles.SponsorFooter}>
-                    <div>
-                      <h4 className={styles.sponsorRow}>
-                        Todos os direitos reservados <span>UniProduções</span>
-                      </h4>
-                    </div>
-                  </Col>
-                </Row>
-              </>
-            )}
+                      </Row>
+                    }
+                    <Row>
+                      <Col className={styles.SponsorFooter}>
+                        <div>
+                          <h4 className={styles.sponsorRow}>
+                            Todos os direitos reservados{" "}
+                            <span>UniProduções</span>
+                          </h4>
+                        </div>
+                      </Col>
+                    </Row>
+                  </>
+                )}
+              </div>
+            </div>
+            {/* <img src={sticker} alt="" className={styles.StickerImage} /> */}
           </div>
         </div>
-        <img src={sticker} alt="" className={styles.StickerImage} />
-      </div>
-    </div>
+      </Col>
+    </Container>
   );
 };
 

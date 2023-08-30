@@ -1,7 +1,7 @@
 .HomeFooter {
   bottom: 0;
 
-  width: 100%;
+  width: auto;
   height: auto;
 
   background-color: #8652fc;
@@ -63,8 +63,7 @@ h4.sponsorAreaText:hover {
 .sponsorLabelText {
   text-decoration: none;
 
-  text-transform: initial;
-  font-weight: bolder;
+  width: auto;
   font-size: 22px;
   color: #fcfcfc;
 }
