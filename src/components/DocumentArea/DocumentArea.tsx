@@ -10,6 +10,7 @@ const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 const DocumentArea: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
+
   const [selectedDocumentRegistration, setSelectedDocumentRegistration,] = useState<File | null>(null);
   const [checked, setchecked] = useState(false);
 
@@ -130,7 +131,7 @@ const DocumentArea: React.FC = () => {
           console.error("book: ", error);
         }
       } catch (error) {
-        console.error("photo: ", error);
+        console.error("register: ", error);
       }
     }
   };
