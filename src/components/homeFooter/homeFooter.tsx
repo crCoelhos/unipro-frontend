@@ -73,7 +73,7 @@ const HomeFooter: React.FC = () => {
             ) : (
               <>
                 { <Row>
-                  {shownSponsors.map((event) => (
+                  {/* {shownSponsors.map((event) => (
                     <div
                       className="col-md-3"
                       id="eventCard"
@@ -93,7 +93,7 @@ const HomeFooter: React.FC = () => {
                         </div>
                       </Link>
                     </div>
-                  ))}
+                  ))} */}
                 </Row> }
                 <Row>
                   <Col className={styles.SponsorFooter}>
