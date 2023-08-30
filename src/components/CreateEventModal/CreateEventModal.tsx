@@ -68,7 +68,6 @@ function CreateEventModal() {
               <Form.Label>Nome do Evento</Form.Label>
               <Form.Control
                 type="text"
-                // value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
               />
@@ -90,7 +89,6 @@ function CreateEventModal() {
               <Form.Label>Data do Evento</Form.Label>
               <Form.Control
                 type="date"
-                // value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
               />
@@ -100,7 +98,6 @@ function CreateEventModal() {
               <Form.Label>Localização do Evento</Form.Label>
               <Form.Control
                 type="text"
-                // value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
               />
@@ -110,7 +107,6 @@ function CreateEventModal() {
               <Form.Label>Termos de compra</Form.Label>
               <Form.Control
                 type="text"
-                // value={policy}
                 onChange={(e) => setPolicy(e.target.value)}
                 required
               />
@@ -121,7 +117,6 @@ function CreateEventModal() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                // value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
               />
@@ -132,7 +127,6 @@ function CreateEventModal() {
               <Form.Control
                 as="textarea"
                 rows={3}
-                // value={bannerEvent}
                 onChange={(e) => setBannerEvent(e.target.value)}
                 required
               />
@@ -142,7 +136,6 @@ function CreateEventModal() {
               <Button
                 variant="primary"
                 type="submit"
-
                 className={styles.CreateEventButton}
               >
                 Enviar Evento
@@ -151,11 +144,10 @@ function CreateEventModal() {
                 Fechar
               </Button>
             </Modal.Footer>
-          </Form> 
-
+          </Form>
         </Modal.Body>
       </Modal>
-    </div >
+    </div>
   );
 }
 

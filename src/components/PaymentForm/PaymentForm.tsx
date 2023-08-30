@@ -27,6 +27,7 @@ const PaymentForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [paymentID, setPaymentID] = useState<string>("");
   const [paymentResponse, setPaymentResponse] = useState<number | null>(null);
+
   const checkUserToken = () => {
     const userToken = sessionStorage.getItem("user");
     if (!userToken || userToken === "undefined") {
@@ -79,50 +80,40 @@ const PaymentForm = () => {
     authToken = parsedData.token;
   }
 
-  const eventHeaders = {
+  const headers = {
     headers: {
       "Content-Type": "application/json",
       Access: serverSideAccessToken,
       Authorization: authToken,
     },
   };
-  var i = 0
-  useEffect(() => {
 
+  var i = 0;
+  useEffect(() => {
     if (codeCoupon != "") {
-      setReturnCoupon(false)
+      setReturnCoupon(false);
     }
     const userTickets = async () => {
-      const headers = {
-        headers: {
-          "Content-Type": "application/json",
-          Access: serverSideAccessToken,
-          Authorization: authToken,
-        },
-      };
-      const id = location.state.userTicket.id
-      const response = await axios.get(
-        `${url}admin/userticket/${id}`,
-        headers
-      );
-      if (response.data.status = !"confirmado") {
+      const id = location.state.userTicket.id;
+      const response = await axios.get(`${url}admin/userticket/${id}`, headers);
+      if ((response.data.status = !"confirmado")) {
         // userTickets()
-        i++
+        i++;
       }
-    }
+    };
     // setInterval(userTickets, 10000);
     // setInterval(function () {userTickets()}, 5000);
 
-    userTickets()
+    userTickets();
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
           `${url}admin/category/${code}`,
-          eventHeaders
+          headers
         );
         const event_Data = response.data;
         setEventData(event_Data);
-        setCategortDataId(event_Data.id);
+        setCategortDataId(event_Data?.id);
       } catch (error) {
         console.error("Erro ao fazer a requisição:", error);
       }
@@ -156,16 +147,16 @@ const PaymentForm = () => {
       const parsedData = JSON.parse(dataFromStorage);
       authToken = parsedData.token;
     }
-    let expiration_date =  new Date()
-    expiration_date.setMinutes(expiration_date.getMinutes() + 30)
+    let expiration_date = new Date();
+    expiration_date.setMinutes(expiration_date.getMinutes() + 30);
     const pixPayment_data = {
       // id: event_,
       transaction_amount: Number(location.state.category.price),
+      coupon: codeCoupon,
       // description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
       notification_url: `${url}webhook/${location.state.userTicket.id}`,
-      expiration_date: expiration_date
-      ,
+      expiration_date: expiration_date,
       payer: {
         email: pixEmail,
         first_name: pixFirstName,
@@ -185,46 +176,28 @@ const PaymentForm = () => {
       },
     };
 
-    const pixHeaders = {
-      headers: {
-        "Content-Type": "application/json",
-        Access: serverSideAccessToken,
-        Authorization: authToken,
-      },
-    };
     try {
-      const header = {
-        headers: {
-          "Content-Type": "application/json",
-          Access: serverSideAccessToken,
-          Authorization: authToken,
-        },
-      }
       try {
-
         if (codeCoupon != "") {
-          const response = await axios.post(
+          const response = await axios.get(
             `${url}admin/consume/${codeCoupon}`,
-            header
-          )
+            headers
+          );
           if (response.status == 200) {
-            setMessageReturnCoupon(response.data.message)
-            setReturnCoupon(true)
+            setMessageReturnCoupon(response.data.message);
+            setReturnCoupon(true);
           }
-
-
         }
       } catch (error: any) {
-        if (error.response.status == 400)
-          setMessageReturnCoupon(error.message)
-        setReturnCoupon(true)
+        if (error.response.status == 400) setMessageReturnCoupon(error.message);
+        setReturnCoupon(true);
+        console.log(error);
       }
-      if (errorCoupon)
-        return
+      if (errorCoupon) return;
       const response = await axios.post(
         `${url}admin/pay`,
         pixPayment_data,
-        pixHeaders
+        headers
       );
 
       const modalities = location.state.modalities;
@@ -238,23 +211,19 @@ const PaymentForm = () => {
         const modalities = await axios.post(
           `${url}admin/modalitusertickets`,
           modalitiesUserTicket,
-          pixHeaders
+          headers
         );
       });
-      // const aa = await axios.get(
-      //   `${url}admin/transations`,
-      //   pixHeaders
-      // );
 
       const transation = await axios.post(
         `${url}admin/transation`,
         {
           user_ticketId: userTicket.id,
-          transationId: response.data.pix_id
+          transationId: response.data.pix_id,
         },
-        pixHeaders
+        headers
       );
-      console.log(transation)
+      console.log(transation);
 
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
       setPixQrCode(pix_copypaste_code);
@@ -312,34 +281,24 @@ const PaymentForm = () => {
             }
 
             try {
-              const header = {
-                headers: {
-                  "Content-Type": "application/json",
-                  Access: serverSideAccessToken,
-                  Authorization: authToken,
-                },
-              }
               try {
-
                 if (codeCoupon != "") {
-                  const response = await axios.post(
+                  const response = await axios.get(
                     `${url}admin/consume/${codeCoupon}`,
-                    header
-                  )
+                    headers
+                  );
                   if (response.status == 200) {
-                    setMessageReturnCoupon(response.data.message)
-                    setReturnCoupon(true)
+                    setMessageReturnCoupon(response.data.message);
+                    setReturnCoupon(true);
                   }
-
-
                 }
               } catch (error: any) {
                 if (error.response.status == 400)
-                  setMessageReturnCoupon(error.message)
-                setReturnCoupon(true)
+                  setMessageReturnCoupon(error.message);
+                console.log(error);
+                setReturnCoupon(true);
               }
-              if (errorCoupon)
-                return
+              if (errorCoupon) return;
               const response = await axios.post(
                 `${url}admin/pay`,
                 {
@@ -359,18 +318,13 @@ const PaymentForm = () => {
                       number: identificationNumber,
                     },
                   },
+                  coupon: codeCoupon,
                 },
-                header
+                headers
               );
-              const httpHeader = {
-                headers: {
-                  "Content-Type": "application/json",
-                  Access: serverSideAccessToken,
-                  Authorization: authToken,
-                },
-              }
-              const modalities = location.state.modalities
-              const userTicket = location.state.userTicke
+
+              const modalities = location.state.modalities;
+              const userTicket = location.state.userTicke;
               modalities.forEach(async (modality: Modality) => {
                 const modalitiesUserTicket = {
                   userTicketId: userTicket.id,
@@ -379,7 +333,7 @@ const PaymentForm = () => {
                 const modalities = await axios.post(
                   `${url}admin/modalitusertickets`,
                   modalitiesUserTicket,
-                  httpHeader
+                  headers
                 );
               });
 
@@ -387,11 +341,11 @@ const PaymentForm = () => {
                 `${url}admin/transation`,
                 {
                   user_ticketId: userTicket.id,
-                  transationId: response.data.pay_id
+                  transationId: response.data.pay_id,
                 },
-                httpHeader
+                headers
               );
-              setPay(true)
+              setPay(true);
 
               const pay_status = response.data.pay_status;
               setPayStatus(pay_status);
@@ -432,12 +386,7 @@ const PaymentForm = () => {
 
   const webhookCall = async () => {
     try {
-      const response = await axios.post(`${url}webhook`, {
-        headers: {
-          Authorization: authToken,
-          Access: serverSideAccessToken,
-        },
-      });
+      const response = await axios.post(`${url}webhook`, headers);
 
       console.log(response.data); // Exibe a resposta do webhook
     } catch (error) {
@@ -453,13 +402,10 @@ const PaymentForm = () => {
         <Row className="justify-content-end">
           <Col md={4}>
             <Card className="mb-3 p-3">
-
               <Form.Group controlId="cupom">
                 <Form.Label>
                   <h3>
-                    <b>
-                      Aplicar cupom
-                    </b>
+                    <b>Aplicar cupom</b>
                   </h3>
                 </Form.Label>
                 <Form.Control
@@ -469,9 +415,10 @@ const PaymentForm = () => {
                   onChange={(e) => setCodeCoupon(e.target.value)}
                   disabled={pixQrCode.trim() !== "" || Pay}
                 />
-                {returnCoupon && <Alert variant="danger">{messageReturnCoupon}</Alert>}
+                {returnCoupon && (
+                  <Alert variant="danger">{messageReturnCoupon}</Alert>
+                )}
               </Form.Group>
-
             </Card>
           </Col>
         </Row>
