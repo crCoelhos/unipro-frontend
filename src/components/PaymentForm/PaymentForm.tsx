@@ -155,7 +155,7 @@ const PaymentForm = () => {
       coupon: codeCoupon,
       // description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
-      notification_url: `${url}webhook/${location.state.userTicket.id}`,
+      notification_url: `${url}webhook`,
       expiration_date: expiration_date,
       payer: {
         email: pixEmail,
