@@ -120,7 +120,7 @@ const Menu = () => {
                   </Link>
                 </Nav>
               ) : (
-                <Nav.Link>
+                <Nav.Item>
                   <Link
                     to="/login"
                     style={{ fontSize: "23px", fontWeight: "bolder" }}
@@ -128,7 +128,7 @@ const Menu = () => {
                   >
                     Entrar
                   </Link>
-                </Nav.Link>
+                </Nav.Item>
               )}
             </Navbar.Text>
           </Navbar.Collapse>
@@ -253,9 +253,9 @@ const Menu = () => {
               //   </Link>
               // )}
               // </Nav>
-              <Nav.Link>
+              <Nav.Item>
                 <Link to="/login">Entrar</Link>
-              </Nav.Link>
+              </Nav.Item>
             )}
           </Navbar.Text>
         </Navbar.Collapse>

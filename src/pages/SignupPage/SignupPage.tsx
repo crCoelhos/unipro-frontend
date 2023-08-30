@@ -77,7 +77,6 @@ const SignupPage = () => {
     return true;
   };
 
-
   const validatePhone = () => {
     const phonelength = contact.length;
     if (phonelength === 11) {
@@ -87,21 +86,19 @@ const SignupPage = () => {
     }
   };
   const validateEmail = () => {
-
-    let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    let validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (email.match(validRegex)) {
       setEmailError(false);
-
     } else {
-
-      setEmailError(true)
+      setEmailError(true);
     }
-    console.log(String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      ));
+    // console.log(String(email)
+    //   .toLowerCase()
+    //   .match(
+    //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    //   ));
   };
 
   return (
@@ -176,7 +173,11 @@ const SignupPage = () => {
               onBlur={validateCPF} // Validar o CPF ao perder o foco
               required
             />
-            {cpfError && <Alert variant="danger" className={styles.FieldValidationAlerts}>CPF inválido!</Alert>}
+            {cpfError && (
+              <Alert variant="danger" className={styles.FieldValidationAlerts}>
+                CPF inválido!
+              </Alert>
+            )}
           </Form.Group>
 
           <Form.Group controlId="formBirthdate">

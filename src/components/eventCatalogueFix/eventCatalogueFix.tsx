@@ -98,9 +98,6 @@ const EventCatalogueFix = () => {
                       className="bg-image hover-overlay ripple"
                       data-mdb-ripple-color="light"
                     >
-                      <a href="#!">
-                        <div className="mask"></div>
-                      </a>
                     </div>
                     <div
                       className="card-body"
@@ -124,9 +121,6 @@ const EventCatalogueFix = () => {
                     className="bg-image hover-overlay ripple"
                     data-mdb-ripple-color="light"
                   >
-                    <a href="#!">
-                      <div className="mask"></div>
-                    </a>
                   </div>
                   <div
                     className="card-body"

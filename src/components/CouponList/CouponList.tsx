@@ -38,7 +38,6 @@ const CouponList: FC = () => {
           `${url}admin/coupons`,
           headers
         );
-        console.log(response.data);
 
         // Defina diretamente a lista de cupons no estado
         setCoupons(response.data);

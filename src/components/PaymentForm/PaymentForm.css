@@ -66,13 +66,17 @@
 }
 
 .PixQrCodeContainer {
-  width: 512px;
+  width: auto;
   display: flex;
   flex-direction: row;
 }
 
 .PixCodeBox {
   margin: 18px;
+
+
+
+  width: 305px;
 }
 .PixQrCodeBox {
   margin: 18px;

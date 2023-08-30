@@ -1,18 +1,26 @@
 .DocumentArea {
 }
 .DocumentAreaContainer {
-  margin: 112px 312px;
+  /* margin: 112px 112px; */
 }
 
 .DropArea {
   height: 112px;
 }
 .ImgArea {
-  width: 224px;
+  width: 112px;
   margin: 10px;
 }
 
 .DropFileContainer {
+  display: flex;
+  flex-direction: row;
+}
+.ToPaymentSubmitButton{
+  margin: 32px 12px ;
+}
+
+.ThermDeclaration{
   display: flex;
   flex-direction: row;
 }

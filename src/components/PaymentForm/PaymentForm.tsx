@@ -176,7 +176,9 @@ const PaymentForm = () => {
       coupon: codeCoupon,
       // description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
-      // notification_url: `${url}webhook/${location.state.userTicket.id}`,
+
+      notification_url: `${url}webhook`,
+
       expiration_date: expiration_date,
       payer: {
         email: pixEmail,
@@ -446,7 +448,7 @@ const PaymentForm = () => {
   // webhookCall();
 
   return (
-    <Container className="OuterContainer">
+    <Container className="OuterContainer" fluid>
       <Card className="card">
         <Row className="justify-content-end">
           <Col md={4}>
@@ -738,7 +740,7 @@ const PaymentForm = () => {
         <Col>
           <div className="PixQrCodeContainer">
             <Row>
-              <Col xl={5}>
+              <Col xl={5} sm={2}>
                 <Card className="PixCodeBox">
                   {/* {pixQrCode !== null && pixQrCode !== undefined && pixQrCode} */}
                   {(() => {

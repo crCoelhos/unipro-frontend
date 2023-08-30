@@ -1,11 +1,11 @@
 .UseTermAreaContainer {
-  margin: 112px 312px;
+  margin: 112px 64px;
 
   display: flex;
   flex-direction: column;
   /* align-items: center; */
 
-  width: 752px;
+  width: auto;
 }
 .UseTermArea {
   border: 8px solid #111;
