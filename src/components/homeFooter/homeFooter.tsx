@@ -14,51 +14,27 @@ import sticker from "../../assets/img/JOGOSUNI_2023.png";
 export const shownSponsors = [
   {
     id: 1,
-    name: "Bomba Patch",
-    url: "https://superbombapatch.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
+    name: "FDUA",
+    url: "javascript:void(0)",
+    image: "https://i.imgur.com/Smd0jXB.jpeg",
   },
   {
     id: 2,
-    name: "Globo",
-    url: "https://www.globo.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
+    name: "Life Show",
+    url: "javascript:void(0)",
+    image: "https://i.imgur.com/JWLByVk.jpg",
   },
   {
     id: 3,
-    name: "Nova Ordem Mundial",
-    url: "https://www.neworder.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
+    name: "Sem Fronteiras",
+    url: "javascript:void(0)",
+    image: "https://i.imgur.com/l4vHuIE.png",
   },
   {
     id: 4,
-    name: "Zap",
-    url: "https://web.whatsapp.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
-  },
-  {
-    id: 1,
-    name: "Bomba Patch",
-    url: "https://superbombapatch.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
-  },
-  {
-    id: 2,
-    name: "Globo",
-    url: "https://www.globo.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
-  },
-  {
-    id: 3,
-    name: "Nova Ordem Mundial",
-    url: "https://www.neworder.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
-  },
-  {
-    id: 4,
-    name: "Zap",
-    url: "https://web.whatsapp.com",
-    image: "https://i.imgur.com/zsRJbYk.jpg",
+    name: "FAFTV - Futevôlei",
+    url: "javascript:void(0)",
+    image: "https://i.imgur.com/Muo3doP.jpg",
   },
 ];
 
@@ -96,7 +72,7 @@ const HomeFooter: React.FC = () => {
               </Row>
             ) : (
               <>
-                {/* <Row>
+                { <Row>
                   {shownSponsors.map((event) => (
                     <div
                       className="col-md-3"
@@ -118,7 +94,7 @@ const HomeFooter: React.FC = () => {
                       </Link>
                     </div>
                   ))}
-                </Row> */}
+                </Row> }
                 <Row>
                   <Col className={styles.SponsorFooter}>
                     <div>
