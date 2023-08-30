@@ -104,7 +104,7 @@ const EventCatalogueFix = () => {
                     </div>
                     <div
                       className="card-body"
-                      style={{ color: "white", marginTop: "12px" }}
+                      style={{ color: "white", marginTop: "12px", overflow: "hidden",textOverflow: "ellipsis"}}
                     >
                       <h5 className="card-title">{event.name}</h5>
                       <hr style={{ height: "8px", backgroundColor: "white" }} />

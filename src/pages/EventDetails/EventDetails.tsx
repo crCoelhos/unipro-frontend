@@ -46,7 +46,7 @@ const SportEventDetails = () => {
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
-  
+
   useEffect(() => {
     async function getAthletics() {
       try {
@@ -116,6 +116,32 @@ const SportEventDetails = () => {
     }
   };
 
+  const bookticket = async (category:any, athletic:any)=>{
+    const bookConfig = {
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: token,
+        Access: serverSideAccessToken,
+        Confirm: true,
+      },
+    };
+  
+    const bookData = {
+      categoryId: category.id,
+      athleticId: athletic,
+    };
+    try {
+      const userTicket = await axios.post(
+        url + "admin/bookticket/",
+        bookData,
+        bookConfig
+      );
+      return userTicket.data
+    } catch (error) {
+      console.error("book: ", error);
+    }
+  }
+
   const handleBuy =
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -123,18 +149,42 @@ const SportEventDetails = () => {
         if (athletic === "" || !athletic) {
           window.alert("Selecione uma atletica");
         } else {
-          navigate(`/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`, {
-            state: { category: category.categoryFinal, athletic: athletic, modalities: selectedModalities },
-          });
+          if (selectedModalities.length < 1 ){
+            const get =async()=>{
+              // const userTicket = await bookticket(category.categoryFinal, athletic)
+              navigate(`/sport-events/buyticket/${category.categoryFinal.id}`, {
+                state: { category: category.categoryFinal, athletic: athletic
+                  // , userTicket:userTicket 
+                },
+              });
+            }
+            get()
+          }else{
+            navigate(`/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`, {
+              state: { category: category.categoryFinal, athletic: athletic, modalities: selectedModalities },
+            });
+          }
         }
       } else {
-        navigate("/login", {
-          state: {
-            url: `/sport-events/${eventId}/bookticket/${category.id}`,
-            category,
-            athletic: athletic,
-          },
-        });
+        if (selectedModalities.length < 1 ){
+          navigate("/login", {
+            state: {
+              url: `/sport-events/buyticket/${category.categoryFinal.id}`,
+              category: category.categoryFinal,
+              athletic: athletic,
+            },
+          });
+        }else{
+          navigate("/login", {
+            state: {
+              url: `/sport-events/${eventId}/bookticket/${category.id}`,
+              category: category.categoryFinal,
+              athletic: athletic,
+              modalities: selectedModalities 
+            },
+          });
+        }
+        
       }
     };
 
@@ -254,14 +304,15 @@ const SportEventDetails = () => {
                 <Chips value={selectedModalities}  onChange={(e: MultiSelectChangeEvent) => setSelectedModalities(e.value)}/>
               </div> */}
               <div className="card flex justify-content-center mb-2">
-                <MultiSelect className={styles.mylabel}  value={selectedModalities} onChange={(e: MultiSelectChangeEvent) => setSelectedModalities(e.value)}
+                <MultiSelect className={styles.mylabel} value={selectedModalities} onChange={(e: MultiSelectChangeEvent) => setSelectedModalities(e.value)}
                   options={modalities} optionLabel="name"
-                  filter placeholder="Selecione as modalidades" display='chip' selectionLimit={qtModalities} showSelectAll={false} maxSelectedLabels={qtModalities} 
-                  // className="w-full md:w-20rem" 
-                  />
+                  filter placeholder="Selecione as modalidades" display='chip' selectionLimit={qtModalities} showSelectAll={false} maxSelectedLabels={qtModalities}
+                // className="w-full md:w-20rem" 
+                />
               </div>
               <Button
                 size="lg"
+                disabled={selectedModalities.length < 1}
                 onClick={(event) => {
                   handleBuy({ categoryFinal })(event)
                 }}
@@ -281,18 +332,22 @@ const SportEventDetails = () => {
                           <Card.Title>{category.name}</Card.Title>
                           <Card.Text>
                             {" "}
-                            teste: {category.typeTicket.name}
+                            {category.typeTicket.name}
                           </Card.Text>
                           <Card.Text>Preço: R$ {category.price}</Card.Text>
 
+                          {category.typeTicket.qt_modalities>0 ? (
                           <Card.Text>
                             Modalidades: {category.typeTicket.qt_modalities}
-                          </Card.Text>
+                          </Card.Text>)
+                          :
+                          (<Card.Text></Card.Text>) }
+                          
                           {/* <Card.Text>
                           Data de término: {category.finishDate}
                         </Card.Text> */}
                           <div className="d-grid gap-2">
-                            {athletic ? (<Button
+                            {athletic && category.typeTicket.qt_modalities > 0 ? (<Button
                               size="lg"
                               onClick={(event) => {
                                 setVisible(true)
@@ -303,15 +358,26 @@ const SportEventDetails = () => {
                             >
                               Comprar
                             </Button>)
-                              :
-                              (<Button
-
-                                disabled
+                              : athletic ? (<Button
                                 size="lg"
+                                onClick={(event) => {
+                                  setCategoryFinal(category)
+                                  handleBuy({ categoryFinal:category })(event)
+                                }
+                                }
                               >
                                 Comprar
-                              </Button>
-                              )}
+                              </Button>)
+                                :
+                                (
+                                  <Button
+
+                                    disabled
+                                    size="lg"
+                                  >
+                                    Comprar
+                                  </Button>
+                                )}
                             {/* ADICIONAR STATE BASEADO EM STATUS DO TI */}
                             {user?.role === "ADMIN" && (
                               <Button variant="warning" size="lg">

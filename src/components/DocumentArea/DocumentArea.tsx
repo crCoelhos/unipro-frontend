@@ -56,7 +56,6 @@ const DocumentArea: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      console.log(file)
       setSelectedImage(file);
       handleUpload(file); // Envie o arquivo imediatamente
     }
@@ -142,17 +141,6 @@ const DocumentArea: React.FC = () => {
 
       try {
         await axios.post(url + "auth/photouser/", formData, config);
-        try {
-          const userTicket = await axios.post(
-            url + "admin/bookticket/",
-            bookData,
-            bookConfig
-          );
-
-          location.state.userTicket = userTicket.data;
-        } catch (error) {
-          console.error("book: ", error);
-        }
       } catch (error) {
         console.error("photo: ", error);
       }
