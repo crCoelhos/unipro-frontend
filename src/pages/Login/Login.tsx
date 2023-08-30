@@ -24,6 +24,7 @@ const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   if (loggedIn) {
     if (location.state) {
+      location.state.preUrl = "/login"
       navigate(location.state.url, { state: location.state });
     } else {
       navigate("/home");

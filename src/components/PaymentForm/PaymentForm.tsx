@@ -27,7 +27,7 @@ const PaymentForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [paymentID, setPaymentID] = useState<string>("");
   const [paymentResponse, setPaymentResponse] = useState<number | null>(null);
-
+  const [userTicketLocal, setUserTicketLocal] = useState()
   const checkUserToken = () => {
     const userToken = sessionStorage.getItem("user");
     if (!userToken || userToken === "undefined") {
@@ -87,24 +87,44 @@ const PaymentForm = () => {
       Authorization: authToken,
     },
   };
+  const bookticket = async (category: any, athletic: any) => {
+    const bookConfig = {
+      headers: {
+        "Content-Type": "Application/json",
+        Authorization: authToken,
+        Access: serverSideAccessToken,
+        Confirm: true,
+      },
+    };
 
+    const bookData = {
+      categoryId: category.id,
+      athleticId: athletic,
+    };
+    try {
+      const userTicket = await axios.post(
+        url + "admin/bookticket/",
+        bookData,
+        bookConfig
+      );
+      return userTicket.data
+    } catch (error) {
+      console.error("book: ", error);
+    }
+  }
+  
   var i = 0;
+  
   useEffect(() => {
+    i++
+
     if (codeCoupon != "") {
       setReturnCoupon(false);
     }
-    const userTickets = async () => {
-      const id = location.state.userTicket.id;
-      const response = await axios.get(`${url}admin/userticket/${id}`, headers);
-      if ((response.data.status = !"confirmado")) {
-        // userTickets()
-        i++;
-      }
-    };
+
     // setInterval(userTickets, 10000);
     // setInterval(function () {userTickets()}, 5000);
 
-    userTickets();
     const fetchEvents = async () => {
       try {
         const response = await axios.get(
@@ -136,6 +156,7 @@ const PaymentForm = () => {
     fetchEvents();
   }, []);
 
+
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -155,7 +176,9 @@ const PaymentForm = () => {
       coupon: codeCoupon,
       // description: "eu vo tomar um tacaca, dançar, curtir, ficar de boa",
       payment_method_id: "pix",
+
       notification_url: `${url}webhook`,
+
       expiration_date: expiration_date,
       payer: {
         email: pixEmail,
@@ -200,20 +223,31 @@ const PaymentForm = () => {
         headers
       );
 
-      const modalities = location.state.modalities;
-      const userTicket = location.state.userTicket;
-      modalities.forEach(async (modality: Modality) => {
-        const modalitiesUserTicket = {
-          userTicketId: userTicket.id,
-          modalityId: modality.id,
-        };
 
-        const modalities = await axios.post(
-          `${url}admin/modalitusertickets`,
-          modalitiesUserTicket,
-          headers
-        );
-      });
+      const category = location.state.category
+      const athletic = location.state.athletic
+
+      const userTicket = await bookticket(category, athletic)
+      setUserTicketLocal(userTicket)
+      location.state.userTicket = userTicket
+      
+      const modalities = location.state.modalities;
+      if (modalities && userTicket) {
+
+        modalities.forEach(async (modality: Modality) => {
+          const modalitiesUserTicket = {
+            userTicketId: userTicket.id,
+            modalityId: modality.id,
+          };
+
+          const modalities = await axios.post(
+            `${url}admin/modalitusertickets`,
+            modalitiesUserTicket,
+            headers
+          );
+        });
+
+      }
 
       const transation = await axios.post(
         `${url}admin/transation`,
@@ -231,6 +265,14 @@ const PaymentForm = () => {
 
       const pay_status = response.data.pay_status;
       setPayStatus(pay_status);
+      const intertval = setInterval( async () => {
+        const id = location.state.userTicket.id;
+        const response = await axios.get(`${url}admin/userticket/${id}`, headers);
+        if ((response.data.status == "processando")) {
+          clearInterval(intertval)
+          navigate("/sport-events", { state: { mensagem: "compra com pix deu certo" } });
+        }
+      }, 1000)
 
       if (pay_status === "approved") {
       }
@@ -321,21 +363,30 @@ const PaymentForm = () => {
                 },
                 headers
               );
+              const category = location.state.category
+              const athletic = location.state.athletic
+        
+              const userTicket = await bookticket(category, athletic)
+              setUserTicketLocal(userTicket)
+              location.state.userTicket = userTicket
 
               const modalities = location.state.modalities;
-              const userTicket = location.state.userTicke;
-              modalities.forEach(async (modality: Modality) => {
-                const modalitiesUserTicket = {
-                  userTicketId: userTicket.id,
-                  modalityId: modality.id,
-                };
-                const modalities = await axios.post(
-                  `${url}admin/modalitusertickets`,
-                  modalitiesUserTicket,
-                  headers
-                );
-              });
+              if (modalities) {
 
+                modalities.forEach(async (modality: Modality) => {
+                  const modalitiesUserTicket = {
+                    userTicketId: userTicket.id,
+                    modalityId: modality.id,
+                  };
+
+                  const modalities = await axios.post(
+                    `${url}admin/modalitusertickets`,
+                    modalitiesUserTicket,
+                    headers
+                  );
+                });
+
+              }
               const transation = await axios.post(
                 `${url}admin/transation`,
                 {
@@ -344,6 +395,7 @@ const PaymentForm = () => {
                 },
                 headers
               );
+
               setPay(true);
 
               const pay_status = response.data.pay_status;
