@@ -223,7 +223,6 @@ const PaymentForm = () => {
         },
         headers
       );
-      console.log(transation);
 
       const pix_copypaste_code = response.data.pix_qr_code.qr_code;
       setPixQrCode(pix_copypaste_code);

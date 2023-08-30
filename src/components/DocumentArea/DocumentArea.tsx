@@ -57,7 +57,6 @@ const DocumentArea: React.FC = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      console.log(file);
       setSelectedImage(file);
       handleUpload(file); // Envie o arquivo imediatamente
     }
@@ -236,7 +235,7 @@ const DocumentArea: React.FC = () => {
                   id="pdfInput"
                 />
                 <Button
-                  variant={selectedDocument ? "success" : "danger"}
+                  variant={selectedDocumentRegistration ? "success" : "danger"}
                   disabled
                 >
                   {"    "}
