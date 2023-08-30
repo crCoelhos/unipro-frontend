@@ -271,8 +271,10 @@ const SportEventDetails = () => {
             </Dialog>
             <Card.Body className={styles.LocationCardBox}>
               <div className="d-grid gap-2">
-                {eventTickets &&
-                  eventTickets.map((category) => {
+              {eventTickets
+                  .slice()
+                  .sort((a, b) => a.price - b.price)
+                  .map((category) => {
 
                     return (
 
