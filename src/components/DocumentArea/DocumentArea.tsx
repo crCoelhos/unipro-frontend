@@ -130,7 +130,7 @@ const DocumentArea: React.FC = () => {
           console.error("book: ", error);
         }
       } catch (error) {
-        console.error("photo: ", error);
+        console.error("register: ", error);
       }
     }
   };
