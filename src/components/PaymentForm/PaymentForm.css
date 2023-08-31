@@ -90,7 +90,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  height: 64px;
+  height: auto;
+
+  padding: 6px;
 
   align-items: center;
 
