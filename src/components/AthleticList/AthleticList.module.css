@@ -1,5 +1,11 @@
-.AthleticList {}
+.AthleticList {
+}
 
-.ActionButton{
-    margin: 0 4px;
+.ActionButton {
+  margin: 0 4px;
+}
+
+.AthleticLogoImg {
+  max-width: 128px;
+  height: auto;
 }
