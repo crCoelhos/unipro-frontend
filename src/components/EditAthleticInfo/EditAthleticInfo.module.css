@@ -1,1 +1,7 @@
-.EditAthleticInfo {}
+.EditAthleticInfo {
+}
+
+.ImgArea {
+  max-width: 128px;
+  height: auto;
+}
