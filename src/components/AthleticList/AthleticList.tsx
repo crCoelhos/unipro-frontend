@@ -101,7 +101,7 @@ const AthleticList: FC = () => {
                 </td>
                 <td>
                   {athletic.img_url && (
-                    <img src={athletic.img_url} alt={athletic.name} />
+                    <img src={`${url}uploads/athletics/${athletic.img_url}`} alt={athletic.name} />
                   )}
                 </td>
                 <td>
