@@ -95,7 +95,7 @@ const LoginPage: React.FC = () => {
             {loggedIn && <LoginSuccessToast />}
             {loginErrorPasswordOrUser? <LoginErrorToast /> : <></>}
           </Col>
-          <Col md={12} xl={6} sm={6} xs={6}>
+          <Col md={12} xl={6} sm={12} xs={12}>
             <LoginCarousel />
           </Col>
         </Row>
