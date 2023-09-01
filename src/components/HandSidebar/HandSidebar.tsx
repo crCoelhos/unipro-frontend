@@ -1,68 +1,69 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MDBIcon } from "mdb-react-ui-kit";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import styles from "./HandSidebar.module.css";
+import { FiMenu } from "react-icons/fi";
 
-const HandSidebar = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+const NavigationBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const checkUserToken = () => {
-    const userToken = sessionStorage.getItem('user');
-    if (!userToken || userToken === 'undefined') {
+    const userToken = sessionStorage.getItem("user");
+    if (!userToken || userToken === "undefined") {
       setIsLoggedIn(false);
-      return navigate('/login');
+      return navigate("/login");
     }
     setIsLoggedIn(true);
-  }
+  };
+
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
 
   return (
-    <div
-      className={`${styles["hand-sidebar"]} ${sidebarOpen ? styles.open : ""}`}
+    <Navbar
+      bg="dark"
+      variant="dark"
+      expand="lg"
+      fixed="top"
+      className={styles.handSidebar}
     >
-      <div className={styles["sidebar-toggle"]} onClick={toggleSidebar}>
-        <MDBIcon icon={sidebarOpen ? "chevron-left" : "chevron-right"} />
-      </div>
-      {sidebarOpen && (
-        <nav className={styles["sidebar-nav"]}>
-          <ul>
-            <li className={styles.SidebarListOptions} >
-              <NavLink to="/home" className={styles.active}>
-                Voltar
-              </NavLink>
-            </li>
-            <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/athletics" className={styles.active}>
+      <Container>
+        <div>
+          <Navbar.Brand>UNIPRODUÇÕES</Navbar.Brand>
+        </div>
+        <div>
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            className={styles.ToggleArea}
+          >
+            <FiMenu />
+          </Navbar.Toggle>
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto">
+              <NavLink to="/admin-area/athletics" className="nav-link">
                 Atléticas
               </NavLink>
-            </li>
-            <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/events" className={styles.active}>
-                Eventos
-              </NavLink>
-            </li>
-            <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/coupons" className={styles.active}>
+              <NavLink to="/admin-area/coupons" className="nav-link">
                 Cupons
               </NavLink>
-            </li>
-            
-            <li className={styles.SidebarListOptions}>
-              <NavLink to="/admin-area/users" className={styles.active}>
+              <NavLink to="/admin-area/events" className="nav-link">
+                Eventos
+              </NavLink>
+              <NavLink to="/admin-area/users" className="nav-link">
                 Usuarios
               </NavLink>
-            </li>
-          </ul>
-        </nav>
-      )}
-    </div>
+              <NavLink to="/home" className="nav-link">
+                Voltar ao site
+              </NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </div>
+      </Container>
+    </Navbar>
   );
 };
 
-export default HandSidebar;
+export default NavigationBar;

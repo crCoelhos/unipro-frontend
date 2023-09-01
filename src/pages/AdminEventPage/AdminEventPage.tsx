@@ -15,13 +15,13 @@ const AdminEventPage = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const checkUserToken = () => {
-    const userToken = sessionStorage.getItem('user');
-    if (!userToken || userToken === 'undefined') {
+    const userToken = sessionStorage.getItem("user");
+    if (!userToken || userToken === "undefined") {
       setIsLoggedIn(false);
-      return navigate('/login');
+      return navigate("/login");
     }
     setIsLoggedIn(true);
-  }
+  };
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
@@ -39,13 +39,11 @@ const AdminEventPage = () => {
 
   return (
     <div className={styles.AdminEventPage}>
+      <HandSidebar />
       <Row>
-        <Col lg={3}>
-          <HandSidebar />
-        </Col>
-        <Col lg={9}>
-          <EventCatalogueFix />
+        <Col lg={12}>
           <CreateEventModal />
+          <EventCatalogueFix />
         </Col>
       </Row>
     </div>

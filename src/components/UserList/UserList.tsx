@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./UserList.module.css";
-import { Button, Table } from "react-bootstrap";
+import { Button, Container, Table } from "react-bootstrap";
 import { User } from "../../types";
 import { useNavigate } from "react-router-dom";
 
 const url = process.env.REACT_APP_SERVER_URL;
-  const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
-  
+const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 const UserList = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const checkUserToken = () => {
-    const userToken = sessionStorage.getItem('user');
-    if (!userToken || userToken === 'undefined') {
+    const userToken = sessionStorage.getItem("user");
+    if (!userToken || userToken === "undefined") {
       setIsLoggedIn(false);
-      return navigate('/login');
+      return navigate("/login");
+      console.log("rogerio");
     }
     setIsLoggedIn(true);
-  }
+  };
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
+
   useEffect(() => {
     const dataFromStorage = sessionStorage.getItem("user");
     let token = "";
@@ -71,56 +72,58 @@ const UserList = () => {
     }
   };
 
-  const handleEdit = async (id: number) => {
-  };
+  const handleEdit = async (id: number) => {};
 
   return (
     <div className={styles.UserList}>
-      <h1>Usuários registrados</h1>
-      <hr />
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Atlética</th>
-            <th>Role</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        {users.map((user) => (
-          <tbody key={user.id}>
+      <Container>
+        <h1>Usuários registrados</h1>
+        <hr />
+        <Table striped bordered hover>
+          <thead>
             <tr>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              {user.athletic?.name
-                ? <td>{user.athletic?.name} </td>
-                : <td>Não associado</td>
-              }
-              
-              <td>{user.role.name}</td>
-              <td>
-                <Button
-                  variant="warning"
-                  className={styles.ActionButton}
-                  onClick={() => handleEdit(user.id)}
-                >
-                  Editar
-                </Button>
-                <Button
-                  variant="danger"
-                  className={styles.ActionButton}
-                  onClick={() => handleDelete(user.id)}
-                >
-                  Excluir
-                </Button>
-              </td>
+              <th>Id</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Atlética</th>
+              <th>Role</th>
+              <th>Ação</th>
             </tr>
-          </tbody>
-        ))}
-      </Table>
+          </thead>
+          {users.map((user) => (
+            <tbody key={user.id}>
+              <tr>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                {user.athletic?.name ? (
+                  <td>{user.athletic?.name} </td>
+                ) : (
+                  <td>Não associado</td>
+                )}
+
+                <td>{user.role.name}</td>
+                <td>
+                  <Button
+                    variant="warning"
+                    className={styles.ActionButton}
+                    onClick={() => handleEdit(user.id)}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="danger"
+                    className={styles.ActionButton}
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Excluir
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </Table>
+      </Container>
     </div>
   );
 };

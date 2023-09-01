@@ -3,9 +3,16 @@
 
 .ActionButton {
   margin: 0 4px;
+  width: 100px;
 }
 
 .AthleticLogoImg {
   max-width: 128px;
   height: auto;
+}
+
+.TableUpperHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

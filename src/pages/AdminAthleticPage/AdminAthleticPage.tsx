@@ -15,13 +15,13 @@ const AdminAthleticPage: FC<AdminAthleticPageProps> = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const checkUserToken = () => {
-    const userToken = sessionStorage.getItem('user');
-    if (!userToken || userToken === 'undefined') {
+    const userToken = sessionStorage.getItem("user");
+    if (!userToken || userToken === "undefined") {
       setIsLoggedIn(false);
-      return navigate('/login');
+      return navigate("/login");
     }
     setIsLoggedIn(true);
-  }
+  };
   useEffect(() => {
     checkUserToken();
   }, [isLoggedIn]);
@@ -39,13 +39,10 @@ const AdminAthleticPage: FC<AdminAthleticPageProps> = () => {
 
   return (
     <div className={styles.AdminAthleticPage}>
+      <HandSidebar />
       <Row>
-        <Col lg={3}>
-          <HandSidebar />
-        </Col>
-        <Col lg={9}>
+        <Col lg={12}>
           <AthleticList />
-          <CreateAthleticModal />
         </Col>
       </Row>
     </div>

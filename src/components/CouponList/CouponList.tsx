@@ -6,6 +6,7 @@ import axios from "axios";
 import EditAthleticInfo from "../EditAthleticInfo/EditAthleticInfo";
 import { server } from "websocket";
 import format from "date-fns/format";
+import CreateCouponModal from "../CreateCouponModal/CreateCouponModal";
 
 const url = process.env.REACT_APP_SERVER_URL;
 const serverSideAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
@@ -39,7 +40,6 @@ const CouponList: FC = () => {
           headers
         );
 
-        // Defina diretamente a lista de cupons no estado
         setCoupons(response.data);
       } catch (error) {
         console.error(error);
@@ -73,7 +73,11 @@ const CouponList: FC = () => {
   return (
     <div className={styles.CouponList}>
       <Container>
-        <h1>Cupons registrados</h1>
+        <div className={styles.TableUpperHeader}>
+          <h1>Cupons registrados</h1>
+          <CreateCouponModal />
+        </div>
+
         <hr />
         <Table striped bordered hover>
           <thead>

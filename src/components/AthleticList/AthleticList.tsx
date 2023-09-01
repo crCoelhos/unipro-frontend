@@ -1,9 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
 import styles from "./AthleticList.module.css";
-import { Button, Container, Table } from "react-bootstrap";
+import { Button, Col, Container, Table } from "react-bootstrap";
 import { Athletic, AthleticsResponse } from "../../types";
 import axios from "axios";
 import EditAthleticInfo from "../EditAthleticInfo/EditAthleticInfo";
+import CreateAthleticModal from "../CreateAthleticModal/CreateAthleticModal";
 
 const AthleticList: FC = () => {
   const [athletics, setAthletics] = useState<AthleticsResponse>({
@@ -75,7 +76,11 @@ const AthleticList: FC = () => {
   return (
     <div className={styles.AthleticList}>
       <Container>
-        <h1>Atléticas registradas</h1>
+        <div className={styles.TableUpperHeader}>
+          <h1>Atléticas registradas</h1>
+          <CreateAthleticModal />
+        </div>
+
         <hr />
         <Table striped bordered hover>
           <thead>
@@ -101,7 +106,11 @@ const AthleticList: FC = () => {
                 </td>
                 <td>
                   {athletic.img_url && (
-                    <img src={`${url}uploads/athletics/${athletic.img_url}`} alt={athletic.name} className={styles.AthleticLogoImg}/>
+                    <img
+                      src={`${url}uploads/athletics/${athletic.img_url}`}
+                      alt={athletic.name}
+                      className={styles.AthleticLogoImg}
+                    />
                   )}
                 </td>
                 <td>

@@ -1,9 +1,9 @@
-.hand-sidebar {
-  width: 80px;
-  height: 100vh;
-  background-color: #5c26db;
-  color: #fff;
-  transition: width 0.3s ease;
+body {
+  font-family: Helvetica, sans-serif !important;
+}
+.handSidebar {
+  background-color: #54339c !important;
+  min-height: 95px;
 }
 
 .hand-sidebar.open {
@@ -41,7 +41,7 @@
   color: #fff;
 }
 
-.SidebarListOptions{
+.SidebarListOptions {
   font-size: 22px;
 }
 .SidebarListOptions:hover {
@@ -53,4 +53,9 @@
 li {
   list-style-type: none;
   margin: 12px;
+}
+
+.ToggleArea {
+  display: flex;
+  flex-direction: row;
 }

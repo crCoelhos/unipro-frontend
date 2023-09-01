@@ -39,13 +39,10 @@ const AdminCouponPage: FC<AdminCouponPageProps> = () => {
 
   return (
     <div className={styles.AdminCouponPage}>
+      <HandSidebar />
       <Row>
-        <Col lg={3}>
-          <HandSidebar />
-        </Col>
-        <Col lg={9}>
+        <Col lg={12}>
           <CouponList />
-          <CreateCouponModal />
         </Col>
       </Row>
     </div>
