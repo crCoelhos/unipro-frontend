@@ -87,7 +87,7 @@ const PaymentForm = () => {
       Authorization: authToken,
     },
   };
-  const bookticket = async (category: any, athletic: any) => {
+  const bookticket = async (category: any, athletic: any, responsibility?:any) => {
     const bookConfig = {
       headers: {
         "Content-Type": "Application/json",
@@ -96,11 +96,20 @@ const PaymentForm = () => {
         Confirm: true,
       },
     };
+    let bookData
+    if( responsibility){
 
-    const bookData = {
-      categoryId: category.id,
-      athleticId: athletic,
-    };
+      bookData = {
+        categoryId: category.id,
+        athleticId: athletic,
+        responsibility: responsibility
+      };
+    }else{
+      bookData = {
+        categoryId: category.id,
+        athleticId: athletic,
+      };
+    }
     try {
       const userTicket = await axios.post(
         url + "admin/bookticket/",
@@ -117,7 +126,9 @@ const PaymentForm = () => {
   
   useEffect(() => {
     i++
-
+    if(!location.state.category || !location.state.athletic){
+      return navigate("/login");
+    }
     if (codeCoupon != "") {
       setReturnCoupon(false);
     }
@@ -156,7 +167,11 @@ const PaymentForm = () => {
     fetchEvents();
   }, []);
 
-
+  function getObjectKey(obj:any, value:any) {
+    return Object.keys(obj).find(key => obj[key] === value);
+  }
+  
+  
   // pix payment
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -214,6 +229,7 @@ const PaymentForm = () => {
       } catch (error: any) {
         if (error.response.status == 400) setMessageReturnCoupon(error.message);
         setReturnCoupon(true);
+        setErrorCoupon(true)
         console.log(error);
       }
       if (errorCoupon) return;
@@ -226,8 +242,14 @@ const PaymentForm = () => {
 
       const category = location.state.category
       const athletic = location.state.athletic
+      const responsibility = location.state.responsibility
 
-      const userTicket = await bookticket(category, athletic)
+      let userTicket:any
+      if(responsibility){
+        userTicket = await bookticket(category, athletic, responsibility.key)
+      }else{
+        userTicket = await bookticket(category, athletic)
+      }
       setUserTicketLocal(userTicket)
       location.state.userTicket = userTicket
       
@@ -268,7 +290,7 @@ const PaymentForm = () => {
       const intertval = setInterval( async () => {
         const id = location.state.userTicket.id;
         const response = await axios.get(`${url}admin/userticket/${id}`, headers);
-        if ((response.data.status == "processando")) {
+        if ((response.data.status == "confirmado")) {
           clearInterval(intertval)
           navigate("/sport-events", { state: { mensagem: "compra com pix deu certo" } });
         }
@@ -338,6 +360,7 @@ const PaymentForm = () => {
                   setMessageReturnCoupon(error.message);
                 console.log(error);
                 setReturnCoupon(true);
+                setErrorCoupon(true)
               }
               if (errorCoupon) return;
               const response = await axios.post(
@@ -365,8 +388,14 @@ const PaymentForm = () => {
               );
               const category = location.state.category
               const athletic = location.state.athletic
-        
-              const userTicket = await bookticket(category, athletic)
+              const responsibility = location.state.responsibility
+
+              let userTicket:any
+              if(responsibility){
+                userTicket = await bookticket(category, athletic, responsibility.key)
+              }else{
+                userTicket = await bookticket(category, athletic)
+              }
               setUserTicketLocal(userTicket)
               location.state.userTicket = userTicket
 

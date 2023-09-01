@@ -1,6 +1,9 @@
 import { MultiSelect, MultiSelectChangeEvent } from "primereact/multiselect";
 import { Dialog } from "primereact/dialog";
 import { Chips } from "primereact/chips";
+import { RadioButton } from 'primereact/radiobutton';
+import { Dropdown } from 'primereact/dropdown';
+
 
 import React, { useEffect, useState } from "react";
 import { Row, Col, Card, Button, FormGroup, Form } from "react-bootstrap";
@@ -40,8 +43,17 @@ const SportEventDetails = () => {
   const [athletics, setAthletics] = useState<any[]>([]);
   const [athletic, setAthletic] = useState<string>();
   const [visible, setVisible] = useState<boolean>(false);
+  const [radio, setRadio] = useState<boolean>(false);
 
   const [selectedModalities, setSelectedModalities] = useState([]);
+  const [selectedResponsibility, setSelectedResponsibility] = useState<any>();
+  const responsibility = [
+    { key: "Pr", name: "Presidente" },
+    { key: "Vc", name: "Vice-presidente" },
+    { key: "Dr", name: "Diretoria" },
+    { key: "Aa", name: "Atléta" },
+  ]
+  const pacotes = ["bronze", "prata", "ouro", "diamante"]
 
   const { getSessionUser } = useLoginController();
   const user = getSessionUser();
@@ -115,7 +127,7 @@ const SportEventDetails = () => {
     }
   };
 
-  const bookticket = async (category:any, athletic:any)=>{
+  const bookticket = async (category: any, athletic: any) => {
     const bookConfig = {
       headers: {
         "Content-Type": "Application/json",
@@ -124,7 +136,7 @@ const SportEventDetails = () => {
         Confirm: true,
       },
     };
-  
+
     const bookData = {
       categoryId: category.id,
       athleticId: athletic,
@@ -144,29 +156,38 @@ const SportEventDetails = () => {
   const handleBuy =
     (category: any) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
+      console.log(selectedResponsibility)
+
       if (user) {
         if (athletic === "" || !athletic) {
           window.alert("Selecione uma atletica");
         } else {
-          if (selectedModalities.length < 1 ){
-            const get =async()=>{
+          if (selectedModalities.length < 1) {
+            const get = async () => {
               // const userTicket = await bookticket(category.categoryFinal, athletic)
               navigate(`/sport-events/buyticket/${category.categoryFinal.id}`, {
-                state: { category: category.categoryFinal, athletic: athletic
-                  // , userTicket:userTicket 
+                state: {
+                  category: category.categoryFinal, athletic: athletic
                 },
               });
             }
             get()
-          }else{
+          } else {
+            let state
+            if (selectedResponsibility) {
+              state = { category: category.categoryFinal, athletic: athletic, modalities: selectedModalities, responsibility: selectedResponsibility }
+            }
+            else {
+              state = { category: category.categoryFinal, athletic: athletic, modalities: selectedModalities }
+            }
             navigate(`/sport-events/${eventId}/bookticket/${category.categoryFinal.id}`, {
-              state: { category: category.categoryFinal, athletic: athletic, modalities: selectedModalities },
+              state: state,
             });
           }
 
         }
       } else {
-        if (selectedModalities.length < 1 ){
+        if (selectedModalities.length < 1) {
           navigate("/login", {
             state: {
               url: `/sport-events/buyticket/${category.categoryFinal.id}`,
@@ -174,17 +195,19 @@ const SportEventDetails = () => {
               athletic: athletic,
             },
           });
-        }else{
+        } else {
+          let state
+          if (selectedResponsibility) {
+            state = {url: `/sport-events/${eventId}/bookticket/${category.id}`, category: category.categoryFinal, athletic: athletic, modalities: selectedModalities, responsibility: selectedResponsibility }
+          }
+          else {
+            state = {url: `/sport-events/${eventId}/bookticket/${category.id}`, category: category.categoryFinal, athletic: athletic, modalities: selectedModalities }
+          }
           navigate("/login", {
-            state: {
-              url: `/sport-events/${eventId}/bookticket/${category.id}`,
-              category: category.categoryFinal,
-              athletic: athletic,
-              modalities: selectedModalities 
-            },
+            state: state,
           });
         }
-        
+
       }
     };
 
@@ -194,6 +217,15 @@ const SportEventDetails = () => {
   const onClick = () => {
     window.open(`https://www.google.com/maps/search/${localization}`, "_blank");
   };
+  const compareResponsiblity = (name: string) => {
+    name = name.toLocaleLowerCase()
+    const forReturn = pacotes.filter(item => name.includes(item))
+    if (forReturn.length > 0) {
+      setRadio(true)
+    } else {
+      setRadio(false)
+    }
+  }
 
   return (
     <>
@@ -306,6 +338,7 @@ const SportEventDetails = () => {
               onHide={() => {
                 setVisible(false);
                 setSelectedModalities([]);
+                setSelectedResponsibility({});
               }}
             >
               {/* <div className="card p-fluid">
@@ -313,22 +346,29 @@ const SportEventDetails = () => {
               </div> */}
               <div className="card flex justify-content-center mb-2">
 
-                <MultiSelect 
-                  className={styles.mylabel} 
-                  value={selectedModalities} 
-                  onChange={(e: MultiSelectChangeEvent) => 
-                  setSelectedModalities(e.value)}
-                  options={modalities} 
+                <MultiSelect
+                  className={styles.mylabel}
+                  value={selectedModalities}
+                  onChange={(e: MultiSelectChangeEvent) =>
+                    setSelectedModalities(e.value)}
+                  options={modalities}
                   optionLabel="name"
-                  filter 
-                  placeholder="Selecione as modalidades" 
-                  display='chip' selectionLimit={qtModalities} 
+                  filter
+                  placeholder="Selecione as modalidades"
+                  display='chip' selectionLimit={qtModalities}
                   showSelectAll={false} maxSelectedLabels={qtModalities}
                 // className="w-full md:w-20rem" 
 
-                  
+
                 />
               </div>
+              {radio && (
+                <Dropdown value={selectedResponsibility} onChange={(e) => setSelectedResponsibility(e.value)} options={responsibility} optionLabel="name"
+                  editable placeholder="Qual seu cargo" className="w-full md:w-15rem" />
+              )
+
+              }
+              <h3></h3>
               <Button
                 size="lg"
                 disabled={selectedModalities.length < 1}
@@ -357,13 +397,13 @@ const SportEventDetails = () => {
 
                           <Card.Text>Preço: R$ {category.price}</Card.Text>
 
-                          {category.typeTicket.qt_modalities>0 ? (
-                          <Card.Text>
-                            Modalidades: {category.typeTicket.qt_modalities}
-                          </Card.Text>)
-                          :
-                          (<Card.Text></Card.Text>) }
-                          
+                          {category.typeTicket.qt_modalities > 0 ? (
+                            <Card.Text>
+                              Modalidades: {category.typeTicket.qt_modalities}
+                            </Card.Text>)
+                            :
+                            (<Card.Text></Card.Text>)}
+
                           {/* <Card.Text>
                           Data de término: {category.finishDate}
                         </Card.Text> */}
@@ -373,6 +413,7 @@ const SportEventDetails = () => {
                               onClick={(event) => {
                                 setVisible(true)
                                 setCategoryFinal(category)
+                                compareResponsiblity(category.typeTicket.name)
                                 setQtModalities(category.typeTicket.qt_modalities)
                               }
                               }
@@ -383,7 +424,7 @@ const SportEventDetails = () => {
                                 size="lg"
                                 onClick={(event) => {
                                   setCategoryFinal(category)
-                                  handleBuy({ categoryFinal:category })(event)
+                                  handleBuy({ categoryFinal: category })(event)
                                 }
                                 }
                               >

@@ -95,6 +95,9 @@ const DocumentArea: React.FC = () => {
       setIsLoggedIn(false);
       return navigate("/login");
     }
+    if(!location.state.category || !location.state.athletic){
+      return navigate("/login");
+    }
     setIsLoggedIn(true);
   };
   useEffect(() => {
